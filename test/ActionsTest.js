@@ -11,17 +11,16 @@ const mockStore = configureMockStore(middlewares)
 describe("Actions", () => {
     afterEach(() => {
         nock.cleanAll()
-    })
+    });
 
     it("creates the fetchRestaurants action", () => {
         let restaurants = [
             {id: 0, name: 'Afuri'},
             {id: 1, name: 'Tsukemen'}
         ];
-        let body = {restaurants: restaurants};
         nock('http://localhost:8080')
             .get('/restaurants')
-            .reply(200, {body: body});
+            .reply(200, restaurants);
 
         const expectedActions = [
             { type: types.FETCH_RESTAURANTS_REQUEST },

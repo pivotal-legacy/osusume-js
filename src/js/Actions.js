@@ -8,10 +8,10 @@ function requestRestaurants() {
     }
 }
 
-function receiveRestaurants(body) {
+function receiveRestaurants(json) {
     return {
         type: types.FETCH_RESTAURANTS_SUCCESS,
-        restaurants: body.body.restaurants
+        restaurants: json
     }
 }
 
