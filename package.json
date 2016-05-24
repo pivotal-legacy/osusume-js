@@ -1,0 +1,22 @@
+{
+  "name": "osusume-js",
+  "version": "0.0.0",
+  "repository": "https://github.com/pivotal-tokyo/osusume-js",
+  "license": "MIT",
+  "description": "A React client for Osusume",
+  "dependencies": {
+    "babel-polyfill": "^6.9.0",
+    "expect": "^1.20.1",
+    "path": "^0.12.7",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "webpack": "^1.13.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.9.0",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "mocha": "^2.5.1"
+  }
+}
