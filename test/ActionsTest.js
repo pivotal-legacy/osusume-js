@@ -11,14 +11,20 @@ const mockStore = configureMockStore(middlewares)
 describe("Actions", () => {
     afterEach(() => {
         nock.cleanAll()
+        localStorage.clear();
     });
 
-    it("creates the fetchRestaurants action", () => {
+    it("creates the fetchRestaurants action if the token exists", () => {
+        localStorage.setItem('token', 'party');
         let restaurants = [
             {id: 0, name: 'Afuri'},
             {id: 1, name: 'Tsukemen'}
         ];
-        nock('http://localhost:8080')
+        nock('http://localhost:8080', {
+            headers: {
+                'Authorization': 'Bearer party'
+                }
+            })
             .get('/restaurants')
             .reply(200, restaurants);
 
@@ -31,6 +37,7 @@ describe("Actions", () => {
         return store.dispatch(actions.fetchRestaurants())
             .then(() => {
                 expect(store.getActions()).toEqual(expectedActions)
-            })
+            });
+        nock.isDone();
     });
 });

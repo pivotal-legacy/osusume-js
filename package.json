@@ -5,8 +5,9 @@
   "license": "MIT",
   "description": "A React client for Osusume",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --require test/utils/setup.js --compilers js:babel-core/register",
-    "start": "webpack-dev-server --content-base dist/ --port 8000"
+    "test": "API_SERVER=http://localhost:8080 ./node_modules/.bin/mocha --require test/utils/setup.js --compilers js:babel-core/register",
+    "start": "API_SERVER=http://localhost:8080 webpack-dev-server --content-base dist/ --port 8000"
+    "build": "API_SERVER=http://osusume.cfapps.io ./node_modules/.bin/webpack --config webpack.config.js"
   },
   "dependencies": {
     "babel": "^6.5.2",
@@ -29,6 +30,7 @@
     "enzyme": "^2.3.0",
     "html-webpack-plugin": "^2.17.0",
     "jsdom": "^9.1.0",
+    "localStorage": "^1.0.3",
     "mocha": "^2.5.1",
     "nock": "^8.0.0",
     "react-addons-test-utils": "^15.1.0",
