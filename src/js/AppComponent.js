@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, Link, browserHistory } from 'react-router';
+import { Router, Route, Link, hashHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
@@ -15,7 +15,7 @@ export default function AppComponent() {
     
     return (
         <Provider store={store}>
-            <Router history={browserHistory}>
+            <Router history={hashHistory}>
                 <Route path="/" component={ContainerRestaurantListComponent}/>
                 <Route path="/restaurants/:restaurantId" component={ContainerRestaurantDetailComponent}/>
             </Router>

@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import RestaurantDetailComponent from './RestaurantDetailComponent';
+import * as actions from './Actions';
 
 const findRestaurant = (restaurants, restaurantId) => {
     return restaurants.find((restaurant) => {
@@ -13,8 +14,17 @@ export const mapStateToProps = (state, ownProps) => {
     }
 };
 
+export const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchRestaurants: () => {
+            dispatch(actions.fetchRestaurants())
+        }
+    }
+};
+
 const ContainerRestaurantDetailComponent = connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(RestaurantDetailComponent);
 
 export default ContainerRestaurantDetailComponent;

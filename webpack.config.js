@@ -1,11 +1,16 @@
 var path = require("path");
+
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
     entry: "./src/js/main.js",
     output: {
-	path: path.resolve(__dirname, "build/assets"),
-	publicPath: "/assets/",
-        filename: "bundle.js"
+        path: 'dist',
+        filename: 'index_bundle.js'
     },
+    plugins: [new HtmlWebpackPlugin({
+        template: 'src/index.html'
+    })],
     module: {
         loaders: [
             {
