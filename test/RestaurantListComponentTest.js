@@ -3,7 +3,7 @@ import { mount, shallow } from 'enzyme';
 
 import React from 'react';
 import RestaurantListComponent from '../src/js/RestaurantListComponent';
-import RestaurantComponent from '../src/js/RestaurantComponent';
+import RestaurantComponent from '../src/js/RestaurantListItemComponent';
 
 describe('RestaurantListComponent', () => {
     it('displays the restaurants passed as props', () => {

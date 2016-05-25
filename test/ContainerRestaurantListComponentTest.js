@@ -1,6 +1,4 @@
 import expect from 'expect';
-import { createStore } from 'redux';
-import { mount, shallow } from 'enzyme';
 import { fetchRestaurants } from '../src/js/Actions'
 
 import React from 'react';

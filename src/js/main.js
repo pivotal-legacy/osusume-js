@@ -1,22 +1,8 @@
 import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, Link, browserHistory } from 'react-router';
-import { Provider } from 'react-redux';
-import thunkMiddleware from 'redux-thunk';
-import { createStore, applyMiddleware } from 'redux';
-import { reducer } from './Reducer';
-import ContainerRestaurantListComponent from './ContainerRestaurantListComponent';
-
-let store = createStore(
-    reducer,
-    applyMiddleware(thunkMiddleware)
-);
+import AppComponent from './AppComponent';
 
 render((
-    <Provider store={store}>
-        <Router history={browserHistory}>
-            <Route path="/" component={ContainerRestaurantListComponent} />
-        </Router>
-    </Provider>
+    <AppComponent />
 ), document.getElementById('app'));

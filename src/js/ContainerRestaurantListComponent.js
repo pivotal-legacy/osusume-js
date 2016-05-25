@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 import RestaurantListComponent from './RestaurantListComponent';
 import * as actions from './Actions';
 
-
 export const mapStateToProps = (state) => {
     return {
         restaurants: state

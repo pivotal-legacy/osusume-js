@@ -1,5 +1,5 @@
 import React from 'react';
-import RestaurantComponent from './RestaurantComponent';
+import RestaurantListItemComponent from './RestaurantListItemComponent';
 
 export default class RestaurantListComponent extends React.Component {
     componentDidMount() {
@@ -8,10 +8,11 @@ export default class RestaurantListComponent extends React.Component {
 
     render() {
         let restaurants = this.props.restaurants.map((restaurant) => {
-            return (<RestaurantComponent key={restaurant.id} restaurant={restaurant} />)
+            return (<RestaurantListItemComponent key={restaurant.id} restaurant={restaurant} />)
         });
         return (
             <div>
+                <h1>Restaurants</h1>
                 {restaurants}
             </div>
         );
