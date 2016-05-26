@@ -17,6 +17,11 @@ describe('RestaurantListComponent', () => {
         expect(component.contains(<RestaurantComponent restaurant={{id: 1, name: 'Tsukemen'}} />)).toBe(true);
     });
 
+    it('display add restaurant button above the restaurant list', () => {
+        const component = shallow(<RestaurantListComponent restaurants={[]} />);
+        expect(component.contains(<button>add restaurant</button>)).toBe(true);
+    });
+
     it('calls fetchRestaurants in the componentDidMount', () => {
         let props = {
             fetchRestaurants: expect.createSpy(),

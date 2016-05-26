@@ -1,5 +1,6 @@
 import React from 'react';
 import RestaurantListItemComponent from './RestaurantListItemComponent';
+import { Link } from 'react-router'
 
 export default class RestaurantListComponent extends React.Component {
     componentDidMount() {
@@ -12,6 +13,9 @@ export default class RestaurantListComponent extends React.Component {
         });
         return (
             <div>
+                <Link to="/restaurants/new">
+                    <button>add restaurant</button>
+                </Link>
                 <h1>Restaurants</h1>
                 {restaurants}
             </div>

@@ -6,17 +6,19 @@ import { createStore, applyMiddleware } from 'redux';
 import { reducer } from './Reducer';
 import ContainerRestaurantListComponent from './ContainerRestaurantListComponent';
 import ContainerRestaurantDetailComponent from './ContainerRestaurantDetailComponent';
+import ContainerRestaurantNewComponent from './ContainerRestaurantNewComponent';
 
 export default function AppComponent() {
     let store = createStore(
         reducer,
         applyMiddleware(thunkMiddleware)
     );
-    
+
     return (
         <Provider store={store}>
             <Router history={hashHistory}>
                 <Route path="/" component={ContainerRestaurantListComponent}/>
+                <Route path="/restaurants/new" component={ContainerRestaurantNewComponent}/>
                 <Route path="/restaurants/:restaurantId" component={ContainerRestaurantDetailComponent}/>
             </Router>
         </Provider>
