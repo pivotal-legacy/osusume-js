@@ -4,7 +4,7 @@ import * as actions from './Actions';
 
 export const mapStateToProps = (state) => {
     return {
-        restaurants: state
+        restaurants: state.restaurants
     }
 };
 

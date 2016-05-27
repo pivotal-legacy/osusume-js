@@ -6,12 +6,13 @@ import {mapStateToProps, mapDispatchToProps} from '../src/js/ContainerRestaurant
 
 describe('ContainerRestaurantListComponent', () => {
     it('mapsStateToProps', () => {
-        let state = [
+        let restaurants = [
             {id: 0, name: 'Afuri'},
             {id: 1, name: 'Tsukemen'}
         ];
+        let state = {restaurants: restaurants};
 
-        expect(mapStateToProps(state).restaurants).toEqual(state);
+        expect(mapStateToProps(state).restaurants).toEqual(restaurants);
     });
 
     it('mapsDispatchToProps', () => {

@@ -7,7 +7,9 @@ describe('Reducer', () => {
     it('returns the initial state', () => {
         expect(
             reducer(undefined, {})
-        ).toEqual([])
+        ).toEqual({
+            restaurants: []
+        })
     });
 
     it('returns the list of restaurants when the action is FETCH_RESTAURANTS_SUCCESS', () => {
@@ -20,9 +22,11 @@ describe('Reducer', () => {
            restaurants: restaurants
         };
 
-        expect(reducer(undefined, action)).toEqual([
-            {id: 0, name: 'Afuri'},
-            {id: 1, name: 'Tsukemen'}
-        ]);
+        expect(reducer(undefined, action)).toEqual({
+            restaurants: [
+                {id: 0, name: 'Afuri'},
+                {id: 1, name: 'Tsukemen'}
+            ]
+        });
     });
 });
