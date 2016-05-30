@@ -21,7 +21,9 @@ describe('RestaurantListItemComponent', () => {
 
         expect(component.find(Link).length).toEqual(1);
         expect(component.find(Link).prop('to')).toEqual('/restaurants/0');
-        expect(component.find(Link).prop('children')).toEqual("Afuri");
+
+        expect(component.find('.name').length).toEqual(1);
+        expect(component.find('.name').text()).toEqual('Afuri');
 
         expect(component.find('.cuisine').length).toEqual(1);
         expect(component.find('.cuisine').text()).toEqual('Ramen');
