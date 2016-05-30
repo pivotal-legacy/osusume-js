@@ -8,10 +8,9 @@ import { fetchRestaurants } from '../src/js/Actions'
 
 describe('ContainerRestaurantDetailComponent', () => {
     it('mapsStateToProps', () => {
-        let state = [
-            {id: 0, name: 'Afuri'},
-            {id: 1, name: 'Tsukemen'}
-        ];
+        let state = {
+            restaurants: [{id: 0, name: 'Afuri'}, {id: 1, name: 'Tsukemen'}]
+        };
 
         expect(mapStateToProps(state, {params: {restaurantId: 0}}).restaurant).toEqual({id: 0, name: 'Afuri'});
     });

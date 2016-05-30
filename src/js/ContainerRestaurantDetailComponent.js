@@ -2,8 +2,8 @@ import { connect } from 'react-redux'
 import RestaurantDetailComponent from './RestaurantDetailComponent';
 import * as actions from './Actions';
 
-const findRestaurant = (restaurants, restaurantId) => {
-    return restaurants.find((restaurant) => {
+const findRestaurant = (state, restaurantId) => {
+    return state.restaurants.find((restaurant) => {
         return restaurant.id == restaurantId;
     });
 };

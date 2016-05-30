@@ -40,4 +40,30 @@ describe("Actions", () => {
             });
         nock.isDone();
     });
+
+    it("creates the fetchSuggestions action", () => {
+        localStorage.setItem('token', 'party');
+        let suggestions = [
+            {name: 'Afuri', address: 'Roppongi'}
+        ]
+        nock('http://localhost:8080', {
+            headers: {
+                'Authorization': 'Bearer party'
+            },
+            method: 'POST',
+            body: {restaurantName: 'Afuri'}
+        })
+          .post('/restaurant_suggestions')
+          .reply(200, suggestions)
+
+        const expectedActions = [
+            {type: types.FETCH_SUGGESTIONS_SUCCESS, suggestions: suggestions}
+        ]
+        const store = mockStore([])
+        return store.dispatch(actions.fetchSuggestions('AFURI'))
+          .then(() => {
+              expect(store.getActions()).toEqual(expectedActions)
+          })
+        nock.isDone();
+    })
 });

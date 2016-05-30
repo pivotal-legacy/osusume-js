@@ -8,7 +8,8 @@ describe('Reducer', () => {
         expect(
             reducer(undefined, {})
         ).toEqual({
-            restaurants: []
+            restaurants: [],
+            suggestions: []
         })
     });
 
@@ -26,7 +27,24 @@ describe('Reducer', () => {
             restaurants: [
                 {id: 0, name: 'Afuri'},
                 {id: 1, name: 'Tsukemen'}
-            ]
+            ],
+            suggestions: []
         });
     });
+
+    it('returns the list of suggestions when the actios is FETCH_SUGGESTIONS_SUCCESS', () => {
+        let suggestions  = [
+            {name: 'Afuri', address: 'Roppongi'},
+            {name: 'Singaporean Chicken', address: 'Roppongi'}
+        ];
+        let action = {
+            type: types.FETCH_SUGGESTIONS_SUCCESS,
+            suggestions: suggestions
+        };
+
+        expect(reducer(undefined, action)).toEqual({
+            restaurants: [],
+            suggestions: suggestions
+        });
+    })
 });
