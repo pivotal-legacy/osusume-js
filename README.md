@@ -1,10 +1,8 @@
 # osusume-js
 
-- `npm install`
-- `npm test`
-- `npm install -g webpack-dev-server`
-- `npm start`
+- `make install`
+- `make test`
+- `make start`
 
 ## Deploy
-- `npm run-script build`
-- `npm run-script deploy`
+- `make deploy`
