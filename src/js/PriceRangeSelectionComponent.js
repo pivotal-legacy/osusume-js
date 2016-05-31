@@ -5,6 +5,7 @@ export default class PriceRangeSelectionComponent extends React.Component {
     if (this.props.priceRanges) {
       return(
         <select>
+          <option>Select a price range</option>
           {this.renderOptions()}
         </select>
       )

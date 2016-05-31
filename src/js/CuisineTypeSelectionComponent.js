@@ -5,6 +5,7 @@ export default class CuisineTypeSelectionComponent extends React.Component {
     if (this.props.cuisineTypes) {
       return(
         <select>
+          <option>Select a cuisine</option>
           {this.renderOptions()}
         </select>
       )
