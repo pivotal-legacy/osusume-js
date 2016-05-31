@@ -6,4 +6,5 @@
 - `npm start`
 
 ## Deploy
-- `cf push osusume-js -p dist/ -b https://github.com/cloudfoundry/staticfile-buildpack.git`
+- `npm run-script build`
+- `npm run-script deploy`
