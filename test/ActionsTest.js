@@ -66,4 +66,14 @@ describe("Actions", () => {
           })
         nock.isDone();
     })
+
+    it("creates the selectSuggestion action", () => {
+        const suggestion = {name: 'Afuri', address: 'Roppongi'};
+        const expectedActions = [
+            {type: types.SELECT_SUGGESTION, suggestion: suggestion}
+        ];
+        const store = mockStore([]);
+        store.dispatch(actions.selectSuggestion(suggestion));
+        expect(store.getActions()).toEqual(expectedActions);
+    })
 });

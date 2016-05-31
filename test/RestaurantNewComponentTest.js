@@ -5,11 +5,19 @@ import RestaurantNewComponent from '../src/js/RestaurantNewComponent';
 import RestaurantSuggestionComponent from '../src/js/RestaurantSuggestionComponent';
 
 describe('RestaurantNewComponent', () => {
-  it('displays find restaurant label and input field', () => {
+  it('displays find restaurant label and input field when no suggestion has been selected', () => {
     const component = shallow(<RestaurantNewComponent />);
     expect(component.contains(<h1>find a restaurant</h1>)).toBe(true);
     expect(component.contains(<input ref=""/>)).toBe(true);
     expect(component.find('button').length).toBe(1);
+  });
+
+  it('displays new restaurant label and restaurant details when a restaurant has been selected', () => {
+    let suggestion = [{name: 'Afuri', address: 'Roppongi'}];
+    const component = shallow(<RestaurantNewComponent suggestion={suggestion}/>);
+    expect(component.contains(<h1>{suggestion.name}</h1>)).toBe(true);
+    expect(component.contains(<div>{suggestion.address}</div>)).toBe(true);
+    expect(component.find('button').length).toBe(0);
   });
 
   it('calls onClick handler with input value when clicked', () => {
@@ -28,10 +36,14 @@ describe('RestaurantNewComponent', () => {
     ];
     const component = shallow(<RestaurantNewComponent suggestions={suggestions}/>);
     expect(component.contains(
-      <RestaurantSuggestionComponent key="Afuri" suggestion={suggestions[0]}/>
+      <RestaurantSuggestionComponent key="Afuri"
+                                     suggestion={suggestions[0]}
+                                     selectSuggestion={undefined}/>
     )).toBe(true);
     expect(component.contains(
-      <RestaurantSuggestionComponent key="Butagumi" suggestion={suggestions[1]}/>
+      <RestaurantSuggestionComponent key="Butagumi"
+                                     suggestion={suggestions[1]}
+                                     selectSuggestion={undefined}/>
     )).toBe(true);
   })
 });

@@ -14,6 +14,13 @@ function receiveRestaurants(json) {
     }
 }
 
+function selectSuggestionAction(suggestion) {
+    return {
+        type: types.SELECT_SUGGESTION,
+        suggestion: suggestion
+    }
+}
+
 function receiveSuggestions(json) {
     return {
         type: types.FETCH_SUGGESTIONS_SUCCESS,
@@ -60,6 +67,12 @@ export function fetchSuggestions(name) {
         } else {
             return dispatch(login(fetchSuggestionsWithUser, name));
         }
+    }
+}
+
+export function selectSuggestion(suggestion) {
+    return dispatch => {
+        return dispatch(selectSuggestionAction(suggestion));
     }
 }
 
