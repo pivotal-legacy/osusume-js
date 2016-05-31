@@ -11,7 +11,8 @@ describe('Reducer', () => {
             restaurants: [],
             suggestions: [],
             suggestion: undefined,
-            cuisineTypes: []
+            cuisineTypes: [],
+            priceRanges: []
         })
     });
 
@@ -32,7 +33,8 @@ describe('Reducer', () => {
             ],
             suggestions: [],
             suggestion: undefined,
-            cuisineTypes: []
+            cuisineTypes: [],
+            priceRanges: []
         });
     });
 
@@ -50,7 +52,8 @@ describe('Reducer', () => {
             restaurants: [],
             suggestions: suggestions,
             suggestion: undefined,
-            cuisineTypes: []
+            cuisineTypes: [],
+            priceRanges: []
         });
     })
 
@@ -65,7 +68,8 @@ describe('Reducer', () => {
             restaurants: [],
             suggestions: [],
             suggestion: suggestion,
-            cuisineTypes: []
+            cuisineTypes: [],
+            priceRanges: []
         });
     })
 
@@ -84,7 +88,28 @@ describe('Reducer', () => {
             restaurants: [],
             suggestions: [],
             suggestion: undefined,
-            cuisineTypes: cuisineTypes
+            cuisineTypes: cuisineTypes,
+            priceRanges: []
+        });
+    })
+
+    it('returns the price ranges the action is FETCH_PRICE_RANGES_SUCCESS', () => {
+        let priceRanges = [
+            {id: 0, range: 'Not Specified'},
+            {id: 1, range: '¥0~999'},
+            {id: 2, range: '¥1000~1999'}
+        ];
+        let action = {
+            type: types.FETCH_PRICE_RANGES_SUCCESS,
+            priceRanges: priceRanges
+        };
+
+        expect(reducer(undefined, action)).toEqual({
+            restaurants: [],
+            suggestions: [],
+            suggestion: undefined,
+            cuisineTypes: [],
+            priceRanges: priceRanges
         });
     })
 });

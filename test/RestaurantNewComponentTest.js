@@ -3,7 +3,8 @@ import { mount, shallow } from 'enzyme';
 import React from 'react';
 import RestaurantNewComponent from '../src/js/RestaurantNewComponent';
 import RestaurantSuggestionComponent from '../src/js/RestaurantSuggestionComponent';
-import CuisineTypeSelectionComponent from '../src/js/CuisineTypeSelectionComponent'
+import CuisineTypeSelectionComponent from '../src/js/CuisineTypeSelectionComponent';
+import PriceRangeSelectionComponent from '../src/js/PriceRangeSelectionComponent';
 
 describe('RestaurantNewComponent', () => {
   it('displays find restaurant label and input field when no suggestion has been selected', () => {
@@ -24,7 +25,7 @@ describe('RestaurantNewComponent', () => {
 
   it('calls onClick handler with input value when clicked', () => {
     const handler = expect.createSpy();
-    const component = mount(<RestaurantNewComponent fetchSuggestions={handler} fetchCuisineTypes={()=>{}}/>);
+    const component = mount(<RestaurantNewComponent fetchSuggestions={handler} fetchCuisineTypes={()=>{}} fetchPriceRanges={()=>{}}/>);
     const input = component.find('input').get(0);
     input.value = 'AFURI';
     component.find('button').simulate('click');
@@ -63,9 +64,31 @@ describe('RestaurantNewComponent', () => {
 
   it('calls fetchCuisineTypes in componentDidMount', () => {
     let props = {
-      fetchCuisineTypes: expect.createSpy()
+      fetchCuisineTypes: expect.createSpy(),
+      fetchPriceRanges: ()=>{}
     };
     mount(<RestaurantNewComponent {...props} />);
     expect(props.fetchCuisineTypes.calls.length).toBe(1);
+  });
+
+  it('shows price range dropdown', () => {
+    let priceRanges = [
+      {id: 0, range: 'Not Specified'},
+      {id: 1, range: '¥0~999'},
+      {id: 2, range: '¥1000~1999'}
+    ];
+    const component = shallow(<RestaurantNewComponent priceRanges={priceRanges}/>);
+    expect(component.contains(
+      <PriceRangeSelectionComponent priceRanges={priceRanges}/>
+    )).toBe(true);
+  });
+
+  it('calls fetchPriceRanges in componentDidMount', () => {
+    let props = {
+      fetchCuisineTypes: ()=>{},
+      fetchPriceRanges: expect.createSpy()
+    };
+    mount(<RestaurantNewComponent {...props} />);
+    expect(props.fetchPriceRanges.calls.length).toBe(1);
   });
 });

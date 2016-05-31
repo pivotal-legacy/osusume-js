@@ -6,7 +6,8 @@ export const mapStateToProps = (state) => {
   return {
     suggestion: state.suggestion,
     suggestions: state.suggestions,
-    cuisineTypes: state.cuisineTypes
+    cuisineTypes: state.cuisineTypes,
+    priceRanges: state.priceRanges
   }
 };
 
@@ -20,6 +21,9 @@ export const mapDispatchToProps = (dispatch) => {
     },
     fetchCuisineTypes: () => {
       dispatch(actions.fetchCuisineTypes())
+    },
+    fetchPriceRanges: () => {
+      dispatch(actions.fetchPriceRanges())
     }
   }
 };

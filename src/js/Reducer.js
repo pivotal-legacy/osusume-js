@@ -7,7 +7,8 @@ module.exports = {
                 restaurants: [],
                 suggestions: [],
                 suggestion: undefined,
-                cuisineTypes: []
+                cuisineTypes: [],
+                priceRanges: []
             };
         }
         switch (action.type) {
@@ -23,6 +24,9 @@ module.exports = {
             case types.FETCH_CUISINE_TYPES_SUCCESS:
                 return Object.assign({}, state,
                   {cuisineTypes: action.cuisineTypes})
+            case types.FETCH_PRICE_RANGES_SUCCESS:
+                return Object.assign({}, state,
+                  {priceRanges: action.priceRanges})
             default:
                 return state;
         }

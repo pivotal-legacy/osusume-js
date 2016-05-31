@@ -99,4 +99,27 @@ describe("Actions", () => {
               expect(store.getActions()).toEqual(expectedActions);
           })
     })
+
+    it("creates the fetchPriceRanges action", () => {
+        localStorage.setItem('token', 'party');
+        let priceRanges = [
+            {id: 0, range: 'Not Specified'},
+            {id: 1, range: '¥0~999'},
+            {id: 2, range: '¥1000~1999'}
+        ]
+        nock('http://localhost:8080', {
+            headers: {'Authorization': 'Bearer party'}
+        }).get('/priceranges')
+          .reply(200, priceRanges)
+
+        const expectedActions = [
+            {type: types.FETCH_PRICE_RANGES_SUCCESS, priceRanges: priceRanges}
+        ]
+        const store = mockStore([])
+        return store.dispatch(actions.fetchPriceRanges())
+          .then(() => {
+              nock.isDone();
+              expect(store.getActions()).toEqual(expectedActions);
+          })
+    })
 });

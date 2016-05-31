@@ -1,10 +1,12 @@
 import React from 'react';
 import RestaurantSuggestionComponent from './RestaurantSuggestionComponent'
 import CuisineTypeSelectionComponent from './CuisineTypeSelectionComponent'
+import PriceRangeSelectionComponent from './PriceRangeSelectionComponent';
 
 export default class RestaurantNewComponent extends React.Component {
   componentDidMount() {
-    this.props.fetchCuisineTypes()
+    this.props.fetchCuisineTypes();
+    this.props.fetchPriceRanges();
   }
 
   renderHeader() {
@@ -65,6 +67,7 @@ export default class RestaurantNewComponent extends React.Component {
         {this.renderRestaurantSuggestions()}
         {this.renderSelectedSuggestion()}
         <CuisineTypeSelectionComponent cuisineTypes={this.props.cuisineTypes}/>
+        <PriceRangeSelectionComponent priceRanges={this.props.priceRanges}/>
       </div>
     )
   }

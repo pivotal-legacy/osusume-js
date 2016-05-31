@@ -35,6 +35,13 @@ function receiveCuisineTypes(json) {
     }
 }
 
+function receivePriceRanges(json) {
+    return {
+        type: types.FETCH_PRICE_RANGES_SUCCESS,
+        priceRanges: json
+    }
+}
+
 function fetchRestaurantsWithUser() {
     return dispatch => {
         dispatch(requestRestaurants());
@@ -65,6 +72,15 @@ function fetchCuisineTypesWithUser() {
     }
 }
 
+
+function fetchPriceRangesWithUser() {
+    return dispatch => {
+        return fetch(`${process.env.API_SERVER}/priceranges`, authorizationConfig())
+          .then(response => response.json())
+          .then(json => dispatch(receivePriceRanges(json)))
+    }
+}
+
 export function fetchRestaurants() {
     return dispatch => {
         if (token()) {
@@ -91,6 +107,16 @@ export function fetchCuisineTypes() {
             return dispatch(fetchCuisineTypesWithUser())
         } else {
             return dispatch(login(fetchCuisineTypesWithUser()))
+        }
+    }
+}
+
+export function fetchPriceRanges() {
+    return dispatch => {
+        if (token()) {
+            return dispatch(fetchPriceRangesWithUser())
+        } else {
+            return dispatch(login(fetchPriceRangesWithUser()))
         }
     }
 }
