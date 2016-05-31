@@ -13,9 +13,10 @@ describe('RestaurantNewComponent', () => {
   });
 
   it('displays new restaurant label and restaurant details when a restaurant has been selected', () => {
-    let suggestion = [{name: 'Afuri', address: 'Roppongi'}];
+    let suggestion = {name: 'Afuri', address: 'Roppongi'};
     const component = shallow(<RestaurantNewComponent suggestion={suggestion}/>);
-    expect(component.contains(<h1>{suggestion.name}</h1>)).toBe(true);
+    expect(component.contains(<h1>add a restaurant</h1>)).toBe(true);
+    expect(component.contains(<div>{suggestion.name}</div>)).toBe(true);
     expect(component.contains(<div>{suggestion.address}</div>)).toBe(true);
     expect(component.find('button').length).toBe(0);
   });

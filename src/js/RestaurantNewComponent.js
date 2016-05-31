@@ -2,12 +2,18 @@ import React from 'react';
 import RestaurantSuggestionComponent from './RestaurantSuggestionComponent'
 
 export default class RestaurantNewComponent extends React.Component {
+  renderHeader() {
+    if (this.props.suggestion == undefined) {
+      return <h1>find a restaurant</h1>;
+    } else {
+      return <h1>add a restaurant</h1>;
+    }
+  }
   renderFindRestaurantInput() {
     if (this.props.suggestion == undefined) {
       let input;
       return (
         <div>
-          <h1>find a restaurant</h1>
           <input ref={node => {input = node}}/>
           <button onClick={_ => {this.props.fetchSuggestions(input.value)}}>find</button>
         </div>
@@ -36,7 +42,7 @@ export default class RestaurantNewComponent extends React.Component {
     if (suggestion != undefined) {
       return (
         <div>
-          <h1>{suggestion.name}</h1>
+          <div>{suggestion.name}</div>
           <div>{suggestion.address}</div>
         </div>
       );
@@ -48,6 +54,7 @@ export default class RestaurantNewComponent extends React.Component {
   render() {
     return (
       <div>
+        {this.renderHeader()}
         {this.renderFindRestaurantInput()}
         {this.renderRestaurantSuggestions()}
         {this.renderSelectedSuggestion()}
