@@ -28,6 +28,13 @@ function receiveSuggestions(json) {
     }
 }
 
+function receiveCuisineTypes(json) {
+    return {
+        type: types.FETCH_CUISINE_TYPES_SUCCESS,
+        cuisineTypes: json
+    }
+}
+
 function fetchRestaurantsWithUser() {
     return dispatch => {
         dispatch(requestRestaurants());
@@ -50,6 +57,14 @@ function fetchSuggestionsWithUser(name) {
     }
 }
 
+function fetchCuisineTypesWithUser() {
+    return dispatch => {
+        return fetch(`${process.env.API_SERVER}/cuisines`, authorizationConfig())
+          .then(response => response.json())
+          .then(json => dispatch(receiveCuisineTypes(json)))
+    }
+}
+
 export function fetchRestaurants() {
     return dispatch => {
         if (token()) {
@@ -66,6 +81,16 @@ export function fetchSuggestions(name) {
             return dispatch(fetchSuggestionsWithUser(name));
         } else {
             return dispatch(login(fetchSuggestionsWithUser, name));
+        }
+    }
+}
+
+export function fetchCuisineTypes() {
+    return dispatch => {
+        if (token()) {
+            return dispatch(fetchCuisineTypesWithUser())
+        } else {
+            return dispatch(login(fetchCuisineTypesWithUser()))
         }
     }
 }

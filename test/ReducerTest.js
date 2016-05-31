@@ -10,7 +10,8 @@ describe('Reducer', () => {
         ).toEqual({
             restaurants: [],
             suggestions: [],
-            suggestion: undefined
+            suggestion: undefined,
+            cuisineTypes: []
         })
     });
 
@@ -30,7 +31,8 @@ describe('Reducer', () => {
                 {id: 1, name: 'Tsukemen'}
             ],
             suggestions: [],
-            suggestion: undefined
+            suggestion: undefined,
+            cuisineTypes: []
         });
     });
 
@@ -47,7 +49,8 @@ describe('Reducer', () => {
         expect(reducer(undefined, action)).toEqual({
             restaurants: [],
             suggestions: suggestions,
-            suggestion: undefined
+            suggestion: undefined,
+            cuisineTypes: []
         });
     })
 
@@ -61,7 +64,27 @@ describe('Reducer', () => {
         expect(reducer(undefined, action)).toEqual({
             restaurants: [],
             suggestions: [],
-            suggestion: suggestion
+            suggestion: suggestion,
+            cuisineTypes: []
+        });
+    })
+
+    it('returns the cuisine types the action is FETCH_CUISINE_TYPES_SUCCESS', () => {
+        let cuisineTypes = [
+            {id: 0, name: 'Not Specified'},
+            {id: 1, name: 'Japanese'},
+            {id: 2, name: 'French'}
+        ];
+        let action = {
+            type: types.FETCH_CUISINE_TYPES_SUCCESS,
+            cuisineTypes: cuisineTypes
+        };
+
+        expect(reducer(undefined, action)).toEqual({
+            restaurants: [],
+            suggestions: [],
+            suggestion: undefined,
+            cuisineTypes: cuisineTypes
         });
     })
 });

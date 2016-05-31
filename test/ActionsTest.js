@@ -36,9 +36,9 @@ describe("Actions", () => {
 
         return store.dispatch(actions.fetchRestaurants())
             .then(() => {
+                nock.isDone();
                 expect(store.getActions()).toEqual(expectedActions)
             });
-        nock.isDone();
     });
 
     it("creates the fetchSuggestions action", () => {
@@ -62,9 +62,9 @@ describe("Actions", () => {
         const store = mockStore([])
         return store.dispatch(actions.fetchSuggestions('AFURI'))
           .then(() => {
+              nock.isDone();
               expect(store.getActions()).toEqual(expectedActions)
           })
-        nock.isDone();
     })
 
     it("creates the selectSuggestion action", () => {
@@ -75,5 +75,28 @@ describe("Actions", () => {
         const store = mockStore([]);
         store.dispatch(actions.selectSuggestion(suggestion));
         expect(store.getActions()).toEqual(expectedActions);
+    })
+
+    it("creates the fetchCuisineTypes action", () => {
+        localStorage.setItem('token', 'party');
+        let cuisineTypes = [
+            {id: 0, name: 'Not Specified'},
+            {id: 1, name: 'Japanese'},
+            {id: 2, name: 'French'}
+        ]
+        nock('http://localhost:8080', {
+            headers: {'Authorization': 'Bearer party'}
+        }).get('/cuisines')
+          .reply(200, cuisineTypes)
+
+        const expectedActions = [
+            {type: types.FETCH_CUISINE_TYPES_SUCCESS, cuisineTypes: cuisineTypes}
+        ]
+        const store = mockStore([])
+        return store.dispatch(actions.fetchCuisineTypes())
+          .then(() => {
+              nock.isDone();
+              expect(store.getActions()).toEqual(expectedActions);
+          })
     })
 });

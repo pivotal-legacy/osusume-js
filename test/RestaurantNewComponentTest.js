@@ -3,6 +3,7 @@ import { mount, shallow } from 'enzyme';
 import React from 'react';
 import RestaurantNewComponent from '../src/js/RestaurantNewComponent';
 import RestaurantSuggestionComponent from '../src/js/RestaurantSuggestionComponent';
+import CuisineTypeSelectionComponent from '../src/js/CuisineTypeSelectionComponent'
 
 describe('RestaurantNewComponent', () => {
   it('displays find restaurant label and input field when no suggestion has been selected', () => {
@@ -23,7 +24,7 @@ describe('RestaurantNewComponent', () => {
 
   it('calls onClick handler with input value when clicked', () => {
     const handler = expect.createSpy();
-    const component = mount(<RestaurantNewComponent fetchSuggestions={handler}/>);
+    const component = mount(<RestaurantNewComponent fetchSuggestions={handler} fetchCuisineTypes={()=>{}}/>);
     const input = component.find('input').get(0);
     input.value = 'AFURI';
     component.find('button').simulate('click');
@@ -47,4 +48,24 @@ describe('RestaurantNewComponent', () => {
                                      selectSuggestion={undefined}/>
     )).toBe(true);
   })
+
+  it('shows cuisine type dropdown', () => {
+    let cuisineTypes = [
+      {id: 0, name: 'Not Specified'},
+      {id: 1, name: 'Japanese'},
+      {id: 2, name: 'French'}
+    ]
+    const component = shallow(<RestaurantNewComponent cuisineTypes={cuisineTypes}/>);
+    expect(component.contains(
+      <CuisineTypeSelectionComponent cuisineTypes={cuisineTypes}/>
+    )).toBe(true);
+  })
+
+  it('calls fetchCuisineTypes in componentDidMount', () => {
+    let props = {
+      fetchCuisineTypes: expect.createSpy()
+    };
+    mount(<RestaurantNewComponent {...props} />);
+    expect(props.fetchCuisineTypes.calls.length).toBe(1);
+  });
 });
