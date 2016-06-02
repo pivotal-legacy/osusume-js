@@ -1,14 +1,8 @@
 import React from 'react';
 import RestaurantSuggestionComponent from './RestaurantSuggestionComponent'
-import CuisineTypeSelectionComponent from './CuisineTypeSelectionComponent'
-import PriceRangeSelectionComponent from './PriceRangeSelectionComponent';
+import ContainerRestaurantNewFormComponent from './ContainerRestaurantNewFormComponent'
 
 export default class RestaurantNewComponent extends React.Component {
-  componentDidMount() {
-    this.props.fetchCuisineTypes();
-    this.props.fetchPriceRanges();
-  }
-
   renderHeader() {
     if (this.props.suggestion == undefined) {
       return <h1>find a restaurant</h1>;
@@ -45,17 +39,12 @@ export default class RestaurantNewComponent extends React.Component {
     }
   }
 
-  renderSelectedSuggestion() {
-    let suggestion = this.props.suggestion;
-    if (suggestion != undefined) {
-      return (
-        <div>
-          <div>{suggestion.name}</div>
-          <div>{suggestion.address}</div>
-        </div>
-      );
+
+  renderForm() {
+    if (this.props.suggestion != undefined) {
+      return <ContainerRestaurantNewFormComponent />
     } else {
-      return null;
+      return null
     }
   }
 
@@ -65,9 +54,7 @@ export default class RestaurantNewComponent extends React.Component {
         {this.renderHeader()}
         {this.renderFindRestaurantInput()}
         {this.renderRestaurantSuggestions()}
-        {this.renderSelectedSuggestion()}
-        <CuisineTypeSelectionComponent cuisineTypes={this.props.cuisineTypes}/>
-        <PriceRangeSelectionComponent priceRanges={this.props.priceRanges}/>
+        {this.renderForm()}
       </div>
     )
   }

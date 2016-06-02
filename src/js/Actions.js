@@ -1,5 +1,6 @@
 import * as types from './constants/ActionTypes';
 import fetch from 'isomorphic-fetch'
+import { hashHistory } from 'react-router';
 
 function requestRestaurants() {
     return {
@@ -81,6 +82,28 @@ function fetchPriceRangesWithUser() {
     }
 }
 
+function addNewRestaurantWithUser(name, address, cuisineId, priceRangeId) {
+    return dispatch => {
+        let config = Object.assign({}, authorizationConfig(),
+          {
+              method: "POST",
+              body: JSON.stringify(
+                {restaurant: {
+                    name: name,
+                    address: address,
+                    cuisine_id: cuisineId,
+                    price_range_id: priceRangeId,
+                    photo_urls: []
+                }}
+              )
+          })
+        return fetch(`${process.env.API_SERVER}/restaurants`, config)
+          .then(() => {
+              hashHistory.push('/')
+          })
+    }
+}
+
 export function fetchRestaurants() {
     return dispatch => {
         if (token()) {
@@ -124,6 +147,16 @@ export function fetchPriceRanges() {
 export function selectSuggestion(suggestion) {
     return dispatch => {
         return dispatch(selectSuggestionAction(suggestion));
+    }
+}
+
+export function addNewRestaurant(name, address, cuisineId, priceRangeId) {
+    return dispatch => {
+        if (token()) {
+            return dispatch(addNewRestaurantWithUser(name, address, cuisineId, priceRangeId))
+        } else {
+            return dispatch(login(addNewRestaurantWithUser(name, address, cuisineId, priceRangeId)))
+        }
     }
 }
 

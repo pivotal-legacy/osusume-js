@@ -112,4 +112,19 @@ describe('Reducer', () => {
             priceRanges: priceRanges
         });
     })
+
+    it('returns state the action is ADD_RESTAURANT_SUCCESS', () => {
+        let action = {
+            type: types.ADD_RESTAURANT_SUCCESS
+        };
+
+        expect(reducer(undefined, action)).toEqual({
+            restaurants: [],
+            suggestions: [],
+            suggestion: undefined,
+            cuisineTypes: [],
+            priceRanges: []
+        });
+    })
+
 });

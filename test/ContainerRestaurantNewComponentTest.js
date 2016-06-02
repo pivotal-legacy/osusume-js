@@ -10,27 +10,14 @@ describe('ContainerRestaurantNewComponent', () => {
       {name: 'Butagumi', address: 'Roppongi'}
     ];
     let suggestion = {name: 'Butagumi', address: 'Roppongi'};
-    let cuisineTypes = [
-      {id: 0, name: 'Not Specified'},
-      {id: 1, name: 'Japanese'},
-      {id: 2, name: 'French'}
-    ];
-    let priceRanges = [
-      {id: 0, range: 'Not Specified'},
-      {id: 1, range: '¥0~999'},
-      {id: 2, range: '¥1000~1999'}
-    ];
+
     let state = {
       suggestions: suggestions,
-      suggestion: suggestion,
-      cuisineTypes: cuisineTypes,
-      priceRanges: priceRanges
+      suggestion: suggestion
     };
 
     expect(mapStateToProps(state).suggestions).toEqual(suggestions);
     expect(mapStateToProps(state).suggestion).toEqual(suggestion);
-    expect(mapStateToProps(state).cuisineTypes).toEqual(cuisineTypes);
-    expect(mapStateToProps(state).priceRanges).toEqual(priceRanges);
   });
 
   it('mapsDispatchToProps fetchSuggestions', () => {
@@ -46,9 +33,4 @@ describe('ContainerRestaurantNewComponent', () => {
     expect(dispatch).toHaveBeenCalledWith(selectSuggestion(suggestion));
   });
 
-  it('mapsDispatchToProps fetchPriceRanges', () => {
-    let dispatch = expect.createSpy();
-    mapDispatchToProps(dispatch).fetchPriceRanges();
-    expect(dispatch).toHaveBeenCalledWith(fetchPriceRanges());
-  });
 });

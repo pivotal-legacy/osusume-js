@@ -36,7 +36,7 @@ describe("Actions", () => {
 
         return store.dispatch(actions.fetchRestaurants())
             .then(() => {
-                nock.isDone();
+                expect(nock.isDone()).toEqual(true);
                 expect(store.getActions()).toEqual(expectedActions)
             });
     });
@@ -62,7 +62,7 @@ describe("Actions", () => {
         const store = mockStore([])
         return store.dispatch(actions.fetchSuggestions('AFURI'))
           .then(() => {
-              nock.isDone();
+              expect(nock.isDone()).toEqual(true);
               expect(store.getActions()).toEqual(expectedActions)
           })
     })
@@ -95,7 +95,7 @@ describe("Actions", () => {
         const store = mockStore([])
         return store.dispatch(actions.fetchCuisineTypes())
           .then(() => {
-              nock.isDone();
+              expect(nock.isDone()).toEqual(true);
               expect(store.getActions()).toEqual(expectedActions);
           })
     })
@@ -118,8 +118,52 @@ describe("Actions", () => {
         const store = mockStore([])
         return store.dispatch(actions.fetchPriceRanges())
           .then(() => {
-              nock.isDone();
+              expect(nock.isDone()).toEqual(true);
               expect(store.getActions()).toEqual(expectedActions);
+          })
+    })
+
+    it("saves new restaurant to server", () => {
+        localStorage.setItem('token', 'party');
+        let restaurant = {
+            address:'Roppongi',
+            name:'Afuri',
+            id:17,
+            notes:null,
+            cuisine:{
+                id:0,
+                name:'Not Specified'
+            },
+            price_range:'Not Specified',
+            user:{
+                id:16,
+                email:'danny',
+                name:'Danny'
+            },
+            comments:[],
+            liked:false,
+            num_likes:0,
+            created_by_user_name:'Danny',
+            created_at:'2016-06-01T10:09:05.521Z',
+            photo_urls:[],
+            offers_english_menu:false,
+            walk_ins_ok:false,
+            accepts_credit_cards:false
+        }
+         nock('http://localhost:8080', {
+            headers: {
+                'Authorization': 'Bearer party'
+            },
+            method: 'POST',
+            body: {name: 'Afuri', address: 'Roppongi', cuisineId: 0, priceRangeId: 1, photo_urls: []}
+        })
+          .post('/restaurants')
+          .reply(200, restaurant)
+
+        const store = mockStore([])
+        return store.dispatch(actions.addNewRestaurant('AFURI', 'Roppongi', 0, 1))
+          .then(() => {
+              expect(nock.isDone()).toEqual(true);
           })
     })
 });

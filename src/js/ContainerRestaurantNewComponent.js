@@ -5,9 +5,7 @@ import * as actions from './Actions';
 export const mapStateToProps = (state) => {
   return {
     suggestion: state.suggestion,
-    suggestions: state.suggestions,
-    cuisineTypes: state.cuisineTypes,
-    priceRanges: state.priceRanges
+    suggestions: state.suggestions
   }
 };
 
@@ -18,12 +16,6 @@ export const mapDispatchToProps = (dispatch) => {
     },
     selectSuggestion: (suggestion) => {
       dispatch(actions.selectSuggestion(suggestion))
-    },
-    fetchCuisineTypes: () => {
-      dispatch(actions.fetchCuisineTypes())
-    },
-    fetchPriceRanges: () => {
-      dispatch(actions.fetchPriceRanges())
     }
   }
 };

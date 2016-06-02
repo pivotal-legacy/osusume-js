@@ -9,6 +9,17 @@ const win = doc.defaultView
 global.document = doc
 global.window = win;
 win.localStorage = localStorage
+win.sessionStorage = {
+    getItem: function (key) {
+        return this[key];
+    },
+    setItem: function (key, value) {
+        this[key] = value;
+    },
+    removeItem: function (key) {
+        delete this[key];
+    }
+};
 Object.keys(win).forEach((property) => {
     if (typeof global[property] === 'undefined') {
         exposedProperties.push(property);
