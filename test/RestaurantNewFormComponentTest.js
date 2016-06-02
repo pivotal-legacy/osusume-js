@@ -40,6 +40,15 @@ describe('RestaurantNewFormComponent displays correct components', () => {
         priceRanges={priceRanges}
         changeHandler={instance.priceRangeHandleChanged} />)).toBe(true)
   })
+
+  it('shows input for file upload', () => {
+    let component = shallow(<RestaurantNewFormComponent
+      suggestion={suggestion}
+      priceRanges={priceRanges}
+    />)
+    expect(component.contains(<label>Add Photo</label>)).toBe(true)
+    expect(component.contains(<input type="file"/>)).toBe(true)
+  })
 })
 
 describe('RestaurantNewFormComponent calls correct function', () => {

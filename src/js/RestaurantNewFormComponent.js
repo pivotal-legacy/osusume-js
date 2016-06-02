@@ -52,6 +52,8 @@ export default class RestaurantNewFormComponent extends React.Component {
   render() {
     return (
       <div>
+        <label>Add Photo</label>
+        <input type="file"/>
         {this.renderSelectedSuggestion()}
         <CuisineTypeSelectionComponent cuisineTypes={this.props.cuisineTypes} changeHandler={this.cuisineHandleChanged} />
         <PriceRangeSelectionComponent priceRanges={this.props.priceRanges} changeHandler={this.priceRangeHandleChanged}/>
