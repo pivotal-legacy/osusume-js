@@ -4,7 +4,6 @@ import { mapStateToProps, mapDispatchToProps } from '../src/js/ContainerRestaura
 
 describe('ContainerRestaurantNewFormComponent', () => {
   it('mapStateToProps', () => {
-    let suggestion = {name: 'Afuri', address: 'Roppongi'}
     let priceRanges = [
       {id: 0, range: 'Not Specified'},
       {id: 1, range: '¥0~999'}
@@ -14,12 +13,10 @@ describe('ContainerRestaurantNewFormComponent', () => {
       {id: 1, name: 'Japanese'}
     ]
     let state = {
-      suggestion: suggestion,
       priceRanges: priceRanges,
       cuisineTypes: cuisineTypes
     }
 
-    expect(mapStateToProps(state).suggestion).toEqual(suggestion)
     expect(mapStateToProps(state).priceRanges).toEqual(priceRanges)
     expect(mapStateToProps(state).cuisineTypes).toEqual(cuisineTypes)
   })

@@ -4,7 +4,6 @@ import RestaurantNewFormComponent from './RestaurantNewFormComponent'
 
 export const mapStateToProps = (state) => {
   return {
-    suggestion: state.suggestion,
     priceRanges: state.priceRanges,
     cuisineTypes: state.cuisineTypes
   }

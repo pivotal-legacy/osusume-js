@@ -10,7 +10,6 @@ describe('Reducer', () => {
         ).toEqual({
             restaurants: [],
             suggestions: [],
-            suggestion: undefined,
             cuisineTypes: [],
             priceRanges: []
         })
@@ -32,7 +31,6 @@ describe('Reducer', () => {
                 {id: 1, name: 'Tsukemen'}
             ],
             suggestions: [],
-            suggestion: undefined,
             cuisineTypes: [],
             priceRanges: []
         });
@@ -51,23 +49,6 @@ describe('Reducer', () => {
         expect(reducer(undefined, action)).toEqual({
             restaurants: [],
             suggestions: suggestions,
-            suggestion: undefined,
-            cuisineTypes: [],
-            priceRanges: []
-        });
-    })
-
-    it('returns the selected suggestion when the action is SELECT_SUGGESTION', () => {
-        let suggestion  = {name: 'Afuri', address: 'Roppongi'};
-        let action = {
-            type: types.SELECT_SUGGESTION,
-            suggestion: suggestion
-        };
-
-        expect(reducer(undefined, action)).toEqual({
-            restaurants: [],
-            suggestions: [],
-            suggestion: suggestion,
             cuisineTypes: [],
             priceRanges: []
         });
@@ -87,7 +68,6 @@ describe('Reducer', () => {
         expect(reducer(undefined, action)).toEqual({
             restaurants: [],
             suggestions: [],
-            suggestion: undefined,
             cuisineTypes: cuisineTypes,
             priceRanges: []
         });
@@ -107,7 +87,6 @@ describe('Reducer', () => {
         expect(reducer(undefined, action)).toEqual({
             restaurants: [],
             suggestions: [],
-            suggestion: undefined,
             cuisineTypes: [],
             priceRanges: priceRanges
         });
@@ -121,7 +100,6 @@ describe('Reducer', () => {
         expect(reducer(undefined, action)).toEqual({
             restaurants: [],
             suggestions: [],
-            suggestion: undefined,
             cuisineTypes: [],
             priceRanges: []
         });

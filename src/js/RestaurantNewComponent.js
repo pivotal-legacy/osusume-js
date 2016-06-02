@@ -3,8 +3,14 @@ import RestaurantSuggestionComponent from './RestaurantSuggestionComponent'
 import ContainerRestaurantNewFormComponent from './ContainerRestaurantNewFormComponent'
 
 export default class RestaurantNewComponent extends React.Component {
+  constructor(props) {
+    super(props)
+    this.selectSuggestion = this.selectSuggestion.bind(this)
+    this.state = {suggestion: undefined}
+  }
+
   renderHeader() {
-    if (this.props.suggestion == undefined) {
+    if (this.state.suggestion == undefined) {
       return <h1>find a restaurant</h1>;
     } else {
       return <h1>add a restaurant</h1>;
@@ -12,7 +18,7 @@ export default class RestaurantNewComponent extends React.Component {
   }
 
   renderFindRestaurantInput() {
-    if (this.props.suggestion == undefined) {
+    if (this.state.suggestion == undefined) {
       let input;
       return (
         <div>
@@ -25,13 +31,17 @@ export default class RestaurantNewComponent extends React.Component {
     }
   }
 
+  selectSuggestion(suggestion) {
+    this.setState({suggestion: suggestion})
+  }
+
   renderRestaurantSuggestions() {
-    if (this.props.suggestion == undefined && this.props.suggestions) {
+    if (this.state.suggestion == undefined && this.props.suggestions) {
       return(this.props.suggestions.map((suggestion) => {
         return (
           <RestaurantSuggestionComponent key={suggestion.name}
                                          suggestion={suggestion}
-                                         selectSuggestion={this.props.selectSuggestion}/>
+                                         selectSuggestion={this.selectSuggestion}/>
         )
       }));
     } else {
@@ -39,10 +49,9 @@ export default class RestaurantNewComponent extends React.Component {
     }
   }
 
-
   renderForm() {
-    if (this.props.suggestion != undefined) {
-      return <ContainerRestaurantNewFormComponent />
+    if (this.state.suggestion != undefined) {
+      return <ContainerRestaurantNewFormComponent suggestion={this.state.suggestion} />
     } else {
       return null
     }

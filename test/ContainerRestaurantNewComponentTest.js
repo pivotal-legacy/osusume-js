@@ -9,15 +9,11 @@ describe('ContainerRestaurantNewComponent', () => {
       {name: 'Afuri', address: 'Roppongi'},
       {name: 'Butagumi', address: 'Roppongi'}
     ];
-    let suggestion = {name: 'Butagumi', address: 'Roppongi'};
-
     let state = {
-      suggestions: suggestions,
-      suggestion: suggestion
+      suggestions: suggestions
     };
 
     expect(mapStateToProps(state).suggestions).toEqual(suggestions);
-    expect(mapStateToProps(state).suggestion).toEqual(suggestion);
   });
 
   it('mapsDispatchToProps fetchSuggestions', () => {
@@ -25,12 +21,4 @@ describe('ContainerRestaurantNewComponent', () => {
     mapDispatchToProps(dispatch).fetchSuggestions('Afuri');
     expect(dispatch).toHaveBeenCalledWith(fetchSuggestions('Afuri'));
   });
-
-  it('mapsDispatchToProps selectSuggestion', () => {
-    let dispatch = expect.createSpy();
-    let suggestion = {name: 'Afuri', address: 'Roppongi'};
-    mapDispatchToProps(dispatch).selectSuggestion(suggestion);
-    expect(dispatch).toHaveBeenCalledWith(selectSuggestion(suggestion));
-  });
-
 });
