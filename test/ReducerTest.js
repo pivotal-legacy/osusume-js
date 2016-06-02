@@ -1,7 +1,6 @@
 import expect from 'expect'
-import {reducer} from '../src/js/Reducer'
+import reducer from '../src/js/Reducer'
 import * as types from '../src/js/constants/ActionTypes'
-import * as actions from '../src/js/Actions';
 
 describe('Reducer', () => {
     it('returns the initial state', () => {
