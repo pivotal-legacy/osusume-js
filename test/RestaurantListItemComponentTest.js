@@ -14,6 +14,7 @@ describe('RestaurantListItemComponent', () => {
             price_range: '1000 - 2000',
             address: 'Iidabashi West Exit',
             num_likes: 3,
+            photo_urls: [{url: 'https://hoge/image.jpg'}],
             created_by_user_name: 'Kalle Anka',
             created_at: '2016-05-25T01:41:17.125Z',
         };
@@ -36,6 +37,8 @@ describe('RestaurantListItemComponent', () => {
 
         expect(component.find('.number_likes').length).toEqual(1);
         expect(component.find('.number_likes').text()).toEqual(3);
+
+        expect(component.find('img').length).toEqual(1);
 
         expect(component.find('.created_by_user_name').length).toEqual(1);
         expect(component.find('.created_by_user_name').text()).toEqual('Kalle Anka');
