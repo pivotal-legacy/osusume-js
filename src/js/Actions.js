@@ -75,26 +75,28 @@ function fetchPriceRangesWithUser() {
     }
 }
 
-function addNewRestaurantWithUser(name, address, cuisineId, priceRangeId) {
+function addNewRestaurantWithUser(name, address, cuisineId, priceRangeId, file, fileUploader) {
     return dispatch => {
-        let config = Object.assign({}, authorizationConfig(),
-          {
-              method: "POST",
-              body: JSON.stringify(
-                {restaurant: {
-                    name: name,
-                    address: address,
-                    cuisine_id: cuisineId,
-                    price_range_id: priceRangeId,
-                    photo_urls: []
-                }}
-              )
-          })
-        return fetch(`${process.env.API_SERVER}/restaurants`, config)
-          .then(() => {
-              hashHistory.push('/')
-          })
-    }
+        return fileUploader.upload(file).then((photoUrl) => {
+            let config = Object.assign({}, authorizationConfig(),
+              {
+                  method: "POST",
+                  body: JSON.stringify(
+                    {restaurant: {
+                        name: name,
+                        address: address,
+                        cuisine_id: cuisineId,
+                        price_range_id: priceRangeId,
+                        photo_urls: [{url: photoUrl}]
+                    }}
+                  )
+              })
+            return fetch(`${process.env.API_SERVER}/restaurants`, config)
+              .then(() => {
+                  hashHistory.push('/')
+              })
+        })
+     }
 }
 
 export function fetchRestaurants() {
@@ -137,12 +139,12 @@ export function fetchPriceRanges() {
     }
 }
 
-export function addNewRestaurant(name, address, cuisineId, priceRangeId) {
+export function addNewRestaurant(name, address, cuisineId, priceRangeId, file, fileUploader) {
     return dispatch => {
         if (token()) {
-            return dispatch(addNewRestaurantWithUser(name, address, cuisineId, priceRangeId))
+            return dispatch(addNewRestaurantWithUser(name, address, cuisineId, priceRangeId, file, fileUploader))
         } else {
-            return dispatch(login(addNewRestaurantWithUser(name, address, cuisineId, priceRangeId)))
+            return dispatch(login(addNewRestaurantWithUser(name, address, cuisineId, priceRangeId, file, fileUploader)))
         }
     }
 }

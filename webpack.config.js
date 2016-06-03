@@ -14,10 +14,21 @@ module.exports = {
             template: 'src/index.html'
         }),
         new webpack.EnvironmentPlugin([
-            "API_SERVER"
+            "API_SERVER",
+            "S3_ACCESS_KEY_ID",
+            "S3_SECRET_ACCESS_KEY"
         ])],
+    node: {
+      fs: 'empty'
+    },
     module: {
         loaders: [
+            {
+              test: /aws-sdk/,
+              loaders: [
+                'transform?aws-sdk/dist-tools/transform'
+              ]
+            },
             {
                 test: /\.(css|scss)$/,
                 loader: 'style!css!sass'
@@ -26,6 +37,10 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /(node_modules)/,
                 loader: "babel-loader"
+            },
+            {
+                test: /\.json$/,
+                loaders: ['json']
             }
         ]
     }

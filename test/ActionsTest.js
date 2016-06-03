@@ -4,6 +4,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import * as actions from '../src/js/Actions';
 import * as types from '../src/js/constants/ActionTypes';
+import S3FileUploader from '../src/js/S3FileUploader';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
@@ -135,7 +136,7 @@ describe("Actions", () => {
             num_likes:0,
             created_by_user_name:'Danny',
             created_at:'2016-06-01T10:09:05.521Z',
-            photo_urls:[],
+            photo_urls:[{url: 'http://its.a.party!!'}],
             offers_english_menu:false,
             walk_ins_ok:false,
             accepts_credit_cards:false
@@ -145,14 +146,31 @@ describe("Actions", () => {
                 'Authorization': 'Bearer party'
             },
             method: 'POST',
-            body: {name: 'Afuri', address: 'Roppongi', cuisineId: 0, priceRangeId: 1, photo_urls: []}
+            body: {
+                name: 'Afuri',
+                address: 'Roppongi',
+                cuisineId: 0,
+                priceRangeId: 1,
+                photo_urls: [{url: 'http://its.a.party!!'}]}
         })
           .post('/restaurants')
           .reply(200, restaurant)
 
         const store = mockStore([])
-        return store.dispatch(actions.addNewRestaurant('AFURI', 'Roppongi', 0, 1))
+
+        let expectedUrl = 'http://its.a.party!!'
+        let promise = Promise.resolve(expectedUrl)
+        promise.then((expectedUrl) => {
+            expect(expectedUrl).toBe(url);
+        })
+
+        let s3FileUploader = new S3FileUploader()
+        expect.spyOn(s3FileUploader, 'upload').andReturn(promise);
+
+        let file = {name: "myfile.txt"};
+        return store.dispatch(actions.addNewRestaurant('AFURI', 'Roppongi', 0, 1, file, s3FileUploader))
           .then(() => {
+              expect(s3FileUploader.upload).toHaveBeenCalledWith(file);
               expect(nock.isDone()).toEqual(true);
           })
     })

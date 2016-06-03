@@ -46,13 +46,14 @@ describe('RestaurantNewFormComponent displays correct components', () => {
       suggestion={suggestion}
       priceRanges={priceRanges}
     />)
+    let instance = component.instance()
     expect(component.contains(<label>Add Photo</label>)).toBe(true)
-    expect(component.contains(<input type="file"/>)).toBe(true)
+    expect(component.contains(<input type="file" onChange={instance.selectPhoto}/>)).toBe(true)
   })
 })
 
-describe('RestaurantNewFormComponent calls correct function', () => {
-  let suggestion = {name: 'Afuri', address: 'Roppongi'}
+  describe('RestaurantNewFormComponent calls correct function', () => {
+    let suggestion = {name: 'Afuri', address: 'Roppongi'}
 
   it('calls fetchCuisinetypes  in componentDidMount', () => {
     let props = {
@@ -74,14 +75,16 @@ describe('RestaurantNewFormComponent calls correct function', () => {
 
   it('calls onSubmit handler with new restaurant data when clicked', () => {
     const handler = expect.createSpy();
-    const component = mount(<RestaurantNewFormComponent suggestion={suggestion} addNewRestaurant={handler} fetchCuisineTypes={()=>{}} fetchPriceRanges={()=>{}}/>);
+    const component = mount(<RestaurantNewFormComponent suggestion={suggestion} addNewRestaurant={handler} fetchCuisineTypes={()=>{}} fetchPriceRanges={()=>{}} fileUploder={()=>{}}/>);
     let instance = component.instance()
     component.find('button').simulate('click');
     expect(handler).toHaveBeenCalledWith(
       suggestion.name,
       suggestion.address,
       instance.state.selectedCuisine,
-      instance.state.selectedPriceRange
+      instance.state.selectedPriceRange,
+      instance.state.selectedPhoto,
+      instance.props.fileUploader
     );
   })
 
@@ -97,5 +100,19 @@ describe('RestaurantNewFormComponent calls correct function', () => {
     let instance = component.instance()
     instance.priceRangeHandleChanged('¥0~999')
     expect(instance.state.selectedPriceRange).toBe('¥0~999');
+  })
+
+  it('it sets file in state when input is changed ', () => {
+    const component = shallow(<RestaurantNewFormComponent/>);
+    let file = {name: "myfile.txt"};
+    let e = {
+      target: {
+        value: "C:\fakepath\myfile.txt",
+        files: [file]
+      }
+    }
+    component.find('input').simulate('change', e);
+    let instance = component.instance()
+    expect(instance.state.selectedPhoto).toBe(file);
   })
 })
