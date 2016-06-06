@@ -1,4 +1,5 @@
 import AWS from 'aws-sdk'
+import uuid from 'node-uuid'
 
 export default class S3FileUploader {
   constructor(bucket=new AWS.S3) {
@@ -13,7 +14,7 @@ export default class S3FileUploader {
     let promise = new Promise((resolve) => {
       let params = {
         Bucket: 'osusume-tokyo-dev',
-        Key: file.name,
+        Key: uuid.v4(),
         ContentType: file.type,
         ACL: 'public-read',
         Body: file
