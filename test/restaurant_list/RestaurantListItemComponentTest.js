@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { Link } from 'react-router';
 
 import React from 'react';
-import RestaurantListItemComponent from '../src/js/RestaurantListItemComponent';
+import RestaurantListItemComponent from '../../src/js/restaurant_list/RestaurantListItemComponent';
 
 describe('RestaurantListItemComponent', () => {
     it('displays the restaurant passed in props', () => {

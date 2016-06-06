@@ -1,8 +1,8 @@
 import expect from 'expect';
 import { mount, shallow } from 'enzyme';
 import React from 'react';
-import RestaurantNewComponent from '../src/js/RestaurantNewComponent';
-import RestaurantSuggestionComponent from '../src/js/RestaurantSuggestionComponent';
+import RestaurantNewComponent from '../../src/js/new_restaurant/RestaurantNewComponent';
+import RestaurantSuggestionComponent from '../../src/js/new_restaurant/RestaurantSuggestionComponent';
 
 
 describe('RestaurantNewComponent', () => {

@@ -4,9 +4,9 @@ import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 import reducer from './Reducer';
-import ContainerRestaurantListComponent from './ContainerRestaurantListComponent';
-import ContainerRestaurantDetailComponent from './ContainerRestaurantDetailComponent';
-import ContainerRestaurantNewComponent from './ContainerRestaurantNewComponent';
+import ContainerRestaurantListComponent from './restaurant_list/ContainerRestaurantListComponent';
+import ContainerRestaurantDetailComponent from './restaurant_detail/ContainerRestaurantDetailComponent';
+import ContainerRestaurantNewComponent from './new_restaurant/ContainerRestaurantNewComponent';
 
 export default function AppComponent() {
     let store = createStore(

@@ -2,7 +2,7 @@ import expect from 'expect';
 import { mount, shallow } from 'enzyme';
 
 import React from 'react';
-import RestaurantDetailComponent from '../src/js/RestaurantDetailComponent';
+import RestaurantDetailComponent from '../../src/js/restaurant_detail/RestaurantDetailComponent';
 
 describe('RestaurantDetailComponent', () => {
     it('displays the restaurant passed in props', () => {

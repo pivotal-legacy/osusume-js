@@ -5,9 +5,9 @@ import { Provider } from 'react-redux';
 
 import React from 'react';
 import AppComponent from '../src/js/AppComponent';
-import ContainerRestaurantListComponent from '../src/js/ContainerRestaurantListComponent';
-import ContainerRestaurantDetailComponent from '../src/js/ContainerRestaurantDetailComponent';
-import ContainerRestaurantNewComponent from '../src/js/ContainerRestaurantNewComponent';
+import ContainerRestaurantListComponent from '../src/js/restaurant_list/ContainerRestaurantListComponent';
+import ContainerRestaurantDetailComponent from '../src/js/restaurant_detail/ContainerRestaurantDetailComponent';
+import ContainerRestaurantNewComponent from '../src/js/new_restaurant/ContainerRestaurantNewComponent';
 
 describe('AppComponent', () => {
     it('renders all the routes', () => {

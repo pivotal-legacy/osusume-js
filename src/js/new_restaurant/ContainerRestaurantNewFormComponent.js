@@ -1,7 +1,7 @@
-import * as actions from './Actions'
+import * as actions from '../Actions'
 import {connect} from 'react-redux'
 import RestaurantNewFormComponent from './RestaurantNewFormComponent'
-import S3FileUploader from './S3FileUploader'
+import S3FileUploader from '../S3FileUploader'
 import {hashHistory} from "react-router"
 
 export const mapStateToProps = (state) => {

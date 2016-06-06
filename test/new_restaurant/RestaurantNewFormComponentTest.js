@@ -1,9 +1,9 @@
 import { shallow, mount } from 'enzyme'
 import expect from 'expect'
 import React from 'react'
-import RestaurantNewFormComponent from '../src/js/RestaurantNewFormComponent'
-import CuisineTypeSelectionComponent from '../src/js/CuisineTypeSelectionComponent'
-import PriceRangeSelectionComponent from '../src/js/PriceRangeSelectionComponent'
+import RestaurantNewFormComponent from '../../src/js/new_restaurant/RestaurantNewFormComponent'
+import CuisineTypeSelectionComponent from '../../src/js/new_restaurant/CuisineTypeSelectionComponent'
+import PriceRangeSelectionComponent from '../../src/js/new_restaurant/PriceRangeSelectionComponent'
 
 describe('RestaurantNewFormComponent displays correct components', () => {
   let suggestion = {name: 'Afuri', address: 'Roppongi'}

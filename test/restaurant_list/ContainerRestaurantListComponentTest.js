@@ -1,8 +1,8 @@
 import expect from 'expect';
-import { fetchRestaurants } from '../src/js/Actions'
+import { fetchRestaurants } from '../../src/js/Actions'
 
 import React from 'react';
-import {mapStateToProps, mapDispatchToProps} from '../src/js/ContainerRestaurantListComponent';
+import {mapStateToProps, mapDispatchToProps} from '../../src/js/restaurant_list/ContainerRestaurantListComponent';
 
 describe('ContainerRestaurantListComponent', () => {
     it('mapsStateToProps', () => {

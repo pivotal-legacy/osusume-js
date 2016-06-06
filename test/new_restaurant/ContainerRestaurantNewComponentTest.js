@@ -1,7 +1,7 @@
 import React from 'react';
 import expect from 'expect';
-import {fetchSuggestions, selectSuggestion, fetchPriceRanges} from '../src/js/Actions'
-import {mapStateToProps, mapDispatchToProps} from '../src/js/ContainerRestaurantNewComponent';
+import {fetchSuggestions, selectSuggestion, fetchPriceRanges} from '../../src/js/Actions'
+import {mapStateToProps, mapDispatchToProps} from '../../src/js/new_restaurant/ContainerRestaurantNewComponent';
 
 describe('ContainerRestaurantNewComponent', () => {
   it('mapsStateToProps', () => {

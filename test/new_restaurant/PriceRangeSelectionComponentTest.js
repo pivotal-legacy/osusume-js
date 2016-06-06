@@ -1,7 +1,7 @@
 import expect from 'expect';
 import { shallow } from 'enzyme';
 import React from 'react';
-import PriceRangeSelectionComponent from '../src/js/PriceRangeSelectionComponent'
+import PriceRangeSelectionComponent from '../../src/js/new_restaurant/PriceRangeSelectionComponent'
 
 describe('PriceRangeSelectionComponent', () => {
   let priceRanges = [

@@ -3,8 +3,8 @@ import { createStore } from 'redux';
 import { mount, shallow } from 'enzyme';
 import React from 'react';
 
-import {mapStateToProps, mapDispatchToProps} from '../src/js/ContainerRestaurantDetailComponent';
-import { fetchRestaurants } from '../src/js/Actions'
+import {mapStateToProps, mapDispatchToProps} from '../../src/js/restaurant_detail/ContainerRestaurantDetailComponent';
+import { fetchRestaurants } from '../../src/js/Actions'
 
 describe('ContainerRestaurantDetailComponent', () => {
     it('mapsStateToProps', () => {

@@ -1,7 +1,7 @@
 import expect from 'expect';
 import { mount, shallow } from 'enzyme';
 import React from 'react';
-import RestaurantSuggestionComponent from '../src/js/RestaurantSuggestionComponent';
+import RestaurantSuggestionComponent from '../../src/js/new_restaurant/RestaurantSuggestionComponent';
 
 describe('RestaurantSuggestionComponent', () => {
   it('calls selectSuggestion when clicked', () => {

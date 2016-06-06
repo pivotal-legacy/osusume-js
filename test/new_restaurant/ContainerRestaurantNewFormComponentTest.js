@@ -1,6 +1,6 @@
 import expect from 'expect';
-import {fetchPriceRanges, fetchCuisineTypes, addNewRestaurant } from '../src/js/Actions'
-import { mapStateToProps, mapDispatchToProps } from '../src/js/ContainerRestaurantNewFormComponent'
+import {fetchPriceRanges, fetchCuisineTypes, addNewRestaurant } from '../../src/js/Actions'
+import { mapStateToProps, mapDispatchToProps } from '../../src/js/new_restaurant/ContainerRestaurantNewFormComponent'
 
 describe('ContainerRestaurantNewFormComponent', () => {
   it('mapStateToProps', () => {

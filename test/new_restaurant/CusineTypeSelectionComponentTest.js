@@ -1,7 +1,7 @@
 import expect from 'expect';
 import { shallow } from 'enzyme';
 import React from 'react';
-import CuisineTypeSelectionComponent from '../src/js/CuisineTypeSelectionComponent'
+import CuisineTypeSelectionComponent from '../../src/js/new_restaurant/CuisineTypeSelectionComponent'
 
 describe('CuisineTypeSelectionComponent', () => {
   let cuisineTypes = [

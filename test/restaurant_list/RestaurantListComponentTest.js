@@ -2,8 +2,8 @@ import expect from 'expect';
 import { mount, shallow } from 'enzyme';
 
 import React from 'react';
-import RestaurantListComponent from '../src/js/RestaurantListComponent';
-import RestaurantComponent from '../src/js/RestaurantListItemComponent';
+import RestaurantListComponent from '../../src/js/restaurant_list/RestaurantListComponent';
+import RestaurantComponent from '../../src/js/restaurant_list/RestaurantListItemComponent';
 
 describe('RestaurantListComponent', () => {
     it('displays the restaurants passed as props', () => {
