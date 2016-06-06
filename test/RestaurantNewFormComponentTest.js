@@ -16,6 +16,7 @@ describe('RestaurantNewFormComponent displays correct components', () => {
     {id: 1, range: '¥0~999'}
   ]
 
+
   it('displays restaurant details', () => {
     let component = shallow(<RestaurantNewFormComponent suggestion={suggestion} />)
     expect(component.contains(<div>{suggestion.name}</div>)).toBe(true)
@@ -52,8 +53,11 @@ describe('RestaurantNewFormComponent displays correct components', () => {
   })
 })
 
-  describe('RestaurantNewFormComponent calls correct function', () => {
-    let suggestion = {name: 'Afuri', address: 'Roppongi'}
+describe('RestaurantNewFormComponent calls correct function', () => {
+  let suggestion = {name: 'Afuri', address: 'Roppongi'}
+  let hashHistory = {
+    push: () => {}
+  }
 
   it('calls fetchCuisinetypes  in componentDidMount', () => {
     let props = {
@@ -73,9 +77,9 @@ describe('RestaurantNewFormComponent displays correct components', () => {
     expect(props.fetchPriceRanges.calls.length).toBe(1)
   })
 
-  it('calls onSubmit handler with new restaurant data when clicked', () => {
+  it('calls onSubmit handler with new restaurant data when "save" is clicked', () => {
     const handler = expect.createSpy();
-    const component = mount(<RestaurantNewFormComponent suggestion={suggestion} addNewRestaurant={handler} fetchCuisineTypes={()=>{}} fetchPriceRanges={()=>{}} fileUploder={()=>{}}/>);
+    const component = mount(<RestaurantNewFormComponent hashHistory={hashHistory} suggestion={suggestion} addNewRestaurant={handler} fetchCuisineTypes={()=>{}} fetchPriceRanges={()=>{}} fileUploder={()=>{}}/>);
     let instance = component.instance()
     component.find('button').simulate('click');
     expect(handler).toHaveBeenCalledWith(
@@ -86,6 +90,15 @@ describe('RestaurantNewFormComponent displays correct components', () => {
       instance.state.selectedPhoto,
       instance.props.fileUploader
     );
+  })
+
+  it('redirects to the list of restaurants when "save" is clicked', () => {
+    const handler = expect.createSpy();
+    const hashHandler = expect.spyOn(hashHistory, 'push')
+    const component = mount(<RestaurantNewFormComponent hashHistory={hashHistory} suggestion={suggestion} addNewRestaurant={handler} fetchCuisineTypes={()=>{}} fetchPriceRanges={()=>{}} fileUploder={()=>{}}/>);
+    let instance = component.instance()
+    component.find('button').simulate('click');
+    expect(hashHandler).toHaveBeenCalledWith('/')
   })
 
   it('sets state when cuisineHandleChanged is called with new cuisine type id ', () => {

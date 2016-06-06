@@ -51,6 +51,7 @@ export default class RestaurantNewFormComponent extends React.Component {
       this.state.selectedPhoto,
       this.props.fileUploader
     )
+    this.props.hashHistory.push('/')
   }
 
   selectPhoto(e) {
