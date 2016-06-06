@@ -1,12 +1,12 @@
 import AWS from 'aws-sdk'
 
 export default class S3FileUploader {
-  constructor(bucket) {
-    AWS.config.update({
-      accessKeyId: process.env.S3_ACCESS_KEY_ID,
-      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY
-    })
-    this.bucket = bucket ? bucket : new AWS.S3({region: 'ap-northeast-1', Bucket: 'osusume-tokyo-dev'});
+  constructor(bucket=new AWS.S3) {
+    AWS.config.region = 'ap-northeast-1';
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: `ap-northeast-1:${process.env.S3_IDENTITY_POOL_ID}`
+    });
+    this.bucket = bucket;
   }
 
   upload(file) {

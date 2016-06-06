@@ -15,8 +15,7 @@ module.exports = {
         }),
         new webpack.EnvironmentPlugin([
             "API_SERVER",
-            "S3_ACCESS_KEY_ID",
-            "S3_SECRET_ACCESS_KEY"
+            "S3_IDENTITY_POOL_ID"
         ])],
     node: {
       fs: 'empty'
