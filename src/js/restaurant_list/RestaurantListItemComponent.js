@@ -7,7 +7,7 @@ export default function RestaurantListItemComponent(props) {
         cuisineName = props.restaurant.cuisine.name;
     }
     let photo;
-    if ( props.restaurant.photo_urls ) {
+    if ( props.restaurant.photo_urls && props.restaurant.photo_urls.length > 0 ) {
       photo = <img src={props.restaurant.photo_urls[0].url} width={210}  />
     }
     return (
