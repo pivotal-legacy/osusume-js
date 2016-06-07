@@ -177,7 +177,6 @@ function login(nextAction, ...args) {
   }
 
   return dispatch => {
-    dispatch(requestRestaurants())
     return fetch(`${process.env.API_SERVER}/session`, config)
       .then(response => response.json())
       .then((json) => {
