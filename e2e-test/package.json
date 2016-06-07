@@ -1,0 +1,17 @@
+{
+  "name": "osusume-js-e2e-test",
+  "version": "0.0.0",
+  "repository": "https://github.com/pivotal-tokyo/osusume-js",
+  "license": "MIT",
+  "description": "End-to-end tests for Osusume",
+  "scripts": {
+    "test": "./node_modules/.bin/wdio wdio.config.js"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "expect": "^1.20.1",
+    "wdio-mocha-framework": "^0.3.1",
+    "webdriverio": "^4.0.9"
+  }
+}
