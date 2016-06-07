@@ -7,7 +7,7 @@
 ## End-to-end tests
 ### Start server:
 - `cd osusume-java-spring`
-- `java -jar build/libs/osusume-java-spring-0.0.1-SNAPSHOT.jar`
+- `OSUSUME_DATABASE_URL=jdbc:postgresql://pivotal:@localhost/osusume-test java -jar applications/api/build/libs/osusume-java-spring-0.0.1-SNAPSHOT.jar`
 
 ### Start client:
 - `npm start`
