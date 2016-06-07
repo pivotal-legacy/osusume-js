@@ -1,8 +1,8 @@
 # osusume-js
 
-- `make install`
-- `make test`
-- `make start`
+- `npm install`
+- `npm test`
+- `npm start`
 
 ## Deploy
-- `make deploy`
+- `npm run deploy`
