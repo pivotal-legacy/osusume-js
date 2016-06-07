@@ -5,6 +5,7 @@ describe('restaurants', function() {
         browser.url('http://localhost:8000');
 
         expect(browser.getText('h1')).toEqual('Restaurants');
+        browser.waitForExist('.name');
         expect(browser.getText('.name')).toInclude('Butagumi');
 
         browser.click('button');
