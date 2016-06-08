@@ -3,7 +3,7 @@ import S3FileUploader from '../src/js/S3FileUploader'
 import AWS from 'aws-sdk'
 
 describe("S3FileUploader", () => {
-  it("creates the fetchRestaurants action if the token exists", (done) => {
+  it("creates the fetchRestaurants action if the token exists", () => {
     let file = {name: "myfile.txt", type: 'image/png'}
     let uuid = {v4: () => {return 'my-uuid'}}
     let expectedUrl = 'http://its.a.party!!'
@@ -27,9 +27,8 @@ describe("S3FileUploader", () => {
 
     expect(actualParams).toEqual(expectedParams)
 
-    promise.then((url) => {
+    return promise.then((url) => {
       expect(url).toEqual(expectedUrl)
-      done()
     })
   })
 })
