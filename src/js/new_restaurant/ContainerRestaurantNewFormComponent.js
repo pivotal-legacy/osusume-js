@@ -3,12 +3,13 @@ import {connect} from 'react-redux'
 import RestaurantNewFormComponent from './RestaurantNewFormComponent'
 import S3FileUploader from '../S3FileUploader'
 import {hashHistory} from "react-router"
+import uuid from 'node-uuid'
 
 export const mapStateToProps = (state) => {
   return {
     priceRanges: state.priceRanges,
     cuisineTypes: state.cuisineTypes,
-    fileUploader: new S3FileUploader(),
+    fileUploader: new S3FileUploader(uuid),
     hashHistory: hashHistory
   }
 }
