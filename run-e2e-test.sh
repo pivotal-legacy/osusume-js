@@ -1,6 +1,7 @@
 cd ../osusume-java-spring
 ./gradlew build
- OSUSUME_DATABASE_URL=jdbc:postgresql://pivotal:@localhost/osusume-test java -jar applications/api/build/libs/osusume-java-spring-0.0.1-SNAPSHOT.jar &
+make test-loadsampledata
+OSUSUME_DATABASE_URL=jdbc:postgresql://pivotal:@localhost/osusume-test java -jar applications/api/build/libs/osusume-java-spring-0.0.1-SNAPSHOT.jar &
 JAVA_SERVER_PID=$!
 cd ../osusume-js
 
