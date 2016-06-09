@@ -1,5 +1,6 @@
 import * as types from "./constants/ActionTypes"
 import fetch from "isomorphic-fetch"
+import {hashHistory} from "react-router"
 
 function receiveRestaurants(json) {
   return {
@@ -36,7 +37,7 @@ function receiveCreatedRestaurant(json) {
   }
 }
 
-function fetchRestaurantsWithUser() {
+export function fetchRestaurants() {
   return dispatch => {
     return fetch(`${process.env.API_SERVER}/restaurants`, authorizationConfig())
       .then(response => response.json())
@@ -44,7 +45,7 @@ function fetchRestaurantsWithUser() {
   }
 }
 
-function fetchSuggestionsWithUser(name) {
+export function fetchSuggestions(name) {
   return dispatch => {
     let config = Object.assign({}, authorizationConfig(),
       {method: "POST", body: JSON.stringify({restaurantName: name})}
@@ -56,7 +57,7 @@ function fetchSuggestionsWithUser(name) {
   }
 }
 
-function fetchCuisineTypesWithUser() {
+export function fetchCuisineTypes() {
   return dispatch => {
     return fetch(`${process.env.API_SERVER}/cuisines`, authorizationConfig())
       .then(response => response.json())
@@ -65,7 +66,7 @@ function fetchCuisineTypesWithUser() {
 }
 
 
-function fetchPriceRangesWithUser() {
+export function fetchPriceRanges() {
   return dispatch => {
     return fetch(`${process.env.API_SERVER}/priceranges`, authorizationConfig())
       .then(response => response.json())
@@ -100,7 +101,7 @@ function uploadPhoto(nextAction, restaurant, file, fileUploader) {
   }
 }
 
-function addNewRestaurantWithUser(name, address, cuisineId, priceRangeId, file, fileUploader) {
+export function addNewRestaurant(name, address, cuisineId, priceRangeId, file, fileUploader) {
   return dispatch => {
     let restaurant = {
       name: name,
@@ -117,59 +118,7 @@ function addNewRestaurantWithUser(name, address, cuisineId, priceRangeId, file, 
   }
 }
 
-export function fetchRestaurants() {
-  return dispatch => {
-    if (token()) {
-      return dispatch(fetchRestaurantsWithUser())
-    } else {
-      return dispatch(login(fetchRestaurantsWithUser))
-    }
-  }
-}
-
-export function fetchSuggestions(name) {
-  return dispatch => {
-    if (token()) {
-      return dispatch(fetchSuggestionsWithUser(name))
-    } else {
-      return dispatch(login(fetchSuggestionsWithUser, name))
-    }
-  }
-}
-
-export function fetchCuisineTypes() {
-  return dispatch => {
-    if (token()) {
-      return dispatch(fetchCuisineTypesWithUser())
-    } else {
-      return dispatch(login(fetchCuisineTypesWithUser()))
-    }
-  }
-}
-
-export function fetchPriceRanges() {
-  return dispatch => {
-    if (token()) {
-      return dispatch(fetchPriceRangesWithUser())
-    } else {
-      return dispatch(login(fetchPriceRangesWithUser()))
-    }
-  }
-}
-
-export function addNewRestaurant(name, address, cuisineId, priceRangeId, file, fileUploader) {
-  return dispatch => {
-    if (token()) {
-      return dispatch(addNewRestaurantWithUser(name, address, cuisineId, priceRangeId, file, fileUploader))
-    } else {
-      return dispatch(login(addNewRestaurantWithUser(name, address, cuisineId, priceRangeId, file, fileUploader)))
-    }
-  }
-}
-
-function login(nextAction, ...args) {
-  let email = 'danny'
-  let password = 'danny'
+export function login(email, password, hashHistoryParam = hashHistory) {
   let config = {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -181,7 +130,7 @@ function login(nextAction, ...args) {
       .then(response => response.json())
       .then((json) => {
         localStorage.setItem('token', json.token)
-        dispatch(nextAction(...args))
+        hashHistoryParam.push('/')
       })
   }
 }
@@ -189,12 +138,8 @@ function login(nextAction, ...args) {
 function authorizationConfig() {
   return {
     headers: {
-      'Authorization': `Bearer ${token()}`,
+      'Authorization': `Bearer ${localStorage.getItem('token')}`,
       'Content-Type': 'application/json'
     }
   }
-}
-
-function token() {
-  return localStorage.getItem('token')
 }

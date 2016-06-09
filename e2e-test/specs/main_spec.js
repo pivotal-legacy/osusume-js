@@ -4,8 +4,15 @@ describe('restaurants', function() {
     it('shows list of restaurants and adds a restaurant', function () {
         browser.url('http://localhost:8000');
 
-        expect(browser.getText('h1')).toEqual('Restaurants');
+        expect(browser.getText('h1')).toEqual('login');
+        var email = browser.element('.email');
+        email.setValue('danny');
+        var password = browser.element('.password');
+        password.setValue('danny');
+        browser.click('button');
+
         browser.waitForExist('.name');
+        expect(browser.getText('h1')).toEqual('Restaurants');
         expect(browser.getText('.name')).toInclude('Butagumi');
 
         browser.click('button');

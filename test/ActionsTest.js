@@ -26,8 +26,8 @@ describe("Actions", () => {
         'Authorization': 'Bearer party'
       }
     })
-      .get('/restaurants')
-      .reply(200, restaurants)
+    .get('/restaurants')
+    .reply(200, restaurants)
 
     const expectedActions = [
       {type: types.FETCH_RESTAURANTS_SUCCESS, restaurants: restaurants}
@@ -53,8 +53,8 @@ describe("Actions", () => {
       method: 'POST',
       body: {restaurantName: 'Afuri'}
     })
-      .post('/restaurant_suggestions')
-      .reply(200, suggestions)
+    .post('/restaurant_suggestions')
+    .reply(200, suggestions)
 
     const expectedActions = [
       {type: types.FETCH_SUGGESTIONS_SUCCESS, suggestions: suggestions}
@@ -76,8 +76,9 @@ describe("Actions", () => {
     ]
     nock('http://localhost:8080', {
       headers: {'Authorization': 'Bearer party'}
-    }).get('/cuisines')
-      .reply(200, cuisineTypes)
+    })
+    .get('/cuisines')
+    .reply(200, cuisineTypes)
 
     const expectedActions = [
       {type: types.FETCH_CUISINE_TYPES_SUCCESS, cuisineTypes: cuisineTypes}
@@ -99,8 +100,9 @@ describe("Actions", () => {
     ]
     nock('http://localhost:8080', {
       headers: {'Authorization': 'Bearer party'}
-    }).get('/priceranges')
-      .reply(200, priceRanges)
+    })
+    .get('/priceranges')
+    .reply(200, priceRanges)
 
     const expectedActions = [
       {type: types.FETCH_PRICE_RANGES_SUCCESS, priceRanges: priceRanges}
@@ -129,8 +131,8 @@ describe("Actions", () => {
         photo_urls: [{url: 'http://its.a.party!!'}]
       }
     })
-      .post('/restaurants')
-      .reply(200, {})
+    .post('/restaurants')
+    .reply(200, {})
 
     const store = mockStore([])
 
@@ -167,8 +169,8 @@ describe("Actions", () => {
         photo_urls: []
       }
     })
-      .post('/restaurants')
-      .reply(200, restaurant)
+    .post('/restaurants')
+    .reply(200, restaurant)
 
     let s3FileUploader = new S3FileUploader()
     expect.spyOn(s3FileUploader, 'upload')
@@ -182,6 +184,30 @@ describe("Actions", () => {
         expect(s3FileUploader.upload).toNotHaveBeenCalled()
         expect(nock.isDone()).toEqual(true)
         expect(store.getActions()).toEqual(expectedActions)
+      })
+  })
+
+  it("logs the user in", () => {
+    const store = mockStore([])
+    nock('http://localhost:8080', {
+      method: 'POST',
+      body: {
+        email: 'danny@pivotal.io',
+        password: 'password'
+      }
+    })
+    .post('/session')
+    .reply(200, {token: 'party'})
+    let hashHistory = {
+      push: () => {}
+    }
+    const hashHandler = expect.spyOn(hashHistory, 'push')
+
+    return store.dispatch(actions.login('danny@pivotal.io', 'password', hashHistory))
+      .then(() => {
+        expect(nock.isDone()).toEqual(true)
+        expect(localStorage.getItem('token')).toEqual('party')
+        expect(hashHandler).toHaveBeenCalledWith('/')
       })
   })
 })
