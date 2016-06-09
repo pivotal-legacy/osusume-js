@@ -9,9 +9,11 @@ export default class RestaurantNewFormComponent extends React.Component {
     this.priceRangeHandleChanged = this.priceRangeHandleChanged.bind(this)
     this.saveRestaurant = this.saveRestaurant.bind(this)
     this.selectPhoto = this.selectPhoto.bind(this)
+    this.noteChanged = this.noteChanged.bind(this)
     this.state = {
       selectedCuisine: 0,
       selectedPriceRange: 0,
+      notes: '',
       selectedPhoto: undefined
     }
   }
@@ -42,12 +44,19 @@ export default class RestaurantNewFormComponent extends React.Component {
     this.setState({selectedPriceRange: value})
   }
 
+  noteChanged(e) {
+    this.setState({notes: e.target.value})
+  }
+
   saveRestaurant() {
     this.props.addNewRestaurant(
-      this.props.suggestion.name,
-      this.props.suggestion.address,
-      this.state.selectedCuisine,
-      this.state.selectedPriceRange,
+      {
+        name: this.props.suggestion.name,
+        address: this.props.suggestion.address,
+        cuisine_id: this.state.selectedCuisine,
+        price_range_id: this.state.selectedPriceRange,
+        notes: this.state.notes
+      },
       this.state.selectedPhoto,
       this.props.fileUploader
     )
@@ -66,7 +75,9 @@ export default class RestaurantNewFormComponent extends React.Component {
         {this.renderSelectedSuggestion()}
         <CuisineTypeSelectionComponent cuisineTypes={this.props.cuisineTypes} changeHandler={this.cuisineHandleChanged} />
         <PriceRangeSelectionComponent priceRanges={this.props.priceRanges} changeHandler={this.priceRangeHandleChanged}/>
-          <button onClick={this.saveRestaurant}>save</button>
+        <textarea className="notes" onChange={this.noteChanged}></textarea>
+
+        <button onClick={this.saveRestaurant}>save</button>
       </div>
     )
   }

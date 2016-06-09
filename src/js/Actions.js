@@ -101,15 +101,10 @@ function uploadPhoto(nextAction, restaurant, file, fileUploader) {
   }
 }
 
-export function addNewRestaurant(name, address, cuisineId, priceRangeId, file, fileUploader) {
+export function addNewRestaurant(restaurant, file, fileUploader) {
   return dispatch => {
-    let restaurant = {
-      name: name,
-      address: address,
-      cuisine_id: cuisineId,
-      price_range_id: priceRangeId,
-      photo_urls: []
-    }
+    restaurant['photo_urls'] = []
+
     if (file == undefined) {
       return dispatch(createRestaurant(restaurant))
     } else {

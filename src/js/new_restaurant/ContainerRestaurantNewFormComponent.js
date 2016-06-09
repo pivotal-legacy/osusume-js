@@ -22,8 +22,8 @@ export const mapDispatchToProps = (dispatch) => {
     fetchCuisineTypes: () => {
       dispatch(actions.fetchCuisineTypes())
     },
-    addNewRestaurant: (name, address, cuisineId, priceRangeId, file, fileUploader) => {
-      dispatch(actions.addNewRestaurant(name, address, cuisineId, priceRangeId, file, fileUploader))
+    addNewRestaurant: (restaurant, file, fileUploader) => {
+      dispatch(actions.addNewRestaurant(restaurant, file, fileUploader))
     }
   }
 }

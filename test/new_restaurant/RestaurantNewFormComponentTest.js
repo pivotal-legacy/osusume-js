@@ -51,6 +51,12 @@ describe('RestaurantNewFormComponent displays correct components', () => {
     expect(component.contains(<label>Add Photo</label>)).toBe(true)
     expect(component.contains(<input type="file" onChange={instance.selectPhoto}/>)).toBe(true)
   })
+
+  it('shows input area for notes', () => {
+    let component = shallow(<RestaurantNewFormComponent />)
+    let instance = component.instance()
+    expect(component.contains(<textarea className="notes" onChange={instance.noteChanged}></textarea>)).toBe(true)
+  })
 })
 
 describe('RestaurantNewFormComponent calls correct function', () => {
@@ -81,12 +87,17 @@ describe('RestaurantNewFormComponent calls correct function', () => {
     const handler = expect.createSpy();
     const component = mount(<RestaurantNewFormComponent hashHistory={hashHistory} suggestion={suggestion} addNewRestaurant={handler} fetchCuisineTypes={()=>{}} fetchPriceRanges={()=>{}} fileUploder={()=>{}}/>);
     let instance = component.instance()
+    component.find('.notes').get(0).value = '美味しいです'
+    component.find('.notes').simulate('change')
     component.find('button').simulate('click');
     expect(handler).toHaveBeenCalledWith(
-      suggestion.name,
-      suggestion.address,
-      instance.state.selectedCuisine,
-      instance.state.selectedPriceRange,
+      {
+        name: suggestion.name,
+        address: suggestion.address,
+        cuisine_id: instance.state.selectedCuisine,
+        price_range_id: instance.state.selectedPriceRange,
+        notes: '美味しいです'
+      },
       instance.state.selectedPhoto,
       instance.props.fileUploader
     );

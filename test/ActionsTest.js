@@ -121,17 +121,16 @@ describe("Actions", () => {
     nock('http://localhost:8080', {
       headers: {
         'Authorization': 'Bearer party'
-      },
-      method: 'POST',
-      body: {
-        name: 'Afuri',
-        address: 'Roppongi',
-        cuisineId: 0,
-        priceRangeId: 1,
-        photo_urls: [{url: 'http://its.a.party!!'}]
       }
     })
-    .post('/restaurants')
+    .post('/restaurants', {restaurant: {
+      name: 'Afuri',
+      address: 'Roppongi',
+      cuisineId: 0,
+      priceRangeId: 1,
+      notes: 'notes',
+      photo_urls: [{url: 'http://its.a.party!!'}]
+    }})
     .reply(200, {})
 
     const store = mockStore([])
@@ -146,7 +145,8 @@ describe("Actions", () => {
     expect.spyOn(s3FileUploader, 'upload').andReturn(promise)
 
     let file = {name: "myfile.txt"}
-    return store.dispatch(actions.addNewRestaurant('AFURI', 'Roppongi', 0, 1, file, s3FileUploader))
+    let restaurantParam = {name: 'Afuri', address: 'Roppongi', cuisineId: 0, priceRangeId: 1, notes: 'notes'}
+    return store.dispatch(actions.addNewRestaurant(restaurantParam, file, s3FileUploader))
       .then(() => {
         expect(s3FileUploader.upload).toHaveBeenCalledWith(file)
         expect(nock.isDone()).toEqual(true)
@@ -159,17 +159,16 @@ describe("Actions", () => {
     nock('http://localhost:8080', {
       headers: {
         'Authorization': 'Bearer party'
-      },
-      method: 'POST',
-      body: {
-        name: 'Afuri',
-        address: 'Roppongi',
-        cuisineId: 0,
-        priceRangeId: 1,
-        photo_urls: []
       }
     })
-    .post('/restaurants')
+    .post('/restaurants', {restaurant: {
+      name: 'Afuri',
+      address: 'Roppongi',
+      cuisineId: 0,
+      priceRangeId: 1,
+      notes: 'notes',
+      photo_urls: []
+    }})
     .reply(200, restaurant)
 
     let s3FileUploader = new S3FileUploader()
@@ -179,7 +178,8 @@ describe("Actions", () => {
       {type: types.CREATE_RESTAURANT_SUCCESS, restaurant: restaurant}
     ]
 
-    return store.dispatch(actions.addNewRestaurant('AFURI', 'Roppongi', 0, 1, undefined, s3FileUploader))
+    let restaurantParam = {name: 'Afuri', address: 'Roppongi', cuisineId: 0, priceRangeId: 1, notes: 'notes'}
+    return store.dispatch(actions.addNewRestaurant(restaurantParam, undefined, s3FileUploader))
       .then(() => {
         expect(s3FileUploader.upload).toNotHaveBeenCalled()
         expect(nock.isDone()).toEqual(true)
