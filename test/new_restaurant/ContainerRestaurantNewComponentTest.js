@@ -1,6 +1,6 @@
 import React from 'react';
 import expect from 'expect';
-import {fetchSuggestions, selectSuggestion, fetchPriceRanges} from '../../src/js/Actions'
+import * as actions from '../../src/js/Actions'
 import {mapStateToProps, mapDispatchToProps} from '../../src/js/new_restaurant/ContainerRestaurantNewComponent';
 
 describe('ContainerRestaurantNewComponent', () => {
@@ -18,7 +18,9 @@ describe('ContainerRestaurantNewComponent', () => {
 
   it('mapsDispatchToProps fetchSuggestions', () => {
     let dispatch = expect.createSpy();
+    var spy = expect.spyOn(actions, 'fetchSuggestions')
     mapDispatchToProps(dispatch).fetchSuggestions('Afuri');
-    expect(dispatch).toHaveBeenCalledWith(fetchSuggestions('Afuri'));
+    expect(spy).toHaveBeenCalledWith('Afuri')
+    expect(dispatch).toHaveBeenCalledWith(actions.fetchSuggestions());
   });
 });

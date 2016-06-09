@@ -1,5 +1,5 @@
 import expect from 'expect';
-import {fetchPriceRanges, fetchCuisineTypes, addNewRestaurant } from '../../src/js/Actions'
+import * as actions from '../../src/js/Actions'
 import { mapStateToProps, mapDispatchToProps } from '../../src/js/new_restaurant/ContainerRestaurantNewFormComponent'
 
 describe('ContainerRestaurantNewFormComponent', () => {
@@ -24,18 +24,21 @@ describe('ContainerRestaurantNewFormComponent', () => {
   it('mapDispatchToProps fetchPriceRanges', () => {
     let dispatch = expect.createSpy()
     mapDispatchToProps(dispatch).fetchPriceRanges()
-    expect(dispatch).toHaveBeenCalledWith(fetchPriceRanges())
+    expect(dispatch).toHaveBeenCalledWith(actions.fetchPriceRanges())
   })
 
   it('mapDispatchToProps fetchCuisineTypes', () => {
     let dispatch = expect.createSpy()
     mapDispatchToProps(dispatch).fetchCuisineTypes()
-    expect(dispatch).toHaveBeenCalledWith(fetchCuisineTypes())
+    expect(dispatch).toHaveBeenCalledWith(actions.fetchCuisineTypes())
   })
 
   it('mapDispatchToProps addNewRestaurant', () => {
     let dispatch = expect.createSpy()
-    mapDispatchToProps(dispatch).addNewRestaurant('Afuri', 'Roppongi', 0, 1)
-    expect(dispatch).toHaveBeenCalledWith(addNewRestaurant('Afuri', 'Roppongi', 0, 1))
+    let fileUploader = expect.createSpy()
+    var spy = expect.spyOn(actions, 'addNewRestaurant')
+    mapDispatchToProps(dispatch).addNewRestaurant('Afuri', 'Roppongi', 0, 1, {name: 'ramen.png'}, fileUploader)
+    expect(spy).toHaveBeenCalledWith('Afuri', 'Roppongi', 0, 1, {name: 'ramen.png'}, fileUploader)
+    expect(dispatch).toHaveBeenCalledWith(actions.addNewRestaurant())
   })
 })
