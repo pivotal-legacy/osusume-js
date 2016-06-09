@@ -75,6 +75,7 @@ export default class RestaurantNewFormComponent extends React.Component {
         {this.renderSelectedSuggestion()}
         <CuisineTypeSelectionComponent cuisineTypes={this.props.cuisineTypes} changeHandler={this.cuisineHandleChanged} />
         <PriceRangeSelectionComponent priceRanges={this.props.priceRanges} changeHandler={this.priceRangeHandleChanged}/>
+        <label>Notes</label>
         <textarea className="notes" onChange={this.noteChanged}></textarea>
 
         <button onClick={this.saveRestaurant}>save</button>
