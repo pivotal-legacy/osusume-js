@@ -14,12 +14,15 @@ describe('RestaurantDetailComponent', () => {
             user: {id: 0, email: "danny", name: "Danny"},
             address: "Roppongi",
             notes: "good",
+            photo_urls: [{url: 'https://hoge/image.jpg'}, {url: 'https://hoge/image2.jpg'}],
             num_likes: 5,
             created_at: "2016-05-26T10:03:17.736Z"
         };
         const component = shallow(<RestaurantDetailComponent restaurant={restaurant} />);
 
         expect(component.contains(<h1>Afuri</h1>)).toBe(true);
+        expect(component.contains(<img key={0} src='https://hoge/image.jpg' width={210}  />)).toBe(true)
+        expect(component.contains(<img key={1} src='https://hoge/image2.jpg' width={210}  />)).toBe(true)
         expect(component.contains(<div className="cuisine">Japanese</div>)).toBe(true);
         expect(component.contains(<div className="price-range">¥0~999</div>)).toBe(true);
         expect(component.contains(<div className="date">5/26/2016 by Danny</div>)).toBe(true);

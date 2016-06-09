@@ -1,4 +1,5 @@
 import React from 'react';
+import {pluralize} from '../utils/StringHelpers'
 
 export default class RestaurantDetailComponent extends React.Component {
     componentDidMount() {
@@ -7,47 +8,38 @@ export default class RestaurantDetailComponent extends React.Component {
         }
     }
 
-    formatAuthor() {
-        var date = new Date(this.props.restaurant.created_at)
-        var author = this.props.restaurant.user ? this.props.restaurant.user.name : ""
-        return `${date.toLocaleDateString()} by ${author}`;
-    }
-
-    formatLikes() {
-        var likes = this.props.restaurant.num_likes
-        if (likes ==  1) { return `${likes} like` }
-        return `${likes} likes`
-    }
-
-    restaurantDetails() {
-        if (this.props.restaurant) {
-            return  (
-              <div>
-                <h1>{this.props.restaurant.name}</h1>
-                <div className="cuisine">{
-                    this.props.restaurant.cuisine ? this.props.restaurant.cuisine.name : ""
-                }
-                </div>
-                <div className="address">{this.props.restaurant.address}</div>
-                <div className="notes">{this.props.restaurant.notes}</div>
-                <div className="num-likes">{ this.formatLikes() }</div>
-                <div className="price-range">{
-                  this.props.restaurant.price_range
-                }</div>
-                <div className="date">{
-                    this.formatAuthor()
-                }</div>
-
-              </div>
-            );
-        } else {
-            return null
-        }
-    }
-
     render() {
-        return (
-          this.restaurantDetails()
-        );
+
+      let restaurant = this.props.restaurant
+      if (restaurant) {
+        let photo_urls = restaurant.photo_urls || []
+        let images = photo_urls.map((photo_url, index) => {
+          return (<img key={index} src={photo_url.url} width={210}  />)
+        })
+
+        let date = new Date(restaurant.created_at)
+        let author = restaurant.user ? restaurant.user.name : ""
+        let formatAuthor =  `${date.toLocaleDateString()} by ${author}`;
+
+        return  (
+          <div>
+            <div>{images}</div>
+            <h1>{restaurant.name}</h1>
+
+            <div className="cuisine">{
+                restaurant.cuisine ? restaurant.cuisine.name : ""
+            }
+            </div>
+            <div className="address">{restaurant.address}</div>
+            <div className="notes">{restaurant.notes}</div>
+            <div className="num-likes">{ pluralize(restaurant.num_likes, 'like') }</div>
+            <div className="price-range">{restaurant.price_range}</div>
+            <div className="date">{formatAuthor}</div>
+
+          </div>
+        )
+      } else {
+          return null
+      }
     }
 }
