@@ -3,6 +3,10 @@ import * as actions from '../../src/js/Actions'
 import { mapDispatchToProps } from '../../src/js/login/ContainerLoginComponent'
 
 describe('ContainerLoginComponent', () => {
+  afterEach(function () {
+    expect.restoreSpies()
+  })
+
   it('mapDispatchToProps login', () => {
     let dispatch = expect.createSpy()
     let email = 'danny@pivotal.io'

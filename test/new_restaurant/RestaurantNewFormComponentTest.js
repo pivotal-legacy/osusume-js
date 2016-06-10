@@ -16,6 +16,9 @@ describe('RestaurantNewFormComponent displays correct components', () => {
     {id: 1, range: '¥0~999'}
   ]
 
+  afterEach(function () {
+    expect.restoreSpies()
+  })
 
   it('displays restaurant details', () => {
     let component = shallow(<RestaurantNewFormComponent suggestion={suggestion} />)

@@ -7,24 +7,28 @@ import {mapStateToProps, mapDispatchToProps} from '../../src/js/restaurant_detai
 import * as actions from '../../src/js/Actions'
 
 describe('ContainerRestaurantDetailComponent', () => {
-    it('mapsStateToProps', () => {
-        let state = {
-            restaurants: [{id: 0, name: 'Afuri'}, {id: 1, name: 'Tsukemen'}]
-        };
+  afterEach(function () {
+    expect.restoreSpies()
+  })
 
-        expect(mapStateToProps(state, {params: {restaurantId: 0}}).restaurant).toEqual({id: 0, name: 'Afuri'});
-    });
+  it('mapsStateToProps', () => {
+    let state = {
+      restaurants: [{id: 0, name: 'Afuri'}, {id: 1, name: 'Tsukemen'}]
+    };
 
-    it('mapsDispatchToProps', () => {
-        let dispatch = expect.createSpy();
-        let props = {
-          params: {
-            restaurantId: 17
-          }
-        }
-        var spy = expect.spyOn(actions, 'fetchRestaurant')
-        mapDispatchToProps(dispatch, props).fetchRestaurant();
-        expect(spy).toHaveBeenCalledWith(17)
-        expect(dispatch).toHaveBeenCalledWith(actions.fetchRestaurant());
-    });
+    expect(mapStateToProps(state, {params: {restaurantId: 0}}).restaurant).toEqual({id: 0, name: 'Afuri'});
+  });
+
+  it('mapsDispatchToProps', () => {
+    let dispatch = expect.createSpy();
+    let props = {
+      params: {
+        restaurantId: 17
+      }
+    }
+    var spy = expect.spyOn(actions, 'fetchRestaurant')
+    mapDispatchToProps(dispatch, props).fetchRestaurant();
+    expect(spy).toHaveBeenCalledWith(17)
+    expect(dispatch).toHaveBeenCalledWith(actions.fetchRestaurant());
+  });
 });

@@ -3,6 +3,10 @@ import * as actions from '../../src/js/Actions'
 import { mapStateToProps, mapDispatchToProps } from '../../src/js/new_restaurant/ContainerRestaurantNewFormComponent'
 
 describe('ContainerRestaurantNewFormComponent', () => {
+  afterEach(function () {
+    expect.restoreSpies()
+  })
+
   it('mapStateToProps', () => {
     let priceRanges = [
       {id: 0, range: 'Not Specified'},

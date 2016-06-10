@@ -1,8 +1,13 @@
 import expect from 'expect'
-import reducer from '../src/js/Reducer'
-import * as types from '../src/js/constants/ActionTypes'
+import reducer from '../../src/js/reducers/Reducer'
+import * as types from '../../src/js/constants/ActionTypes'
+import * as restaurantReducer from '../../src/js/reducers/RestaurantReducer'
 
 describe('Reducer', () => {
+  afterEach(function () {
+    expect.restoreSpies()
+  })
+
   it('returns the initial state', () => {
     expect(
       reducer(undefined, {})
@@ -14,7 +19,7 @@ describe('Reducer', () => {
     })
   })
 
-  it('returns the list of restaurants when the action is FETCH_RESTAURANTS_SUCCESS', () => {
+  it('calls restaurants when the action is FETCH_RESTAURANTS_SUCCESS', () => {
     let restaurants = [
       {id: 0, name: 'Afuri'},
       {id: 1, name: 'Tsukemen'}
@@ -23,61 +28,53 @@ describe('Reducer', () => {
       type: types.FETCH_RESTAURANTS_SUCCESS,
       restaurants: restaurants
     }
-
-    expect(reducer(undefined, action)).toEqual({
-      restaurants: [
-        {id: 0, name: 'Afuri'},
-        {id: 1, name: 'Tsukemen'}
-      ],
-      suggestions: [],
-      cuisineTypes: [],
-      priceRanges: []
-    })
-  })
-
-  it('returns a restaurant when the action is FETCH_RESTAURANT_SUCCESS', () => {
-    let restaurant = {id: 0, name: 'Afuri', comments: ['i love it']}
-    let action = {
-      type: types.FETCH_RESTAURANT_SUCCESS,
-      restaurant: restaurant
-    }
-
     let state = {
-      restaurants: [
-        {id: 0, name: 'Afuri'},
-        {id: 1, name: 'Pizzakaya'}
-      ],
+      restaurants: [],
       suggestions: [],
       cuisineTypes: [],
       priceRanges: []
     }
-    expect(reducer(state, action)).toEqual({
-      restaurants: [
-        {id: 0, name: 'Afuri', comments: ['i love it']},
-        {id: 1, name: 'Pizzakaya'}
-      ],
-      suggestions: [],
-      cuisineTypes: [],
-      priceRanges: []
-    })
+    var spy = expect.spyOn(restaurantReducer, 'restaurants')
+    reducer(state, action)
+    expect(spy).toHaveBeenCalledWith(state.restaurants, action)
   })
 
-  it('returns a restaurant when the action is FETCH_RESTAURANT_SUCCESS and there are no restaurants yet', () => {
-    let restaurant = {id: 0, name: 'Afuri', comments: ['i love it']}
+  it('calls restaurants when the action is FETCH_RESTAURANT_SUCCESS', () => {
+    let restaurant = {id: 0, name: 'Afuri'}
+
     let action = {
       type: types.FETCH_RESTAURANT_SUCCESS,
       restaurant: restaurant
     }
-
-    expect(reducer(undefined, action)).toEqual({
-      restaurants: [
-        restaurant
-      ],
+    let state = {
+      restaurants: [],
       suggestions: [],
       cuisineTypes: [],
       priceRanges: []
-    })
+    }
+    var spy = expect.spyOn(restaurantReducer, 'restaurants')
+    reducer(state, action)
+    expect(spy).toHaveBeenCalledWith(state.restaurants, action)
   })
+
+  it('calls restaurants when the action is CREATE_RESTAURANT_SUCCESS', () => {
+    let restaurant = {id: 0, name: 'Afuri'}
+
+    let action = {
+      type: types.CREATE_RESTAURANT_SUCCESS,
+      restaurant: restaurant
+    }
+    let state = {
+      restaurants: [],
+      suggestions: [],
+      cuisineTypes: [],
+      priceRanges: []
+    }
+    var spy = expect.spyOn(restaurantReducer, 'restaurants')
+    reducer(state, action)
+    expect(spy).toHaveBeenCalledWith(state.restaurants, action)
+  })
+
 
   it('returns the list of suggestions when the action is FETCH_SUGGESTIONS_SUCCESS', () => {
     let suggestions  = [
@@ -132,29 +129,6 @@ describe('Reducer', () => {
       suggestions: [],
       cuisineTypes: [],
       priceRanges: priceRanges
-    })
-  })
-
-  it('returns all restaurants with the new restaurant at the head of the list when action is CREATE_RESTAURANT_SUCCESS', () => {
-    let existingRestaurant = {name: "Butagumi", address: "Roppongi"}
-    let newRestaurant = {name: "Afuri", address: "Roppongi"}
-    let action = {
-      type: types.CREATE_RESTAURANT_SUCCESS,
-      restaurant: newRestaurant
-    }
-
-    let existingState = {
-      restaurants: [existingRestaurant],
-      suggestions: [],
-      cuisineTypes: [],
-      priceRanges: []
-    }
-
-    expect(reducer(existingState, action)).toEqual({
-      restaurants: [newRestaurant, existingRestaurant],
-      suggestions: [],
-      cuisineTypes: [],
-      priceRanges: []
     })
   })
 })

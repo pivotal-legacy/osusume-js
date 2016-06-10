@@ -4,6 +4,10 @@ import * as actions from '../../src/js/Actions'
 import {mapStateToProps, mapDispatchToProps} from '../../src/js/new_restaurant/ContainerRestaurantNewComponent';
 
 describe('ContainerRestaurantNewComponent', () => {
+  afterEach(function () {
+    expect.restoreSpies()
+  })
+
   it('mapsStateToProps', () => {
     let suggestions = [
       {name: 'Afuri', address: 'Roppongi'},
@@ -21,6 +25,6 @@ describe('ContainerRestaurantNewComponent', () => {
     var spy = expect.spyOn(actions, 'fetchSuggestions')
     mapDispatchToProps(dispatch).fetchSuggestions('Afuri');
     expect(spy).toHaveBeenCalledWith('Afuri')
-    expect(dispatch).toHaveBeenCalledWith(actions.fetchSuggestions());
+    expect(dispatch).toHaveBeenCalledWith(actions.fetchSuggestions())
   });
 });

@@ -13,6 +13,7 @@ describe("Actions", () => {
   afterEach(() => {
     nock.cleanAll()
     localStorage.clear()
+    expect.restoreSpies()
   })
 
   it("creates the fetchRestaurants action", () => {
