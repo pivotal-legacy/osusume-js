@@ -25,12 +25,9 @@ describe('RestaurantDetailComponent', () => {
       notes: "good",
       photo_urls: [{url: 'https://hoge/image.jpg'}, {url: 'https://hoge/image2.jpg'}],
       num_likes: 5,
-      created_at: "2016-05-26T10:03:17.736Z",
-      comments: [
-        comment
-      ]
+      created_at: "2016-05-26T10:03:17.736Z"
     }
-    const component = shallow(<RestaurantDetailComponent restaurant={restaurant} />)
+    const component = shallow(<RestaurantDetailComponent restaurant={restaurant} comments={[comment]} />)
 
     expect(component.contains(<h1>Afuri</h1>)).toBe(true)
     expect(component.contains(<img key={0} src='https://hoge/image.jpg' width={210}  />)).toBe(true)
@@ -41,8 +38,7 @@ describe('RestaurantDetailComponent', () => {
     expect(component.contains(<div className="address">Roppongi</div>)).toBe(true)
     expect(component.contains(<div className="notes">good</div>)).toBe(true)
     expect(component.contains(<div className="num-likes">5 likes</div>)).toBe(true)
-    expect(component.contains(<CommentComponent comment={comment} />))
-    // expect(component.contains(<div className="comment"><span>I love it</span><span>6/9/2016</span><span>Danny</span></div>)).toBe(true)
+    expect(component.contains(<CommentComponent comment={comment} />)).toBe(true)
   })
 
   it('displays likes pluralized correctly', () => {
@@ -59,12 +55,37 @@ describe('RestaurantDetailComponent', () => {
     ).toBe(true)
   })
 
-  it('fetches the restaurant', () => {
+  it('fetches the comments', () => {
     let props = {
+      fetchComments: expect.createSpy(),
+      fetchRestaurant: expect.createSpy()
+    }
+    expect(props.fetchComments.calls.length).toBe(0)
+    mount(<RestaurantDetailComponent {...props} />)
+    expect(props.fetchComments.calls.length).toBe(1)
+  })
+
+  it('fetches the restaurant if there is no restaurant available in props', () => {
+    let props = {
+      fetchComments: expect.createSpy(),
       fetchRestaurant: expect.createSpy()
     }
     expect(props.fetchRestaurant.calls.length).toBe(0)
     mount(<RestaurantDetailComponent {...props} />)
     expect(props.fetchRestaurant.calls.length).toBe(1)
+  })
+
+  it('does not fetch the restaurant if there is one available in props', () => {
+    let props = {
+      fetchComments: expect.createSpy(),
+      fetchRestaurant: expect.createSpy(),
+      restaurant: {
+        id: 1,
+        name: 'Afuri'
+      }
+    }
+    expect(props.fetchRestaurant.calls.length).toBe(0)
+    mount(<RestaurantDetailComponent {...props} />)
+    expect(props.fetchRestaurant.calls.length).toBe(0)
   })
 })

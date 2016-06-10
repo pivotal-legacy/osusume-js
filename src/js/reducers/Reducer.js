@@ -5,7 +5,8 @@ const initialState = {
   restaurants: [],
   suggestions: [],
   cuisineTypes: [],
-  priceRanges: []
+  priceRanges: [],
+  comments: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -24,6 +25,9 @@ const reducer = (state = initialState, action) => {
     case types.FETCH_PRICE_RANGES_SUCCESS:
       return Object.assign({}, state,
         {priceRanges: action.priceRanges})
+    case types.FETCH_COMMENTS_SUCCESS:
+      return Object.assign({}, state,
+        {comments: action.comments})
     default:
       return state
   }

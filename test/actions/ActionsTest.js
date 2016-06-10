@@ -89,6 +89,29 @@ describe("Actions", () => {
       })
   })
 
+  it("creates the fetchComments action", () => {
+    localStorage.setItem('token', 'party')
+    let comments = [
+      {id: 0, content: 'Not Specified', restaurant_id: 10},
+      {id: 1, content: 'This is second comment', restaurant_id: 10}
+    ]
+    nock('http://localhost:8080', {
+      headers: {'Authorization': 'Bearer party'}
+    })
+    .get('/restaurants/10/comments')
+    .reply(200, comments)
+
+    const expectedActions = [
+      {type: types.FETCH_COMMENTS_SUCCESS, comments: comments}
+    ]
+    const store = mockStore([])
+    return store.dispatch(actions.fetchComments(10))
+      .then(() => {
+        expect(nock.isDone()).toEqual(true)
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+  })
+
   it("logs the user in", () => {
     const store = mockStore([])
     nock('http://localhost:8080', {

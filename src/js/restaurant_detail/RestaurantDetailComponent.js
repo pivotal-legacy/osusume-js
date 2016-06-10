@@ -5,7 +5,10 @@ import CommentComponent from './CommentComponent'
 
 export default class RestaurantDetailComponent extends React.Component {
     componentDidMount() {
-      this.props.fetchRestaurant();
+      this.props.fetchComments()
+      if ( this.props.restaurant == undefined ) {
+        this.props.fetchRestaurant()
+      }
     }
 
     render() {
@@ -21,7 +24,7 @@ export default class RestaurantDetailComponent extends React.Component {
         let author = restaurant.user ? restaurant.user.name : ""
         let formatAuthor =  `${date.toLocaleDateString()} by ${author}`;
 
-        let comments = restaurant.comments || []
+        let comments = this.props.comments || []
         let commentsToDisplay = comments.map((comment) => {
           return (<CommentComponent key={comment.id} comment={comment} />)
         })

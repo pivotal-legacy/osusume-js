@@ -1,30 +1,36 @@
 import { connect } from 'react-redux'
-import RestaurantDetailComponent from './RestaurantDetailComponent';
-import * as restaurantActions from '../actions/RestaurantActions';
+import RestaurantDetailComponent from './RestaurantDetailComponent'
+import * as actions from '../actions/Actions'
+import * as restaurantActions from '../actions/RestaurantActions'
+
 
 const findRestaurant = (state, restaurantId) => {
-    return state.restaurants.find((restaurant) => {
-        return restaurant.id == restaurantId;
-    });
-};
+  return state.restaurants.find((restaurant) => {
+    return restaurant.id == restaurantId
+  })
+}
 
 export const mapStateToProps = (state, ownProps) => {
-    return {
-        restaurant: findRestaurant(state, ownProps.params.restaurantId)
-    }
-};
+  return {
+    restaurant: findRestaurant(state, ownProps.params.restaurantId),
+    comments: state.comments
+  }
+}
 
 export const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-        fetchRestaurant: () => {
-            dispatch(restaurantActions.fetchRestaurant(ownProps.params.restaurantId))
-        }
+  return {
+    fetchComments: () => {
+      dispatch(actions.fetchComments(ownProps.params.restaurantId))
+    },
+    fetchRestaurant: () => {
+      dispatch(restaurantActions.fetchRestaurant(ownProps.params.restaurantId))
     }
-};
+  }
+}
 
 const ContainerRestaurantDetailComponent = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(RestaurantDetailComponent);
+  mapStateToProps,
+  mapDispatchToProps
+)(RestaurantDetailComponent)
 
-export default ContainerRestaurantDetailComponent;
+export default ContainerRestaurantDetailComponent

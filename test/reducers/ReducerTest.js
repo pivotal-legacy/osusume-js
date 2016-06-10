@@ -15,7 +15,8 @@ describe('Reducer', () => {
       restaurants: [],
       suggestions: [],
       cuisineTypes: [],
-      priceRanges: []
+      priceRanges: [],
+      comments: []
     })
   })
 
@@ -32,7 +33,8 @@ describe('Reducer', () => {
       restaurants: [],
       suggestions: [],
       cuisineTypes: [],
-      priceRanges: []
+      priceRanges: [],
+      comments: []
     }
     var spy = expect.spyOn(restaurantReducer, 'restaurants')
     reducer(state, action)
@@ -41,7 +43,6 @@ describe('Reducer', () => {
 
   it('calls restaurants when the action is FETCH_RESTAURANT_SUCCESS', () => {
     let restaurant = {id: 0, name: 'Afuri'}
-
     let action = {
       type: types.FETCH_RESTAURANT_SUCCESS,
       restaurant: restaurant
@@ -50,7 +51,8 @@ describe('Reducer', () => {
       restaurants: [],
       suggestions: [],
       cuisineTypes: [],
-      priceRanges: []
+      priceRanges: [],
+      comments: []
     }
     var spy = expect.spyOn(restaurantReducer, 'restaurants')
     reducer(state, action)
@@ -68,7 +70,8 @@ describe('Reducer', () => {
       restaurants: [],
       suggestions: [],
       cuisineTypes: [],
-      priceRanges: []
+      priceRanges: [],
+      comments: []
     }
     var spy = expect.spyOn(restaurantReducer, 'restaurants')
     reducer(state, action)
@@ -90,7 +93,8 @@ describe('Reducer', () => {
       restaurants: [],
       suggestions: suggestions,
       cuisineTypes: [],
-      priceRanges: []
+      priceRanges: [],
+      comments: []
     })
   })
 
@@ -109,7 +113,8 @@ describe('Reducer', () => {
       restaurants: [],
       suggestions: [],
       cuisineTypes: cuisineTypes,
-      priceRanges: []
+      priceRanges: [],
+      comments: []
     })
   })
 
@@ -128,7 +133,27 @@ describe('Reducer', () => {
       restaurants: [],
       suggestions: [],
       cuisineTypes: [],
-      priceRanges: priceRanges
+      priceRanges: priceRanges,
+      comments: []
+    })
+  })
+
+  it('returns the comments the action is FETCH_COMMENTS_SUCCESS', () => {
+    let comments = [
+      {id: 0, content: 'It is delicious'},
+      {id: 1, content: 'this is second comment'}
+    ]
+    let action = {
+      type: types.FETCH_COMMENTS_SUCCESS,
+      comments: comments
+    }
+
+    expect(reducer(undefined, action)).toEqual({
+      restaurants: [],
+      suggestions: [],
+      cuisineTypes: [],
+      priceRanges: [],
+      comments: comments
     })
   })
 })

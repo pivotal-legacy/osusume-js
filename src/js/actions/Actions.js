@@ -24,6 +24,13 @@ function receivePriceRanges(json) {
   }
 }
 
+function receiveComments(json) {
+  return {
+    type: types.FETCH_COMMENTS_SUCCESS,
+    comments: json
+  }
+}
+
 export function fetchSuggestions(name) {
   return dispatch => {
     let config = Object.assign({}, authorizationConfig(),
@@ -53,6 +60,13 @@ export function fetchPriceRanges() {
   }
 }
 
+export function fetchComments(restaurantId) {
+  return dispatch => {
+    return fetch(`${process.env.API_SERVER}/restaurants/${restaurantId}/comments`, authorizationConfig())
+      .then(response => response.json())
+      .then(json => dispatch(receiveComments(json)))
+  }
+}
 
 export function login(email, password, hashHistoryParam = hashHistory) {
   let config = {
