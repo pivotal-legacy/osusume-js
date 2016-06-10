@@ -2,6 +2,7 @@ import expect from 'expect'
 import reducer from '../../src/js/reducers/Reducer'
 import * as types from '../../src/js/constants/ActionTypes'
 import * as restaurantReducer from '../../src/js/reducers/RestaurantReducer'
+import * as commentReducer from '../../src/js/reducers/CommentReducer'
 
 describe('Reducer', () => {
   afterEach(function () {
@@ -29,16 +30,9 @@ describe('Reducer', () => {
       type: types.FETCH_RESTAURANTS_SUCCESS,
       restaurants: restaurants
     }
-    let state = {
-      restaurants: [],
-      suggestions: [],
-      cuisineTypes: [],
-      priceRanges: [],
-      comments: []
-    }
     var spy = expect.spyOn(restaurantReducer, 'restaurants')
-    reducer(state, action)
-    expect(spy).toHaveBeenCalledWith(state.restaurants, action)
+    reducer(undefined, action)
+    expect(spy).toHaveBeenCalledWith([], action)
   })
 
   it('calls restaurants when the action is FETCH_RESTAURANT_SUCCESS', () => {
@@ -47,16 +41,9 @@ describe('Reducer', () => {
       type: types.FETCH_RESTAURANT_SUCCESS,
       restaurant: restaurant
     }
-    let state = {
-      restaurants: [],
-      suggestions: [],
-      cuisineTypes: [],
-      priceRanges: [],
-      comments: []
-    }
     var spy = expect.spyOn(restaurantReducer, 'restaurants')
-    reducer(state, action)
-    expect(spy).toHaveBeenCalledWith(state.restaurants, action)
+    reducer(undefined, action)
+    expect(spy).toHaveBeenCalledWith([], action)
   })
 
   it('calls restaurants when the action is CREATE_RESTAURANT_SUCCESS', () => {
@@ -66,18 +53,32 @@ describe('Reducer', () => {
       type: types.CREATE_RESTAURANT_SUCCESS,
       restaurant: restaurant
     }
-    let state = {
-      restaurants: [],
-      suggestions: [],
-      cuisineTypes: [],
-      priceRanges: [],
-      comments: []
-    }
     var spy = expect.spyOn(restaurantReducer, 'restaurants')
-    reducer(state, action)
-    expect(spy).toHaveBeenCalledWith(state.restaurants, action)
+    reducer(undefined, action)
+    expect(spy).toHaveBeenCalledWith([], action)
   })
 
+  it('calls comments when the action is FETCH_COMMENTS_SUCCESS', () => {
+    let comment = {id: 0, content: 'comment!'}
+    let action = {
+      type: types.FETCH_COMMENTS_SUCCESS,
+      comments: [comment]
+    }
+    var spy = expect.spyOn(commentReducer, 'comments')
+    reducer(undefined, action)
+    expect(spy).toHaveBeenCalledWith([], action)
+  })
+
+  it('calls comments when the action is CREATE_COMMENT_SUCCESS', () => {
+    let comment = {content: 'comment!'}
+    let action = {
+      type: types.CREATE_COMMENT_SUCCESS,
+      comment: comment
+    }
+    var spy = expect.spyOn(commentReducer, 'comments')
+    reducer(undefined, action)
+    expect(spy).toHaveBeenCalledWith([], action)
+  })
 
   it('returns the list of suggestions when the action is FETCH_SUGGESTIONS_SUCCESS', () => {
     let suggestions  = [
@@ -138,40 +139,5 @@ describe('Reducer', () => {
     })
   })
 
-  it('returns the comments the action is FETCH_COMMENTS_SUCCESS', () => {
-    let comments = [
-      {id: 0, content: 'It is delicious'},
-      {id: 1, content: 'this is second comment'}
-    ]
-    let action = {
-      type: types.FETCH_COMMENTS_SUCCESS,
-      comments: comments
-    }
 
-    expect(reducer(undefined, action)).toEqual({
-      restaurants: [],
-      suggestions: [],
-      cuisineTypes: [],
-      priceRanges: [],
-      comments: comments
-    })
-  })
-
-  it('returns all comments with the added comment first when action is CREATE_COMMENT_SUCCESS', () => {
-    let comment = {restaurant_id: 0, content: 'i love it'}
-    let addedComment = {restaurant_id: 0, content: 'new comment'}
-    let action = {
-      type: types.CREATE_COMMENT_SUCCESS,
-      comment: addedComment
-    }
-    let state = {
-      restaurants: [],
-      suggestions: [],
-      cuisineTypes: [],
-      priceRanges: [],
-      comments: [comment]
-    }
-
-    expect(reducer(state, action).comments).toEqual([addedComment, comment])
-  })
 })

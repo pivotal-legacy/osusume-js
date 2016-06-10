@@ -1,5 +1,6 @@
 import * as types from '../constants/ActionTypes';
 import * as restaurantReducer from './RestaurantReducer'
+import * as commentReducer from './CommentReducer'
 
 const initialState = {
   restaurants: [],
@@ -26,11 +27,9 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state,
         {priceRanges: action.priceRanges})
     case types.FETCH_COMMENTS_SUCCESS:
-      return Object.assign({}, state,
-        {comments: action.comments})
     case types.CREATE_COMMENT_SUCCESS:
       return Object.assign({}, state,
-        {comments: [action.comment, ...state.comments]})
+        {comments: commentReducer.comments(state.comments, action)})
     default:
       return state
   }
