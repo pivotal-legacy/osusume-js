@@ -3,7 +3,6 @@ import RestaurantDetailComponent from './RestaurantDetailComponent'
 import * as actions from '../actions/Actions'
 import * as restaurantActions from '../actions/RestaurantActions'
 
-
 const findRestaurant = (state, restaurantId) => {
   return state.restaurants.find((restaurant) => {
     return restaurant.id == restaurantId
@@ -24,6 +23,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     },
     fetchRestaurant: () => {
       dispatch(restaurantActions.fetchRestaurant(ownProps.params.restaurantId))
+    },
+    createComment: (comment) => {
+      dispatch(restaurantActions.createComment(ownProps.params.restaurantId, comment))
     }
   }
 }

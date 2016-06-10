@@ -4,6 +4,7 @@ import { mount, shallow } from 'enzyme'
 import React from 'react'
 import RestaurantDetailComponent from '../../src/js/restaurant_detail/RestaurantDetailComponent'
 import CommentComponent from '../../src/js/restaurant_detail/CommentComponent'
+import CommentFormComponent from '../../src/js/restaurant_detail/CommentFormComponent'
 
 describe('RestaurantDetailComponent', () => {
   it('displays the restaurant passed in props', () => {
@@ -27,7 +28,8 @@ describe('RestaurantDetailComponent', () => {
       num_likes: 5,
       created_at: "2016-05-26T10:03:17.736Z"
     }
-    const component = shallow(<RestaurantDetailComponent restaurant={restaurant} comments={[comment]} />)
+    let createCommentCallback = function() {}
+    const component = shallow(<RestaurantDetailComponent restaurant={restaurant} comments={[comment]} createComment={createCommentCallback} />)
 
     expect(component.contains(<h1>Afuri</h1>)).toBe(true)
     expect(component.contains(<img key={0} src='https://hoge/image.jpg' width={210}  />)).toBe(true)
@@ -38,6 +40,7 @@ describe('RestaurantDetailComponent', () => {
     expect(component.contains(<div className="address">Roppongi</div>)).toBe(true)
     expect(component.contains(<div className="notes">good</div>)).toBe(true)
     expect(component.contains(<div className="num-likes">5 likes</div>)).toBe(true)
+    expect(component.contains(<CommentFormComponent createComment={createCommentCallback} />)).toBe(true)
     expect(component.contains(<CommentComponent comment={comment} />)).toBe(true)
   })
 

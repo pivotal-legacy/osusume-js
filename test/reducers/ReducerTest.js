@@ -156,4 +156,22 @@ describe('Reducer', () => {
       comments: comments
     })
   })
+
+  it('returns all comments with the added comment first when action is CREATE_COMMENT_SUCCESS', () => {
+    let comment = {restaurant_id: 0, content: 'i love it'}
+    let addedComment = {restaurant_id: 0, content: 'new comment'}
+    let action = {
+      type: types.CREATE_COMMENT_SUCCESS,
+      comment: addedComment
+    }
+    let state = {
+      restaurants: [],
+      suggestions: [],
+      cuisineTypes: [],
+      priceRanges: [],
+      comments: [comment]
+    }
+
+    expect(reducer(state, action).comments).toEqual([addedComment, comment])
+  })
 })

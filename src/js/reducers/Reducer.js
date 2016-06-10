@@ -28,6 +28,9 @@ const reducer = (state = initialState, action) => {
     case types.FETCH_COMMENTS_SUCCESS:
       return Object.assign({}, state,
         {comments: action.comments})
+    case types.CREATE_COMMENT_SUCCESS:
+      return Object.assign({}, state,
+        {comments: [action.comment, ...state.comments]})
     default:
       return state
   }

@@ -136,4 +136,32 @@ describe("RestaurantActions", () => {
         expect(store.getActions()).toEqual(expectedActions)
       })
   })
+
+  it("creates a comment", () => {
+    localStorage.setItem('token', 'party')
+    let comment = {
+      content: 'it is a comment',
+      created_at: 'date',
+      restaurant_id: 1,
+      user: {}
+    }
+    nock('http://localhost:8080', {
+      headers: {
+        'Authorization': 'Bearer party'
+      }
+    })
+    .post('/restaurants/1/comments', {comment: 'it is a comment'})
+    .reply(200, comment)
+
+    const store = mockStore([])
+    const expectedActions = [
+      {type: types.CREATE_COMMENT_SUCCESS, comment: comment}
+    ]
+
+    return store.dispatch(actions.createComment(1, 'it is a comment'))
+      .then(() => {
+        expect(nock.isDone()).toEqual(true)
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+  })
 })

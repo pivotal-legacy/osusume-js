@@ -25,6 +25,13 @@ function receiveCreatedRestaurant(json) {
   }
 }
 
+function receiveCreatedComment(json) {
+  return {
+    type: types.CREATE_COMMENT_SUCCESS,
+    comment: json
+  }
+}
+
 export function fetchRestaurant(restaurantId) {
   return dispatch => {
     return fetch(`${process.env.API_SERVER}/restaurants/${restaurantId}`, authorizationConfig())
@@ -68,6 +75,24 @@ export function addNewRestaurant(restaurant, file, fileUploader) {
     } else {
       return dispatch(uploadPhoto(createRestaurant, restaurant, file, fileUploader))
     }
+  }
+}
+
+export function createComment(restaurantId, comment) {
+  let config = Object.assign({}, authorizationConfig(),
+  {
+    method: "POST",
+    body: JSON.stringify(
+      {
+        comment: comment
+      }
+    )
+  }
+)
+  return dispatch => {
+    return fetch(`${process.env.API_SERVER}/restaurants/${restaurantId}/comments`, config)
+    .then(response => response.json())
+    .then(json => dispatch(receiveCreatedComment(json)))
   }
 }
 
