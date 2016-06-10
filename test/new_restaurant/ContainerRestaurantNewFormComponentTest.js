@@ -1,5 +1,6 @@
 import expect from 'expect';
-import * as actions from '../../src/js/Actions'
+import * as actions from '../../src/js/actions/Actions'
+import * as restaurantActions from '../../src/js/actions/RestaurantActions'
 import { mapStateToProps, mapDispatchToProps } from '../../src/js/new_restaurant/ContainerRestaurantNewFormComponent'
 
 describe('ContainerRestaurantNewFormComponent', () => {
@@ -40,10 +41,10 @@ describe('ContainerRestaurantNewFormComponent', () => {
   it('mapDispatchToProps addNewRestaurant', () => {
     let dispatch = expect.createSpy()
     let fileUploader = expect.createSpy()
-    var spy = expect.spyOn(actions, 'addNewRestaurant')
+    var spy = expect.spyOn(restaurantActions, 'addNewRestaurant')
     let restaurant = {name: 'Afuri', address: 'Roppongi', cuisine_id: 0, price_range_id: 1, notes: 'notes'}
     mapDispatchToProps(dispatch).addNewRestaurant(restaurant, {name: 'ramen.png'}, fileUploader)
     expect(spy).toHaveBeenCalledWith(restaurant, {name: 'ramen.png'}, fileUploader)
-    expect(dispatch).toHaveBeenCalledWith(actions.addNewRestaurant())
+    expect(dispatch).toHaveBeenCalledWith(restaurantActions.addNewRestaurant())
   })
 })

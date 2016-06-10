@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import RestaurantNewComponent from './RestaurantNewComponent';
-import * as actions from '../Actions';
+import * as actions from '../actions/Actions';
 
 export const mapStateToProps = (state) => {
   return {

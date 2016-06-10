@@ -1,5 +1,5 @@
 import expect from 'expect';
-import { fetchRestaurants } from '../../src/js/Actions'
+import { fetchRestaurants } from '../../src/js/actions/RestaurantActions'
 
 import React from 'react';
 import {mapStateToProps, mapDispatchToProps} from '../../src/js/restaurant_list/ContainerRestaurantListComponent';

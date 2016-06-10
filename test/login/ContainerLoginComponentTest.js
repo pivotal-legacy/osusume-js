@@ -1,5 +1,5 @@
 import expect from 'expect'
-import * as actions from '../../src/js/Actions'
+import * as actions from '../../src/js/actions/Actions'
 import { mapDispatchToProps } from '../../src/js/login/ContainerLoginComponent'
 
 describe('ContainerLoginComponent', () => {

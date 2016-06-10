@@ -4,7 +4,7 @@ import { mount, shallow } from 'enzyme';
 import React from 'react';
 
 import {mapStateToProps, mapDispatchToProps} from '../../src/js/restaurant_detail/ContainerRestaurantDetailComponent';
-import * as actions from '../../src/js/Actions'
+import * as restaurantActions from '../../src/js/actions/RestaurantActions'
 
 describe('ContainerRestaurantDetailComponent', () => {
   afterEach(function () {
@@ -26,9 +26,9 @@ describe('ContainerRestaurantDetailComponent', () => {
         restaurantId: 17
       }
     }
-    var spy = expect.spyOn(actions, 'fetchRestaurant')
+    var spy = expect.spyOn(restaurantActions, 'fetchRestaurant')
     mapDispatchToProps(dispatch, props).fetchRestaurant();
     expect(spy).toHaveBeenCalledWith(17)
-    expect(dispatch).toHaveBeenCalledWith(actions.fetchRestaurant());
+    expect(dispatch).toHaveBeenCalledWith(restaurantActions.fetchRestaurant());
   });
 });

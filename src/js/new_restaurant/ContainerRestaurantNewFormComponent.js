@@ -1,4 +1,5 @@
-import * as actions from '../Actions'
+import * as actions from '../actions/Actions'
+import * as restaurantActions from '../actions/RestaurantActions'
 import {connect} from 'react-redux'
 import RestaurantNewFormComponent from './RestaurantNewFormComponent'
 import S3FileUploader from '../S3FileUploader'
@@ -23,7 +24,7 @@ export const mapDispatchToProps = (dispatch) => {
       dispatch(actions.fetchCuisineTypes())
     },
     addNewRestaurant: (restaurant, file, fileUploader) => {
-      dispatch(actions.addNewRestaurant(restaurant, file, fileUploader))
+      dispatch(restaurantActions.addNewRestaurant(restaurant, file, fileUploader))
     }
   }
 }

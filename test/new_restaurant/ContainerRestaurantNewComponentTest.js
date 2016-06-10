@@ -1,6 +1,6 @@
 import React from 'react';
 import expect from 'expect';
-import * as actions from '../../src/js/Actions'
+import * as actions from '../../src/js/actions/Actions'
 import {mapStateToProps, mapDispatchToProps} from '../../src/js/new_restaurant/ContainerRestaurantNewComponent';
 
 describe('ContainerRestaurantNewComponent', () => {
