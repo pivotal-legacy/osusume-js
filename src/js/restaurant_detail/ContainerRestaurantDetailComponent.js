@@ -14,10 +14,10 @@ export const mapStateToProps = (state, ownProps) => {
     }
 };
 
-export const mapDispatchToProps = (dispatch) => {
+export const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        fetchRestaurants: () => {
-            dispatch(actions.fetchRestaurants())
+        fetchRestaurant: () => {
+            dispatch(actions.fetchRestaurant(ownProps.params.restaurantId))
         }
     }
 };

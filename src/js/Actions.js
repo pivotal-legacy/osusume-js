@@ -9,6 +9,13 @@ function receiveRestaurants(json) {
   }
 }
 
+function receiveRestaurant(json) {
+  return {
+    type: types.FETCH_RESTAURANT_SUCCESS,
+    restaurant: json
+  }
+}
+
 function receiveSuggestions(json) {
   return {
     type: types.FETCH_SUGGESTIONS_SUCCESS,
@@ -34,6 +41,14 @@ function receiveCreatedRestaurant(json) {
   return {
     type: types.CREATE_RESTAURANT_SUCCESS,
     restaurant: json
+  }
+}
+
+export function fetchRestaurant(restaurantId) {
+  return dispatch => {
+    return fetch(`${process.env.API_SERVER}/restaurants/${restaurantId}`, authorizationConfig())
+      .then(response => response.json())
+      .then(json => dispatch(receiveRestaurant(json)))
   }
 }
 

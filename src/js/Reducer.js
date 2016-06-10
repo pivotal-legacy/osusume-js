@@ -12,7 +12,19 @@ const reducer = (state, action) => {
   switch (action.type) {
     case types.FETCH_RESTAURANTS_SUCCESS:
       return Object.assign({}, state,
-          {restaurants: action.restaurants});
+        {restaurants: action.restaurants});
+    case types.FETCH_RESTAURANT_SUCCESS:
+      if (state.restaurants.length < 1) {
+        return Object.assign({}, state, {restaurants: [action.restaurant]})
+      }
+      return Object.assign({}, state,
+        {restaurants: state.restaurants.map((restaurant) => {
+          if(restaurant.id === action.restaurant.id) {
+            return Object.assign({}, restaurant, action.restaurant)
+          }
+          return restaurant
+        })
+      })
     case types.FETCH_SUGGESTIONS_SUCCESS:
       return Object.assign({}, state,
         {suggestions: action.suggestions});

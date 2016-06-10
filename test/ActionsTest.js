@@ -15,7 +15,7 @@ describe("Actions", () => {
     localStorage.clear()
   })
 
-  it("creates the fetchRestaurants action if the token exists", () => {
+  it("creates the fetchRestaurants action", () => {
     localStorage.setItem('token', 'party')
     let restaurants = [
       {id: 0, name: 'Afuri'},
@@ -35,6 +35,29 @@ describe("Actions", () => {
     const store = mockStore([])
 
     return store.dispatch(actions.fetchRestaurants())
+      .then(() => {
+        expect(nock.isDone()).toEqual(true)
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+  })
+
+  it("creates the fetchRestaurant action", () => {
+    localStorage.setItem('token', 'party')
+    let restaurant = {id: 17, name: 'Afuri'}
+    nock('http://localhost:8080', {
+      headers: {
+        'Authorization': 'Bearer party'
+      }
+    })
+    .get('/restaurants/17')
+    .reply(200, restaurant)
+
+    const expectedActions = [
+      {type: types.FETCH_RESTAURANT_SUCCESS, restaurant: restaurant}
+    ]
+    const store = mockStore([])
+
+    return store.dispatch(actions.fetchRestaurant(17))
       .then(() => {
         expect(nock.isDone()).toEqual(true)
         expect(store.getActions()).toEqual(expectedActions)

@@ -35,6 +35,50 @@ describe('Reducer', () => {
     })
   })
 
+  it('returns a restaurant when the action is FETCH_RESTAURANT_SUCCESS', () => {
+    let restaurant = {id: 0, name: 'Afuri', comments: ['i love it']}
+    let action = {
+      type: types.FETCH_RESTAURANT_SUCCESS,
+      restaurant: restaurant
+    }
+
+    let state = {
+      restaurants: [
+        {id: 0, name: 'Afuri'},
+        {id: 1, name: 'Pizzakaya'}
+      ],
+      suggestions: [],
+      cuisineTypes: [],
+      priceRanges: []
+    }
+    expect(reducer(state, action)).toEqual({
+      restaurants: [
+        {id: 0, name: 'Afuri', comments: ['i love it']},
+        {id: 1, name: 'Pizzakaya'}
+      ],
+      suggestions: [],
+      cuisineTypes: [],
+      priceRanges: []
+    })
+  })
+
+  it('returns a restaurant when the action is FETCH_RESTAURANT_SUCCESS and there are no restaurants yet', () => {
+    let restaurant = {id: 0, name: 'Afuri', comments: ['i love it']}
+    let action = {
+      type: types.FETCH_RESTAURANT_SUCCESS,
+      restaurant: restaurant
+    }
+
+    expect(reducer(undefined, action)).toEqual({
+      restaurants: [
+        restaurant
+      ],
+      suggestions: [],
+      cuisineTypes: [],
+      priceRanges: []
+    })
+  })
+
   it('returns the list of suggestions when the action is FETCH_SUGGESTIONS_SUCCESS', () => {
     let suggestions  = [
       {name: 'Afuri', address: 'Roppongi'},
