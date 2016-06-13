@@ -9,7 +9,7 @@ import ContainerRestaurantListComponent from '../src/js/restaurant_list/Containe
 import ContainerRestaurantDetailComponent from '../src/js/restaurant_detail/ContainerRestaurantDetailComponent'
 import ContainerRestaurantNewComponent from '../src/js/new_restaurant/ContainerRestaurantNewComponent'
 import ContainerLoginComponent from '../src/js/login/ContainerLoginComponent'
-import MyPageComponent from '../src/js/my_page/MyPageComponent'
+import ContainerMyPageComponent from '../src/js/my_page/ContainerMyPageComponent'
 import {requireAuth} from '../src/js/login/Authentication'
 
 describe('AppComponent', () => {
@@ -20,7 +20,7 @@ describe('AppComponent', () => {
     expect(component.contains(<Route path="/login" component={ContainerLoginComponent}/>)).toBe(true)
     expect(component.contains(<Route path="/restaurants/:restaurantId" component={ContainerRestaurantDetailComponent} onEnter={requireAuth}/>)).toBe(true)
     expect(component.contains(<Route path="/restaurants/new" component={ContainerRestaurantNewComponent} onEnter={requireAuth}/>)).toBe(true)
-    expect(component.contains(<Route path="/my_page" component={MyPageComponent} onEnter={requireAuth} />)).toBe(true)
+    expect(component.contains(<Route path="/my_page" component={ContainerMyPageComponent} onEnter={requireAuth} />)).toBe(true)
     expect(component.find(Provider).length).toBe(1)
     expect(component.find(Router).length).toBe(1)
   })

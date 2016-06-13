@@ -1,6 +1,5 @@
 import * as types from "../constants/ActionTypes"
 import fetch from "isomorphic-fetch"
-import {hashHistory} from "react-router"
 import {authorizationConfig} from './Authorization'
 
 function receiveSuggestions(json) {
@@ -65,23 +64,5 @@ export function fetchComments(restaurantId) {
     return fetch(`${process.env.API_SERVER}/restaurants/${restaurantId}/comments`, authorizationConfig())
       .then(response => response.json())
       .then(json => dispatch(receiveComments(json)))
-  }
-}
-
-export function login(email, password, hashHistoryParam = hashHistory) {
-  let config = {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({email: email, password: password})
-  }
-
-  return dispatch => {
-    return fetch(`${process.env.API_SERVER}/session`, config)
-      .then(response => response.json())
-      .then((json) => {
-        localStorage.setItem('token', json.token)
-        localStorage.setItem('userName', json.name)
-        hashHistoryParam.push('/')
-      })
   }
 }

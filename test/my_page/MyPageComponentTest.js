@@ -12,10 +12,12 @@ describe('MyPageComponent', () => {
 
   it('displays title and name of current user', () => {
     localStorage.setItem('userName', 'Danny')
-    const component = shallow(<MyPageComponent />)
+    let logoutCallback = function() {}
+    const component = shallow(<MyPageComponent logout={logoutCallback} />)
 
     expect(component.contains(<Link to="/"><button>restaurants</button></Link>)).toBe(true)
     expect(component.contains(<h1>my page</h1>)).toBe(true)
-    expect(component.contains(<div>Danny</div>)).toBe(true)
+    expect(component.contains(<span>Danny</span>)).toBe(true)
+    expect(component.contains(<button className='logout' onClick={logoutCallback}>logout</button>)).toBe(true)
   })
 })

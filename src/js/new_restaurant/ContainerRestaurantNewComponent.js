@@ -1,12 +1,12 @@
 import { connect } from 'react-redux'
-import RestaurantNewComponent from './RestaurantNewComponent';
-import * as actions from '../actions/Actions';
+import RestaurantNewComponent from './RestaurantNewComponent'
+import * as actions from '../actions/Actions'
 
 export const mapStateToProps = (state) => {
   return {
     suggestions: state.suggestions
   }
-};
+}
 
 export const mapDispatchToProps = (dispatch) => {
   return {
@@ -14,11 +14,11 @@ export const mapDispatchToProps = (dispatch) => {
       dispatch(actions.fetchSuggestions(name))
     }
   }
-};
+}
 
 const ContainerRestaurantNewComponent = connect(
   mapStateToProps,
   mapDispatchToProps
-)(RestaurantNewComponent);
+)(RestaurantNewComponent)
 
-export default ContainerRestaurantNewComponent;
+export default ContainerRestaurantNewComponent

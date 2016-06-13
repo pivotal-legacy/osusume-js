@@ -37,7 +37,7 @@ export default class RestaurantDetailComponent extends React.Component {
 
       return  (
         <div>
-          <Link to='/'><button>restaurants</button></Link>
+          <Link to='/'><button className='restaurantLink'>restaurants</button></Link>
           <div>{images}</div>
           <h1>{restaurant.name}</h1>
 

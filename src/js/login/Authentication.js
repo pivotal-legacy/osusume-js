@@ -1,7 +1,8 @@
 import {hashHistory} from 'react-router'
+import {getToken} from '../Session'
 
 export function requireAuth(nextState, replace) {
-    if (!localStorage.getItem('token')) {
-      replace({pathname: '/login', state: {}});
-    }
+  if (!getToken()) {
+    replace({pathname: '/login', state: {}});
   }
+}

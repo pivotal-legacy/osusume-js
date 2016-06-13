@@ -58,15 +58,22 @@ describe('restaurants', function() {
     }
 
     const likeAndRemoveLike = () => {
-      browser.click('.likes button')
+      browser.click('.likes button');
 
-      expect(browser.getText('.num-likes')).toInclude('1')
-      expect(browser.getText('.likes button')).toInclude('remove like')
+      expect(browser.getText('.num-likes')).toInclude('1');
+      expect(browser.getText('.likes button')).toInclude('remove like');
 
-      browser.click('.likes button')
+      browser.click('.likes button');
 
-      expect(browser.getText('.num-likes')).toInclude('0')
-      expect(browser.getText('.likes button')).toInclude('like')
+      expect(browser.getText('.num-likes')).toInclude('0');
+      expect(browser.getText('.likes button')).toInclude('like');
+    }
+
+    const logout = () => {
+      browser.click('.restaurantLink');
+      browser.click('.myPageLink');
+      browser.click('.logout');
+      expect(browser.getText('h1')).toEqual('login');
     }
 
     it('shows list of restaurants and adds a restaurant', function () {
@@ -83,5 +90,7 @@ describe('restaurants', function() {
         addComment();
 
         likeAndRemoveLike();
+
+        logout();
     });
 });

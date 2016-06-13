@@ -112,28 +112,5 @@ describe("Actions", () => {
       })
   })
 
-  it("logs the user in", () => {
-    const store = mockStore([])
-    nock('http://localhost:8080', {
-      method: 'POST',
-      body: {
-        email: 'danny@pivotal.io',
-        password: 'password'
-      }
-    })
-    .post('/session')
-    .reply(200, {token: 'party', name: 'Danny'})
-    let hashHistory = {
-      push: () => {}
-    }
-    const hashHandler = expect.spyOn(hashHistory, 'push')
 
-    return store.dispatch(actions.login('danny@pivotal.io', 'password', hashHistory))
-      .then(() => {
-        expect(nock.isDone()).toEqual(true)
-        expect(localStorage.getItem('token')).toEqual('party')
-        expect(localStorage.getItem('userName')).toEqual('Danny')
-        expect(hashHandler).toHaveBeenCalledWith('/')
-      })
-  })
 })
