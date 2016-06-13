@@ -26,6 +26,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     },
     createComment: (comment) => {
       dispatch(restaurantActions.createComment(ownProps.params.restaurantId, comment))
+    },
+    like: () => {
+      dispatch(restaurantActions.like(ownProps.params.restaurantId))
     }
   }
 }

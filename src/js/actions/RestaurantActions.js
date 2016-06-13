@@ -32,6 +32,13 @@ function receiveCreatedComment(json) {
   }
 }
 
+function receiveCreatedLike(json) {
+  return {
+    type: types.CREATE_LIKE_SUCCESS,
+    restaurantId: json.restaurantId
+  }
+}
+
 export function fetchRestaurant(restaurantId) {
   return dispatch => {
     return fetch(`${process.env.API_SERVER}/restaurants/${restaurantId}`, authorizationConfig())
@@ -45,6 +52,41 @@ export function fetchRestaurants() {
     return fetch(`${process.env.API_SERVER}/restaurants`, authorizationConfig())
       .then(response => response.json())
       .then(json => dispatch(receiveRestaurants(json)))
+  }
+}
+
+export function addNewRestaurant(restaurant, file, fileUploader) {
+  return dispatch => {
+    restaurant['photo_urls'] = []
+
+    if (file == undefined) {
+      return dispatch(createRestaurant(restaurant))
+    } else {
+      return dispatch(uploadPhoto(createRestaurant, restaurant, file, fileUploader))
+    }
+  }
+}
+
+export function createComment(restaurantId, comment) {
+  let config = Object.assign({}, authorizationConfig(),
+    {
+      method: "POST",
+      body: JSON.stringify({comment: comment})
+    }
+  )
+  return dispatch => {
+    return fetch(`${process.env.API_SERVER}/restaurants/${restaurantId}/comments`, config)
+    .then(response => response.json())
+    .then(json => dispatch(receiveCreatedComment(json)))
+  }
+}
+
+export function like(restaurantId) {
+  let config = Object.assign({}, authorizationConfig(), {method: "POST"})
+  return dispatch => {
+    return fetch(`${process.env.API_SERVER}/restaurants/${restaurantId}/likes`, config)
+    .then(response => response.json())
+    .then(json => dispatch(receiveCreatedLike(json)))
   }
 }
 
@@ -63,36 +105,6 @@ function createRestaurant(restaurant) {
     return fetch(`${process.env.API_SERVER}/restaurants`, config)
     .then(response => response.json())
     .then(json => dispatch(receiveCreatedRestaurant(json)))
-  }
-}
-
-export function addNewRestaurant(restaurant, file, fileUploader) {
-  return dispatch => {
-    restaurant['photo_urls'] = []
-
-    if (file == undefined) {
-      return dispatch(createRestaurant(restaurant))
-    } else {
-      return dispatch(uploadPhoto(createRestaurant, restaurant, file, fileUploader))
-    }
-  }
-}
-
-export function createComment(restaurantId, comment) {
-  let config = Object.assign({}, authorizationConfig(),
-  {
-    method: "POST",
-    body: JSON.stringify(
-      {
-        comment: comment
-      }
-    )
-  }
-)
-  return dispatch => {
-    return fetch(`${process.env.API_SERVER}/restaurants/${restaurantId}/comments`, config)
-    .then(response => response.json())
-    .then(json => dispatch(receiveCreatedComment(json)))
   }
 }
 

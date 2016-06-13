@@ -164,4 +164,26 @@ describe("RestaurantActions", () => {
         expect(store.getActions()).toEqual(expectedActions)
       })
   })
+
+  it("like", () => {
+    localStorage.setItem('token', 'party')
+    nock('http://localhost:8080', {
+      headers: {
+        'Authorization': 'Bearer party'
+      }
+    })
+    .post('/restaurants/1/likes')
+    .reply(200, {restaurantId: 1})
+
+    const store = mockStore([])
+    const expectedActions = [
+      {type: types.CREATE_LIKE_SUCCESS, restaurantId: 1}
+    ]
+
+    return store.dispatch(actions.like(1))
+      .then(() => {
+        expect(nock.isDone()).toEqual(true)
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+  })
 })

@@ -2,6 +2,13 @@ import * as types from '../constants/ActionTypes';
 
 export function restaurants(state = [], action) {
   switch (action.type) {
+    case types.CREATE_LIKE_SUCCESS:
+      return state.map((restaurant) => {
+        if(restaurant.id === action.restaurantId) {
+          return Object.assign({}, restaurant,
+            {num_likes: restaurant.num_likes + 1})
+        }
+      })
     case types.FETCH_RESTAURANTS_SUCCESS:
       return action.restaurants
     case types.FETCH_RESTAURANT_SUCCESS:

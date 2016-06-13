@@ -60,4 +60,17 @@ describe('ContainerRestaurantDetailComponent', () => {
       expect(spy).toHaveBeenCalledWith(17, 'it is a comment')
       expect(dispatch).toHaveBeenCalledWith(restaurantActions.createComment())
   })
+
+  it('mapsDispatchToProps for like', () => {
+    let dispatch = expect.createSpy()
+    let props = {
+      params: {
+        restaurantId: 17
+      }
+    }
+    var spy = expect.spyOn(restaurantActions, 'like')
+    mapDispatchToProps(dispatch, props).like()
+    expect(spy).toHaveBeenCalledWith(17)
+    expect(dispatch).toHaveBeenCalledWith(restaurantActions.like())
+  })
 })

@@ -11,10 +11,14 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
+  if (action.type == undefined)
+    return state
+
   switch (action.type) {
     case types.FETCH_RESTAURANTS_SUCCESS:
     case types.FETCH_RESTAURANT_SUCCESS:
     case types.CREATE_RESTAURANT_SUCCESS:
+    case types.CREATE_LIKE_SUCCESS:
       return Object.assign({}, state,
         {restaurants: restaurantReducer.restaurants(state.restaurants, action)})
     case types.FETCH_SUGGESTIONS_SUCCESS:

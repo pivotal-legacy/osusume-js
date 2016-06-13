@@ -29,8 +29,8 @@ describe('RestaurantDetailComponent', () => {
       created_at: "2016-05-26T10:03:17.736Z"
     }
     let createCommentCallback = function() {}
-    const component = shallow(<RestaurantDetailComponent restaurant={restaurant} comments={[comment]} createComment={createCommentCallback} />)
-
+    let likeCallback = function() {}
+    const component = shallow(<RestaurantDetailComponent restaurant={restaurant} comments={[comment]} createComment={createCommentCallback} like={likeCallback}/>)
     expect(component.contains(<h1>Afuri</h1>)).toBe(true)
     expect(component.contains(<img key={0} src='https://hoge/image.jpg' width={210}  />)).toBe(true)
     expect(component.contains(<img key={1} src='https://hoge/image2.jpg' width={210}  />)).toBe(true)
@@ -39,22 +39,23 @@ describe('RestaurantDetailComponent', () => {
     expect(component.contains(<div className="date">5/26/2016 by Danny</div>)).toBe(true)
     expect(component.contains(<div className="address">Roppongi</div>)).toBe(true)
     expect(component.contains(<div className="notes">good</div>)).toBe(true)
-    expect(component.contains(<div className="num-likes">5 likes</div>)).toBe(true)
+    expect(component.contains(<span className="num-likes">5 likes</span>)).toBe(true)
+    expect(component.contains(<button onClick={likeCallback}>like</button>)).toBe(true)
     expect(component.contains(<CommentFormComponent createComment={createCommentCallback} />)).toBe(true)
     expect(component.contains(<CommentComponent comment={comment} />)).toBe(true)
   })
 
   it('displays likes pluralized correctly', () => {
     expect(shallow(<RestaurantDetailComponent restaurant={{num_likes: 0}} />)
-      .contains(<div className="num-likes">0 likes</div>)
+      .contains(<span className="num-likes">0 likes</span>)
     ).toBe(true)
 
     expect(shallow(<RestaurantDetailComponent restaurant={{num_likes: 1}} />)
-      .contains(<div className="num-likes">1 like</div>)
+      .contains(<span className="num-likes">1 like</span>)
     ).toBe(true)
 
     expect(shallow(<RestaurantDetailComponent restaurant={{num_likes: 2}} />)
-      .contains(<div className="num-likes">2 likes</div>)
+      .contains(<span className="num-likes">2 likes</span>)
     ).toBe(true)
   })
 

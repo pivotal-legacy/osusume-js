@@ -58,6 +58,16 @@ describe('Reducer', () => {
     expect(spy).toHaveBeenCalledWith([], action)
   })
 
+  it('calls restaurants when the action is CREATE_LIKE_SUCCESS', () => {
+    let action = {
+      type: types.CREATE_LIKE_SUCCESS,
+      restaurantId: 1
+    }
+    var spy = expect.spyOn(restaurantReducer, 'restaurants')
+    reducer(undefined, action)
+    expect(spy).toHaveBeenCalledWith([], action)
+  })
+
   it('calls comments when the action is FETCH_COMMENTS_SUCCESS', () => {
     let comment = {id: 0, content: 'comment!'}
     let action = {

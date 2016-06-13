@@ -60,4 +60,19 @@ describe('RestaurantReducer', () => {
 
     expect(reducer.restaurants(existingState, action)).toEqual([newRestaurant, existingRestaurant])
   })
+
+  it('returns the restaurant with number of likes when the action is CREATE_LIKE_SUCCESS', () => {
+    let restaurants = [
+      {id: 1, comment: 'this is second comment', num_likes: 2}
+    ]
+    let action = {
+      type: types.CREATE_LIKE_SUCCESS,
+      restaurantId: 1
+    }
+    let updatedRestaurants = [
+      {id: 1, comment: 'this is second comment', num_likes: 3}
+    ]
+
+    expect(reducer.restaurants(restaurants, action)).toEqual(updatedRestaurants)
+  })
 })

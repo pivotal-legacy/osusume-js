@@ -40,7 +40,10 @@ export default class RestaurantDetailComponent extends React.Component {
             </div>
             <div className="address">{restaurant.address}</div>
             <div className="notes">{restaurant.notes}</div>
-            <div className="num-likes">{ pluralize(restaurant.num_likes, 'like') }</div>
+            <div>
+              <span className="num-likes">{ pluralize(restaurant.num_likes, 'like') }</span>
+              <button onClick={this.props.like}>like</button>
+            </div>
             <div className="price-range">{restaurant.price_range}</div>
             <div className="date">{formatAuthor}</div>
             <CommentFormComponent createComment={this.props.createComment} />
