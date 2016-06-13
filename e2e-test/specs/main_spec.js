@@ -50,7 +50,7 @@ describe('restaurants', function() {
     const addComment = () => {
       var input = browser.element('textarea');
       input.setValue('new comment');
-      browser.click('button');
+      browser.click('.commentForm button');
       browser.waitForExist('.comment')
 
       expect(browser.getText('.comment div')).toInclude('new comment');
