@@ -29,6 +29,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     },
     like: () => {
       dispatch(restaurantActions.like(ownProps.params.restaurantId))
+    },
+    removeLike: () => {
+      dispatch(restaurantActions.removeLike(ownProps.params.restaurantId))
     }
   }
 }

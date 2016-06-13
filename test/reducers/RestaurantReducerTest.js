@@ -63,14 +63,33 @@ describe('RestaurantReducer', () => {
 
   it('returns the restaurant with number of likes when the action is CREATE_LIKE_SUCCESS', () => {
     let restaurants = [
-      {id: 1, comment: 'this is second comment', num_likes: 2}
+      {id: 1, comment: 'this is second comment', num_likes: 2, liked: false},
+      {id: 2, comment: 'another one'}
     ]
     let action = {
       type: types.CREATE_LIKE_SUCCESS,
       restaurantId: 1
     }
     let updatedRestaurants = [
-      {id: 1, comment: 'this is second comment', num_likes: 3}
+      {id: 1, comment: 'this is second comment', num_likes: 3, liked: true},
+      {id: 2, comment: 'another one'}
+    ]
+
+    expect(reducer.restaurants(restaurants, action)).toEqual(updatedRestaurants)
+  })
+
+  it('returns the restaurant with number of likes when the action is REMOVE_LIKE_SUCCESS', () => {
+    let restaurants = [
+      {id: 1, comment: 'this is second comment', num_likes: 2, liked: true},
+      {id: 2, comment: 'another one'}
+    ]
+    let action = {
+      type: types.REMOVE_LIKE_SUCCESS,
+      restaurantId: 1
+    }
+    let updatedRestaurants = [
+      {id: 1, comment: 'this is second comment', num_likes: 1, liked: false},
+      {id: 2, comment: 'another one'}
     ]
 
     expect(reducer.restaurants(restaurants, action)).toEqual(updatedRestaurants)

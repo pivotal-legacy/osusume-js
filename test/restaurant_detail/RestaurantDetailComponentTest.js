@@ -24,13 +24,15 @@ describe('RestaurantDetailComponent', () => {
       user: {id: 0, email: "danny", name: "Danny"},
       address: "Roppongi",
       notes: "good",
+      liked: false,
       photo_urls: [{url: 'https://hoge/image.jpg'}, {url: 'https://hoge/image2.jpg'}],
       num_likes: 5,
       created_at: "2016-05-26T10:03:17.736Z"
     }
     let createCommentCallback = function() {}
     let likeCallback = function() {}
-    const component = shallow(<RestaurantDetailComponent restaurant={restaurant} comments={[comment]} createComment={createCommentCallback} like={likeCallback}/>)
+    let removeLikeCallback = function() {}
+    const component = shallow(<RestaurantDetailComponent restaurant={restaurant} comments={[comment]} createComment={createCommentCallback} like={likeCallback} removeLike={removeLikeCallback}/>)
     expect(component.contains(<h1>Afuri</h1>)).toBe(true)
     expect(component.contains(<img key={0} src='https://hoge/image.jpg' width={210}  />)).toBe(true)
     expect(component.contains(<img key={1} src='https://hoge/image2.jpg' width={210}  />)).toBe(true)
@@ -41,8 +43,21 @@ describe('RestaurantDetailComponent', () => {
     expect(component.contains(<div className="notes">good</div>)).toBe(true)
     expect(component.contains(<span className="num-likes">5 likes</span>)).toBe(true)
     expect(component.contains(<button onClick={likeCallback}>like</button>)).toBe(true)
+    expect(component.contains(<button onClick={removeLikeCallback}>remove like</button>)).toBe(false)
     expect(component.contains(<CommentFormComponent createComment={createCommentCallback} />)).toBe(true)
     expect(component.contains(<CommentComponent comment={comment} />)).toBe(true)
+  })
+
+  it('displays the remove like button when retaurant has been liked', () => {
+    let restaurant = {
+      liked: true,
+    }
+    let likeCallback = function() {}
+    let removeLikeCallback = function() {}
+    const component = shallow(<RestaurantDetailComponent restaurant={restaurant} like={likeCallback} removeLike={removeLikeCallback}/>)
+    expect(component.contains(<button onClick={removeLikeCallback}>remove like</button>)).toBe(true)
+    expect(component.contains(<button onClick={likeCallback}>like</button>)).toBe(false)
+
   })
 
   it('displays likes pluralized correctly', () => {

@@ -57,6 +57,18 @@ describe('restaurants', function() {
       expect(browser.getText('.comment div')).toInclude('Danny');
     }
 
+    const likeAndRemoveLike = () => {
+      browser.click('.likes button')
+
+      expect(browser.getText('.num-likes')).toInclude('1')
+      expect(browser.getText('.likes button')).toInclude('remove like')
+
+      browser.click('.likes button')
+
+      expect(browser.getText('.num-likes')).toInclude('0')
+      expect(browser.getText('.likes button')).toInclude('like')
+    }
+
     it('shows list of restaurants and adds a restaurant', function () {
         browser.url('http://localhost:8000');
 
@@ -69,5 +81,7 @@ describe('restaurants', function() {
         viewNewRestaurantDetails();
 
         addComment();
+
+        likeAndRemoveLike();
     });
 });

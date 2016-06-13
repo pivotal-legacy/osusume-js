@@ -19,6 +19,7 @@ const reducer = (state = initialState, action) => {
     case types.FETCH_RESTAURANT_SUCCESS:
     case types.CREATE_RESTAURANT_SUCCESS:
     case types.CREATE_LIKE_SUCCESS:
+    case types.REMOVE_LIKE_SUCCESS:
       return Object.assign({}, state,
         {restaurants: restaurantReducer.restaurants(state.restaurants, action)})
     case types.FETCH_SUGGESTIONS_SUCCESS:

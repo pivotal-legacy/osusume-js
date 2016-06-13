@@ -73,4 +73,17 @@ describe('ContainerRestaurantDetailComponent', () => {
     expect(spy).toHaveBeenCalledWith(17)
     expect(dispatch).toHaveBeenCalledWith(restaurantActions.like())
   })
+
+  it('mapsDispatchToProps for removeLike', () => {
+    let dispatch = expect.createSpy()
+    let props = {
+      params: {
+        restaurantId: 17
+      }
+    }
+    var spy = expect.spyOn(restaurantActions, 'removeLike')
+    mapDispatchToProps(dispatch, props).removeLike()
+    expect(spy).toHaveBeenCalledWith(17)
+    expect(dispatch).toHaveBeenCalledWith(restaurantActions.removeLike())
+  })
 })

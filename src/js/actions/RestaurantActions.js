@@ -39,6 +39,13 @@ function receiveCreatedLike(json) {
   }
 }
 
+function receiveRemovedLike(restaurantId) {
+  return {
+    type: types.REMOVE_LIKE_SUCCESS,
+    restaurantId: restaurantId
+  }
+}
+
 export function fetchRestaurant(restaurantId) {
   return dispatch => {
     return fetch(`${process.env.API_SERVER}/restaurants/${restaurantId}`, authorizationConfig())
@@ -87,6 +94,14 @@ export function like(restaurantId) {
     return fetch(`${process.env.API_SERVER}/restaurants/${restaurantId}/likes`, config)
     .then(response => response.json())
     .then(json => dispatch(receiveCreatedLike(json)))
+  }
+}
+
+export function removeLike(restaurantId) {
+  let config = Object.assign({}, authorizationConfig(), {method: "DELETE"})
+  return dispatch => {
+    return fetch(`${process.env.API_SERVER}/restaurants/${restaurantId}/likes`, config)
+    .then(response => dispatch(receiveRemovedLike(parseInt(restaurantId))))
   }
 }
 

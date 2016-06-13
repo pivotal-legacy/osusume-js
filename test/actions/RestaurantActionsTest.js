@@ -186,4 +186,26 @@ describe("RestaurantActions", () => {
         expect(store.getActions()).toEqual(expectedActions)
       })
   })
+
+  it("removeLike", () => {
+    localStorage.setItem('token', 'party')
+    nock('http://localhost:8080', {
+      headers: {
+        'Authorization': 'Bearer party'
+      }
+    })
+    .delete('/restaurants/1/likes')
+    .reply(200, {})
+
+    const store = mockStore([])
+    const expectedActions = [
+      {type: types.REMOVE_LIKE_SUCCESS, restaurantId: 1}
+    ]
+
+    return store.dispatch(actions.removeLike('1'))
+      .then(() => {
+        expect(nock.isDone()).toEqual(true)
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+  })
 })
