@@ -1,5 +1,6 @@
 import expect from 'expect'
 import { mount, shallow } from 'enzyme'
+import { Link } from 'react-router'
 
 import React from 'react'
 import RestaurantDetailComponent from '../../src/js/restaurant_detail/RestaurantDetailComponent'
@@ -33,6 +34,7 @@ describe('RestaurantDetailComponent', () => {
     let likeCallback = function() {}
     let removeLikeCallback = function() {}
     const component = shallow(<RestaurantDetailComponent restaurant={restaurant} comments={[comment]} createComment={createCommentCallback} like={likeCallback} removeLike={removeLikeCallback}/>)
+    expect(component.contains(<Link to='/'><button>restaurants</button></Link>)).toBe(true)
     expect(component.contains(<h1>Afuri</h1>)).toBe(true)
     expect(component.contains(<img key={0} src='https://hoge/image.jpg' width={210}  />)).toBe(true)
     expect(component.contains(<img key={1} src='https://hoge/image2.jpg' width={210}  />)).toBe(true)
