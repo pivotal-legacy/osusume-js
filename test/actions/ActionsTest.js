@@ -122,7 +122,7 @@ describe("Actions", () => {
       }
     })
     .post('/session')
-    .reply(200, {token: 'party'})
+    .reply(200, {token: 'party', name: 'Danny'})
     let hashHistory = {
       push: () => {}
     }
@@ -132,6 +132,7 @@ describe("Actions", () => {
       .then(() => {
         expect(nock.isDone()).toEqual(true)
         expect(localStorage.getItem('token')).toEqual('party')
+        expect(localStorage.getItem('userName')).toEqual('Danny')
         expect(hashHandler).toHaveBeenCalledWith('/')
       })
   })

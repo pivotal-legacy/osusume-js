@@ -8,6 +8,7 @@ import ContainerRestaurantListComponent from './restaurant_list/ContainerRestaur
 import ContainerRestaurantDetailComponent from './restaurant_detail/ContainerRestaurantDetailComponent'
 import ContainerRestaurantNewComponent from './new_restaurant/ContainerRestaurantNewComponent'
 import ContainerLoginComponent from './login/ContainerLoginComponent'
+import MyPageComponent from './my_page/MyPageComponent'
 import {requireAuth} from './login/Authentication'
 
 export default function AppComponent() {
@@ -23,6 +24,7 @@ export default function AppComponent() {
         <Route path="/login" component={ContainerLoginComponent}/>
         <Route path="/restaurants/new" component={ContainerRestaurantNewComponent} onEnter={requireAuth}/>
         <Route path="/restaurants/:restaurantId" component={ContainerRestaurantDetailComponent} onEnter={requireAuth}/>
+        <Route path="/my_page" component={MyPageComponent} onEnter={requireAuth}/>
       </Router>
     </Provider>
   )
