@@ -15,11 +15,11 @@ describe('ContainerRestaurantDetailComponent', () => {
   it('mapsStateToProps', () => {
     let state = {
       restaurants: [{id: 0, name: 'Afuri'}, {id: 1, name: 'Tsukemen'}],
-      comments: [{id: 0, content: 'i like this one'}]
+      comments: [{id: 0, comment: 'i like this one'}]
     };
 
     expect(mapStateToProps(state, {params: {restaurantId: 0}}).restaurant).toEqual({id: 0, name: 'Afuri'})
-    expect(mapStateToProps(state, {params: {restaurantId: 0}}).comments).toEqual([{id: 0, content: 'i like this one'}])
+    expect(mapStateToProps(state, {params: {restaurantId: 0}}).comments).toEqual([{id: 0, comment: 'i like this one'}])
   });
 
   it('mapsDispatchToProps for fetchComments', () => {

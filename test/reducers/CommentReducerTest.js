@@ -10,8 +10,8 @@ describe('CommentReducer', () => {
 
   it('returns the comments the action is FETCH_COMMENTS_SUCCESS', () => {
     let comments = [
-      {id: 0, content: 'It is delicious'},
-      {id: 1, content: 'this is second comment'}
+      {id: 0, comment: 'It is delicious'},
+      {id: 1, comment: 'this is second comment'}
     ]
     let action = {
       type: types.FETCH_COMMENTS_SUCCESS,
@@ -22,8 +22,8 @@ describe('CommentReducer', () => {
   })
 
   it('returns all comments with the added comment first when action is CREATE_COMMENT_SUCCESS', () => {
-    let comment = {restaurant_id: 0, content: 'i love it'}
-    let addedComment = {restaurant_id: 0, content: 'new comment'}
+    let comment = {restaurant_id: 0, comment: 'i love it'}
+    let addedComment = {restaurant_id: 0, comment: 'new comment'}
     let action = {
       type: types.CREATE_COMMENT_SUCCESS,
       comment: addedComment

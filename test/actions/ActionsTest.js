@@ -92,8 +92,8 @@ describe("Actions", () => {
   it("creates the fetchComments action", () => {
     localStorage.setItem('token', 'party')
     let comments = [
-      {id: 0, content: 'Not Specified', restaurant_id: 10},
-      {id: 1, content: 'This is second comment', restaurant_id: 10}
+      {id: 0, comment: 'Not Specified', restaurant_id: 10},
+      {id: 1, comment: 'This is second comment', restaurant_id: 10}
     ]
     nock('http://localhost:8080', {
       headers: {'Authorization': 'Bearer party'}

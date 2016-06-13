@@ -7,7 +7,7 @@ import CommentComponent from '../../src/js/restaurant_detail/CommentComponent'
 describe('CommentComponent', () => {
   it('displays the comment passed in props', () => {
     let comment = {
-      content: 'I love it',
+      comment: 'I love it',
       created_at: "2016-06-09T07:21:52.211Z",
       id: 1,
       user: {
