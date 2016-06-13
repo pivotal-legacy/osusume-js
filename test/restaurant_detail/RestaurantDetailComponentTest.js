@@ -28,7 +28,8 @@ describe('RestaurantDetailComponent', () => {
       liked: false,
       photo_urls: [{url: 'https://hoge/image.jpg'}, {url: 'https://hoge/image2.jpg'}],
       num_likes: 5,
-      created_at: "2016-05-26T10:03:17.736Z"
+      created_at: "2016-05-26T10:03:17.736Z",
+      updated_at: "2016-05-27T10:03:17.736Z"
     }
     let createCommentCallback = function() {}
     let likeCallback = function() {}
@@ -40,7 +41,7 @@ describe('RestaurantDetailComponent', () => {
     expect(component.contains(<img key={1} src='https://hoge/image2.jpg' width={210}  />)).toBe(true)
     expect(component.contains(<div className="cuisine">Japanese</div>)).toBe(true)
     expect(component.contains(<div className="price-range">¥0~999</div>)).toBe(true)
-    expect(component.contains(<div className="date">5/26/2016 by Danny</div>)).toBe(true)
+    expect(component.contains(<div className="date">5/27/2016 by Danny</div>)).toBe(true)
     expect(component.contains(<div className="address">Roppongi</div>)).toBe(true)
     expect(component.contains(<div className="notes">good</div>)).toBe(true)
     expect(component.contains(<span className="num-likes">5 likes</span>)).toBe(true)

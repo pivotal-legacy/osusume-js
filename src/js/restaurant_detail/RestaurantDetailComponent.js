@@ -21,7 +21,7 @@ export default class RestaurantDetailComponent extends React.Component {
         return (<img key={index} src={photo_url.url} width={210}  />)
       })
 
-      let date = new Date(restaurant.created_at)
+      let date = new Date(restaurant.updated_at)
       let author = restaurant.user ? restaurant.user.name : ""
       let formatAuthor =  `${date.toLocaleDateString()} by ${author}`
 

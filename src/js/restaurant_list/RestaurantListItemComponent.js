@@ -10,6 +10,7 @@ export default function RestaurantListItemComponent(props) {
     if ( props.restaurant.photo_urls && props.restaurant.photo_urls.length > 0 ) {
       photo = <img src={props.restaurant.photo_urls[0].url} width={210}  />
     }
+    let date = new Date(props.restaurant.updated_at)
     return (
         <div>
             <Link to={`/restaurants/${props.restaurant.id}`}>
@@ -17,10 +18,7 @@ export default function RestaurantListItemComponent(props) {
               {photo}
               <div className='cuisine'>{cuisineName}</div>
               <div className='price_range'>{props.restaurant.price_range}</div>
-              <div className='address'>{props.restaurant.address}</div>
-              <div className='number_likes'>{props.restaurant.num_likes}</div>
-              <div className='created_by_user_name'>{props.restaurant.created_by_user_name}</div>
-              <div className='created_at'>{props.restaurant.created_at}</div>
+              <div className='updated_at'>{date.toLocaleDateString()}</div>
             </Link>
         </div>
     );
