@@ -6,7 +6,12 @@ import {getUserId} from '../Session'
 
 export const mapStateToProps = (state) => {
   return {
-    restaurants: state.restaurants.filter((restaurant) => restaurant.user.id == getUserId())
+    myRestaurants: state.restaurants.filter((restaurant) =>
+      restaurant.user.id == getUserId()
+    ),
+    myLikedRestaurants: state.restaurants.filter((restaurant) =>
+      restaurant.liked
+    )
   }
 }
 

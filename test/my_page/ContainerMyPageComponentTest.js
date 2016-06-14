@@ -32,7 +32,7 @@ describe('ContainerMyPageComponent', () => {
     expect(dispatch).toHaveBeenCalledWith(restaurantActions.fetchRestaurants())
   })
 
-  it('mapStateToProps', () => {
+  it('mapStateToProps for myRestaurats', () => {
     createSession('token', 'name', 17)
     let state = {
       restaurants: [
@@ -40,8 +40,20 @@ describe('ContainerMyPageComponent', () => {
         {id: 1, name: 'Butagumi', user: {id: 18}}
       ]
     }
-    expect(mapStateToProps(state).restaurants).toEqual(
+    expect(mapStateToProps(state).myRestaurants).toEqual(
       [{id: 0, name: 'Afuri', user: {id: 17}}]
+    )
+  })
+
+  it('mapStateToProps for myLikedRestaurants', () => {
+    let state = {
+      restaurants: [
+        {id: 0, name: 'Afuri', liked: true, user: {id: 17}},
+        {id: 1, name: 'Butagumi', liked: false, user: {id: 17}}
+      ]
+    }
+    expect(mapStateToProps(state).myLikedRestaurants).toEqual(
+      [{id: 0, name: 'Afuri', liked: true, user: {id: 17}}]
     )
   })
 })
