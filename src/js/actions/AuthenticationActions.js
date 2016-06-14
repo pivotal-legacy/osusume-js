@@ -14,7 +14,7 @@ export function login(email, password, hashHistoryParam = hashHistory) {
     return fetch(`${process.env.API_SERVER}/session`, config)
       .then(response => response.json())
       .then((json) => {
-        createSession(json.token, json.name)
+        createSession(json.token, json.name, json.id)
         hashHistoryParam.push('/')
       })
   }

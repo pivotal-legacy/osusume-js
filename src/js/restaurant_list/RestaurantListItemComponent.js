@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { pluralize } from '../utils/StringHelpers'
 
 export default function RestaurantListItemComponent(props) {
     let cuisineName = '';
@@ -18,6 +19,7 @@ export default function RestaurantListItemComponent(props) {
               {photo}
               <div className='cuisine'>{cuisineName}</div>
               <div className='price_range'>{props.restaurant.price_range}</div>
+              <div className='number_likes'>{pluralize(props.restaurant.num_likes, 'like')}</div>
               <div className='updated_at'>{date.toLocaleDateString()}</div>
             </Link>
         </div>
