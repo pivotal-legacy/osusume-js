@@ -21,7 +21,7 @@ describe('RestaurantListComponent', () => {
   it('display add restaurant and my page buttons above the restaurant list', () => {
     const component = shallow(<RestaurantListComponent restaurants={[]} />)
     expect(component.contains(<Link to="/restaurants/new"><button>add restaurant</button></Link>)).toBe(true)
-    expect(component.contains(<Link to="/my_page"><button className='myPageLink'>my page</button></Link>)).toBe(true)
+    expect(component.contains(<Link to="/my_page"><button className='my-page-link'>my page</button></Link>)).toBe(true)
   })
 
   it('calls fetchRestaurants in the componentDidMount', () => {

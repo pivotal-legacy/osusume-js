@@ -24,8 +24,8 @@ describe('restaurants', function() {
       var input = browser.element('input');
       input.setValue('afuri');
       browser.click('button');
-      browser.waitForExist('.restaurantSuggestion')
-      browser.click('.restaurantSuggestion :nth-of-type(1)');
+      browser.waitForExist('.restaurant-suggestion')
+      browser.click('.restaurant-suggestion :nth-of-type(1)');
 
       var cusineSelect = browser.element('select:nth-of-type(1)');
       cusineSelect.selectByVisibleText('Japanese');
@@ -50,7 +50,7 @@ describe('restaurants', function() {
     const addComment = () => {
       var input = browser.element('textarea');
       input.setValue('new comment');
-      browser.click('.commentForm button');
+      browser.click('.comment-form button');
       browser.waitForExist('.comment')
 
       expect(browser.getText('.comment div')).toInclude('new comment');
@@ -70,8 +70,8 @@ describe('restaurants', function() {
     }
 
     const logout = () => {
-      browser.click('.restaurantLink');
-      browser.click('.myPageLink');
+      browser.click('.restaurant-link');
+      browser.click('.my-page-link');
       browser.click('.logout');
       expect(browser.getText('h1')).toEqual('login');
     }

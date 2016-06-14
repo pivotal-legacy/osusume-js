@@ -25,10 +25,10 @@ describe('RestaurantListItemComponent', () => {
     expect(component.find(Link).prop('to')).toEqual('/restaurants/0')
     expect(component.find('.name').text()).toEqual('Afuri')
     expect(component.find('.cuisine').text()).toEqual('Ramen')
-    expect(component.find('.price_range').text()).toEqual('1000 - 2000')
-    expect(component.find('.number_likes').text()).toEqual('3 likes')
+    expect(component.find('.price-range').text()).toEqual('1000 - 2000')
+    expect(component.find('.number-likes').text()).toEqual('3 likes')
     expect(component.find('img').length).toEqual(1)
-    expect(component.find('.updated_at').text()).toEqual('5/26/2016')
+    expect(component.find('.updated-at').text()).toEqual('5/26/2016')
   })
 
   it('displays no cuisine if cuisine is null', () => {

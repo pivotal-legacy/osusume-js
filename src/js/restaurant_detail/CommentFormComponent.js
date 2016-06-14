@@ -18,7 +18,7 @@ export default class CommentFormComponent extends React.Component {
   }
   render() {
     return (
-      <div className="commentForm">
+      <div className="comment-form">
         <textarea onChange={this.onChange} value={this.state.comment}></textarea>
         <button onClick={this.onClick}>add comment</button>
       </div>

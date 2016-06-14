@@ -17,7 +17,7 @@ export default class RestaurantListComponent extends React.Component {
           <button>add restaurant</button>
         </Link>
         <Link to="/my_page">
-          <button className='myPageLink'>my page</button>
+          <button className='my-page-link'>my page</button>
         </Link>
         <h1>Restaurants</h1>
         {restaurants}
