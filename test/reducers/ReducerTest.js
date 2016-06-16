@@ -3,6 +3,7 @@ import reducer from '../../src/js/reducers/Reducer'
 import * as types from '../../src/js/constants/ActionTypes'
 import * as restaurantReducer from '../../src/js/reducers/RestaurantReducer'
 import * as commentReducer from '../../src/js/reducers/CommentReducer'
+import * as currentUserReducer from '../../src/js/reducers/CurrentUserReducer'
 
 describe('Reducer', () => {
   afterEach(function () {
@@ -116,6 +117,29 @@ describe('Reducer', () => {
     expect(spy).toHaveBeenCalledWith([], action)
   })
 
+  it('returns the currentUser when the action is LOGIN_SUCCESS', () => {
+    let user = {token: 'party', name: 'Danny', id: 17}
+    let action = {
+      type: types.LOGIN_SUCCESS,
+      user: user
+    }
+    var spy = expect.spyOn(currentUserReducer, 'currentUser')
+
+    reducer(undefined, action)
+    expect(spy).toHaveBeenCalledWith(null, action)
+  })
+
+  it('delete the currentUser when the action is LOGOUT_SUCCESS', () => {
+    let action = {
+      type: types.LOGOUT_SUCCESS
+    }
+
+    var spy = expect.spyOn(currentUserReducer, 'currentUser')
+
+    reducer(undefined, action)
+    expect(spy).toHaveBeenCalledWith(null, action)
+  })
+
   it('returns the list of suggestions when the action is FETCH_SUGGESTIONS_SUCCESS', () => {
     let suggestions  = [
       {name: 'Afuri', address: 'Roppongi'},
@@ -155,24 +179,5 @@ describe('Reducer', () => {
     }
 
     expect(reducer(undefined, action).priceRanges).toEqual(priceRanges)
-  })
-
-  it('returns the currentUser when the action is LOGIN_SUCCESS', () => {
-    let user = {token: 'party', name: 'Danny', id: 17}
-    let action = {
-      type: types.LOGIN_SUCCESS,
-      user: user
-    }
-
-    expect(reducer(undefined, action).currentUser).toEqual(user)
-  })
-
-  it('delete the currentUser when the action is LOGOUT_SUCCESS', () => {
-    localStorage.setItem('user', JSON.stringify({token: 'token'}))
-    let action = {
-      type: types.LOGOUT_SUCCESS
-    }
-
-    expect(reducer(undefined, action).currentUser).toEqual(null)
   })
 })
