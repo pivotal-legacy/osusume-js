@@ -3,7 +3,7 @@ import nock from "nock"
 import configureMockStore from "redux-mock-store"
 import thunk from "redux-thunk"
 import * as actions from "../../src/js/actions/AuthenticationActions"
-import {getToken, getUserName, getUserId} from "../../src/js/Session"
+import * as types from "../../src/js/constants/ActionTypes"
 
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
@@ -11,61 +11,44 @@ const mockStore = configureMockStore(middlewares)
 describe("AuthenticationActions", () => {
   afterEach(() => {
     nock.cleanAll()
-    localStorage.clear()
   })
 
   it("logs the user in", () => {
     const store = mockStore([])
-    nock('http://localhost:8080', {
-      method: 'POST',
-      body: {
-        email: 'danny@pivotal.io',
-        password: 'password'
-      }
+    let user = {token: 'party', name: 'Danny', id: 17}
+    nock('http://localhost:8080')
+    .post('/session', {
+      email: 'danny@pivotal.io',
+      password: 'password'
     })
-    .post('/session')
-    .reply(200, {token: 'party', name: 'Danny', id: 17})
-    let hashHistory = {
-      push: () => {}
-    }
-    const hashHandler = expect.spyOn(hashHistory, 'push')
+    .reply(200, user)
 
-    return store.dispatch(actions.login('danny@pivotal.io', 'password', hashHistory))
+    const expectedActions = [
+      {type: types.LOGIN_SUCCESS, user: user}
+    ]
+
+    return store.dispatch(actions.login('danny@pivotal.io', 'password'))
       .then(() => {
         expect(nock.isDone()).toEqual(true)
-        expect(getToken()).toEqual('party')
-        expect(getUserName()).toEqual('Danny')
-        expect(getUserId()).toEqual(17)
-        expect(hashHandler).toHaveBeenCalledWith('/')
+        expect(store.getActions()).toEqual(expectedActions)
       })
   })
 
   it("logs the user out", () => {
-    localStorage.setItem('token', 'party')
-    localStorage.setItem('userName', 'Danny')
-    localStorage.setItem('userId', 17)
-    const store = mockStore([])
-    nock('http://localhost:8080', {
-      method: 'DELETE',
-      body: {
-        token: 'party'
-      }
-    })
-    .delete('/session')
+    const store = mockStore({currentUser: {token: 'party'}})
+    nock('http://localhost:8080')
+    .matchHeader('Authorization', (val) => val == 'Bearer party')
+    .delete('/session', {token: 'party'})
     .reply(200, {})
 
-    let hashHistory = {
-      push: () => {}
-    }
-    const hashHandler = expect.spyOn(hashHistory, 'push')
+    const expectedActions = [
+      {type: types.LOGOUT_SUCCESS}
+    ]
 
-    return store.dispatch(actions.logout(hashHistory))
+    return store.dispatch(actions.logout())
       .then(() => {
         expect(nock.isDone()).toEqual(true)
-        expect(getToken()).toEqual(undefined)
-        expect(getUserName()).toEqual(undefined)
-        expect(getUserId()).toEqual(undefined)
-        expect(hashHandler).toHaveBeenCalledWith('/login')
+        expect(store.getActions()).toEqual(expectedActions)
       })
   })
 })

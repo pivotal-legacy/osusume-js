@@ -11,29 +11,27 @@ const mockStore = configureMockStore(middlewares)
 
 
 describe("RestaurantActions", () => {
+  let store
+  beforeEach(() => {
+    store = mockStore({currentUser: {token: 'party'}})
+  })
   afterEach(() => {
     nock.cleanAll()
-    localStorage.clear()
     expect.restoreSpies()
   })
   it("creates the fetchRestaurants action", () => {
-    localStorage.setItem('token', 'party')
     let restaurants = [
       {id: 0, name: 'Afuri'},
       {id: 1, name: 'Tsukemen'}
     ]
-    nock('http://localhost:8080', {
-      headers: {
-        'Authorization': 'Bearer party'
-      }
-    })
+    nock('http://localhost:8080')
     .get('/restaurants')
+    .matchHeader('Authorization', (val) => val == 'Bearer party')
     .reply(200, restaurants)
 
     const expectedActions = [
       {type: types.FETCH_RESTAURANTS_SUCCESS, restaurants: restaurants}
     ]
-    const store = mockStore([])
 
     return store.dispatch(actions.fetchRestaurants())
       .then(() => {
@@ -43,20 +41,15 @@ describe("RestaurantActions", () => {
   })
 
   it("creates the fetchRestaurant action", () => {
-    localStorage.setItem('token', 'party')
     let restaurant = {id: 17, name: 'Afuri'}
-    nock('http://localhost:8080', {
-      headers: {
-        'Authorization': 'Bearer party'
-      }
-    })
+    nock('http://localhost:8080')
     .get('/restaurants/17')
+    .matchHeader('Authorization', (val) => val == 'Bearer party')
     .reply(200, restaurant)
 
     const expectedActions = [
       {type: types.FETCH_RESTAURANT_SUCCESS, restaurant: restaurant}
     ]
-    const store = mockStore([])
 
     return store.dispatch(actions.fetchRestaurant(17))
       .then(() => {
@@ -66,13 +59,7 @@ describe("RestaurantActions", () => {
   })
 
   it("uploads a photo and saves new restaurant to server", () => {
-    localStorage.setItem('token', 'party')
-
-    nock('http://localhost:8080', {
-      headers: {
-        'Authorization': 'Bearer party'
-      }
-    })
+    nock('http://localhost:8080')
     .post('/restaurants', {restaurant: {
       name: 'Afuri',
       address: 'Roppongi',
@@ -81,9 +68,8 @@ describe("RestaurantActions", () => {
       notes: 'notes',
       photo_urls: [{url: 'http://its.a.party!!'}]
     }})
+    .matchHeader('Authorization', (val) => val == 'Bearer party')
     .reply(200, {})
-
-    const store = mockStore([])
 
     let expectedUrl = 'http://its.a.party!!'
     let promise = Promise.resolve(expectedUrl)
@@ -104,13 +90,8 @@ describe("RestaurantActions", () => {
   })
 
   it("just saves the restaurant when no photo is specified", () => {
-    localStorage.setItem('token', 'party')
     let restaurant = {name: "Afuri", address: "Roppongi"}
-    nock('http://localhost:8080', {
-      headers: {
-        'Authorization': 'Bearer party'
-      }
-    })
+    nock('http://localhost:8080')
     .post('/restaurants', {restaurant: {
       name: 'Afuri',
       address: 'Roppongi',
@@ -119,11 +100,11 @@ describe("RestaurantActions", () => {
       notes: 'notes',
       photo_urls: []
     }})
+    .matchHeader('Authorization', (val) => val == 'Bearer party')
     .reply(200, restaurant)
 
     let s3FileUploader = new S3FileUploader()
     expect.spyOn(s3FileUploader, 'upload')
-    const store = mockStore([])
     const expectedActions = [
       {type: types.CREATE_RESTAURANT_SUCCESS, restaurant: restaurant}
     ]
@@ -138,22 +119,17 @@ describe("RestaurantActions", () => {
   })
 
   it("creates a comment", () => {
-    localStorage.setItem('token', 'party')
     let comment = {
       content: 'it is a comment',
       created_at: 'date',
       restaurant_id: 1,
       user: {}
     }
-    nock('http://localhost:8080', {
-      headers: {
-        'Authorization': 'Bearer party'
-      }
-    })
+    nock('http://localhost:8080')
     .post('/restaurants/1/comments', {comment: 'it is a comment'})
+    .matchHeader('Authorization', (val) => val == 'Bearer party')
     .reply(200, comment)
 
-    const store = mockStore([])
     const expectedActions = [
       {type: types.CREATE_COMMENT_SUCCESS, comment: comment}
     ]
@@ -166,16 +142,11 @@ describe("RestaurantActions", () => {
   })
 
   it("like", () => {
-    localStorage.setItem('token', 'party')
-    nock('http://localhost:8080', {
-      headers: {
-        'Authorization': 'Bearer party'
-      }
-    })
+    nock('http://localhost:8080')
     .post('/restaurants/1/likes')
+    .matchHeader('Authorization', (val) => val == 'Bearer party')
     .reply(200, {restaurantId: 1})
 
-    const store = mockStore([])
     const expectedActions = [
       {type: types.CREATE_LIKE_SUCCESS, restaurantId: 1}
     ]
@@ -188,16 +159,11 @@ describe("RestaurantActions", () => {
   })
 
   it("removeLike", () => {
-    localStorage.setItem('token', 'party')
-    nock('http://localhost:8080', {
-      headers: {
-        'Authorization': 'Bearer party'
-      }
-    })
+    nock('http://localhost:8080')
     .delete('/restaurants/1/likes')
+    .matchHeader('Authorization', (val) => val == 'Bearer party')
     .reply(200, {})
 
-    const store = mockStore([])
     const expectedActions = [
       {type: types.REMOVE_LIKE_SUCCESS, restaurantId: 1}
     ]

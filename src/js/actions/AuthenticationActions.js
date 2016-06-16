@@ -1,9 +1,22 @@
 import {hashHistory} from "react-router"
 import fetch from "isomorphic-fetch"
 import {authorizationConfig} from './Authorization'
-import {getToken, createSession, deleteSession} from '../Session'
+import * as types from '../constants/ActionTypes'
 
-export function login(email, password, hashHistoryParam = hashHistory) {
+function receiveUser(json) {
+  return {
+    type: types.LOGIN_SUCCESS,
+    user: json
+  }
+}
+
+function logoutComplete() {
+  return {
+    type: types.LOGOUT_SUCCESS
+  }
+}
+
+export function login(email, password) {
   let config = {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -14,25 +27,29 @@ export function login(email, password, hashHistoryParam = hashHistory) {
     return fetch(`${process.env.API_SERVER}/session`, config)
       .then(response => response.json())
       .then((json) => {
-        createSession(json.token, json.name, json.id)
-        hashHistoryParam.push('/')
+        dispatch(receiveUser(json))
       })
   }
 }
 
-export function logout(hashHistoryParam = hashHistory) {
-  let config = Object.assign({}, authorizationConfig(),
+export function logout() {
+  return function(dispatch, getState) {
+    return dispatch(logoutWithCurrentUser(getState().currentUser))
+  }
+}
+
+function logoutWithCurrentUser(currentUser) {
+  let config = Object.assign({}, authorizationConfig(currentUser),
     {
       method: 'DELETE',
-      body: JSON.stringify({token: getToken()})
+      body: JSON.stringify({token: currentUser.token})
     }
   )
 
   return dispatch => {
     return fetch(`${process.env.API_SERVER}/session`, config)
       .then(response => {
-        deleteSession()
-        hashHistoryParam.push('/login')
+        dispatch(logoutComplete())
       })
   }
 }

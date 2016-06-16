@@ -7,13 +7,7 @@ import {mapDispatchToProps, mapStateToProps} from '../../src/js/my_page/Containe
 import * as actions from '../../src/js/actions/AuthenticationActions'
 import * as restaurantActions from '../../src/js/actions/RestaurantActions'
 
-import {createSession} from '../../src/js/Session'
-
 describe('ContainerMyPageComponent', () => {
-  afterEach(() => {
-    localStorage.clear()
-  })
-
   it('mapsDispatchToProps for logout', () => {
     let dispatch = expect.createSpy()
 
@@ -33,12 +27,12 @@ describe('ContainerMyPageComponent', () => {
   })
 
   it('mapStateToProps for myRestaurats', () => {
-    createSession('token', 'name', 17)
     let state = {
       restaurants: [
         {id: 0, name: 'Afuri', user: {id: 17}},
         {id: 1, name: 'Butagumi', user: {id: 18}}
-      ]
+      ],
+      currentUser: {id: 17}
     }
     expect(mapStateToProps(state).myRestaurants).toEqual(
       [{id: 0, name: 'Afuri', user: {id: 17}}]
@@ -50,10 +44,21 @@ describe('ContainerMyPageComponent', () => {
       restaurants: [
         {id: 0, name: 'Afuri', liked: true, user: {id: 17}},
         {id: 1, name: 'Butagumi', liked: false, user: {id: 17}}
-      ]
+      ],
+      currentUser: {id: 17}
     }
     expect(mapStateToProps(state).myLikedRestaurants).toEqual(
       [{id: 0, name: 'Afuri', liked: true, user: {id: 17}}]
+    )
+  })
+
+  it('mapStateToProps for currentUser', () => {
+    let state = {
+      restaurants: [],
+      currentUser: {id: 17}
+    }
+    expect(mapStateToProps(state).currentUser).toEqual(
+      {id: 17}
     )
   })
 })

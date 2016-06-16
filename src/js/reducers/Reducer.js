@@ -2,15 +2,18 @@ import * as types from '../constants/ActionTypes';
 import * as restaurantReducer from './RestaurantReducer'
 import * as commentReducer from './CommentReducer'
 
-const initialState = {
-  restaurants: [],
-  suggestions: [],
-  cuisineTypes: [],
-  priceRanges: [],
-  comments: []
+const initialState = () => {
+  return {
+    restaurants: [],
+    suggestions: [],
+    cuisineTypes: [],
+    priceRanges: [],
+    comments: [],
+    currentUser: JSON.parse(localStorage.getItem('user'))
+  }
 }
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState(), action) => {
   if (action.type == undefined)
     return state
 
@@ -35,6 +38,12 @@ const reducer = (state = initialState, action) => {
     case types.CREATE_COMMENT_SUCCESS:
       return Object.assign({}, state,
         {comments: commentReducer.comments(state.comments, action)})
+    case types.LOGIN_SUCCESS:
+      return Object.assign({}, state,
+        {currentUser: {token: action.user.token, name: action.user.name, id: action.user.id}})
+    case types.LOGOUT_SUCCESS:
+      return Object.assign({}, state,
+        {currentUser: null})
     default:
       return state
   }

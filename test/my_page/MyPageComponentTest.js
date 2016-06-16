@@ -7,14 +7,14 @@ import MyPageComponent from '../../src/js/my_page/MyPageComponent'
 import RestaurantListItemComponent from '../../src/js/restaurant_list/RestaurantListItemComponent'
 
 describe('MyPageComponent', () => {
-  afterEach(() => {
-    localStorage.clear()
-  })
-
   it('displays title and name of current user', () => {
-    localStorage.setItem('userName', 'Danny')
     let logoutCallback = function() {}
-    const component = shallow(<MyPageComponent myRestaurants={[]} logout={logoutCallback} />)
+    let props = {
+      myRestaurants: [],
+      logout: logoutCallback,
+      currentUser: {name: 'Danny'}
+    }
+    const component = shallow(<MyPageComponent {...props} />)
 
     expect(component.contains(<Link to="/"><button>restaurants</button></Link>)).toBe(true)
     expect(component.contains(<h1>my page</h1>)).toBe(true)
@@ -25,7 +25,11 @@ describe('MyPageComponent', () => {
   it('by default shows myRestaurants from props', () => {
     let restaurant = {id: 0, name: 'afuri'}
     let anotherRestaurant = {id: 1, name: 'butagmui'}
-    const component = shallow(<MyPageComponent myRestaurants={[restaurant, anotherRestaurant]} />)
+    let props = {
+      myRestaurants: [restaurant, anotherRestaurant],
+      currentUser: {name: 'Danny'}
+    }
+    const component = shallow(<MyPageComponent {...props} />)
 
     expect(component.contains(<RestaurantListItemComponent restaurant={restaurant} />)).toBe(true)
     expect(component.contains(<RestaurantListItemComponent restaurant={anotherRestaurant} />)).toBe(true)
@@ -34,7 +38,13 @@ describe('MyPageComponent', () => {
   it('shows myLikedRestaurants from props when My Likes is clicked', () => {
     let restaurant = {id: 0, name: 'afuri'}
     let anotherRestaurant = {id: 1, name: 'butagmui'}
-    const component = shallow(<MyPageComponent myRestaurants={[]} myLikedRestaurants={[restaurant, anotherRestaurant]} />)
+
+    let props = {
+      myRestaurants: [],
+      myLikedRestaurants: [restaurant, anotherRestaurant],
+      currentUser: {name: 'Danny'}
+    }
+    const component = shallow(<MyPageComponent {...props} />)
 
     component.find('.my-likes').simulate('click')
 
@@ -45,7 +55,8 @@ describe('MyPageComponent', () => {
   it('fetches the restaurant if there is no restaurants available in props', () => {
     let props = {
       myRestaurants: [],
-      fetchRestaurants: expect.createSpy()
+      fetchRestaurants: expect.createSpy(),
+      currentUser: {name: 'Danny'}
     }
     expect(props.fetchRestaurants.calls.length).toBe(0)
     mount(<MyPageComponent {...props} />)
@@ -55,7 +66,8 @@ describe('MyPageComponent', () => {
   it('does not fetch the restaurant if there are restaurants available in props', () => {
     let props = {
       myRestaurants: [{id: 0, name: 'afuri'}],
-      fetchRestaurants: expect.createSpy()
+      fetchRestaurants: expect.createSpy(),
+      currentUser: {name: 'Danny'}
     }
     expect(props.fetchRestaurants.calls.length).toBe(0)
     mount(<MyPageComponent {...props} />)

@@ -7,6 +7,7 @@ import * as commentReducer from '../../src/js/reducers/CommentReducer'
 describe('Reducer', () => {
   afterEach(function () {
     expect.restoreSpies()
+    localStorage.clear()
   })
 
   it('returns the initial state', () => {
@@ -17,7 +18,22 @@ describe('Reducer', () => {
       suggestions: [],
       cuisineTypes: [],
       priceRanges: [],
-      comments: []
+      comments: [],
+      currentUser: null
+    })
+  })
+
+  it('returns the initial state when localStorage has a user', () => {
+    localStorage.setItem('user', JSON.stringify({token: 'token'}))
+    expect(
+      reducer(undefined, {})
+    ).toEqual({
+      restaurants: [],
+      suggestions: [],
+      cuisineTypes: [],
+      priceRanges: [],
+      comments: [],
+      currentUser: {token: 'token'}
     })
   })
 
@@ -110,16 +126,10 @@ describe('Reducer', () => {
       suggestions: suggestions
     }
 
-    expect(reducer(undefined, action)).toEqual({
-      restaurants: [],
-      suggestions: suggestions,
-      cuisineTypes: [],
-      priceRanges: [],
-      comments: []
-    })
+    expect(reducer(undefined, action).suggestions).toEqual(suggestions)
   })
 
-  it('returns the cuisine types the action is FETCH_CUISINE_TYPES_SUCCESS', () => {
+  it('returns the cuisine types when the action is FETCH_CUISINE_TYPES_SUCCESS', () => {
     let cuisineTypes = [
       {id: 0, name: 'Not Specified'},
       {id: 1, name: 'Japanese'},
@@ -130,16 +140,10 @@ describe('Reducer', () => {
       cuisineTypes: cuisineTypes
     }
 
-    expect(reducer(undefined, action)).toEqual({
-      restaurants: [],
-      suggestions: [],
-      cuisineTypes: cuisineTypes,
-      priceRanges: [],
-      comments: []
-    })
+    expect(reducer(undefined, action).cuisineTypes).toEqual(cuisineTypes)
   })
 
-  it('returns the price ranges the action is FETCH_PRICE_RANGES_SUCCESS', () => {
+  it('returns the price ranges when the action is FETCH_PRICE_RANGES_SUCCESS', () => {
     let priceRanges = [
       {id: 0, range: 'Not Specified'},
       {id: 1, range: '¥0~999'},
@@ -150,14 +154,25 @@ describe('Reducer', () => {
       priceRanges: priceRanges
     }
 
-    expect(reducer(undefined, action)).toEqual({
-      restaurants: [],
-      suggestions: [],
-      cuisineTypes: [],
-      priceRanges: priceRanges,
-      comments: []
-    })
+    expect(reducer(undefined, action).priceRanges).toEqual(priceRanges)
   })
 
+  it('returns the currentUser when the action is LOGIN_SUCCESS', () => {
+    let user = {token: 'party', name: 'Danny', id: 17}
+    let action = {
+      type: types.LOGIN_SUCCESS,
+      user: user
+    }
 
+    expect(reducer(undefined, action).currentUser).toEqual(user)
+  })
+
+  it('delete the currentUser when the action is LOGOUT_SUCCESS', () => {
+    localStorage.setItem('user', JSON.stringify({token: 'token'}))
+    let action = {
+      type: types.LOGOUT_SUCCESS
+    }
+
+    expect(reducer(undefined, action).currentUser).toEqual(null)
+  })
 })

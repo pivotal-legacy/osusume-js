@@ -73,7 +73,11 @@ describe('restaurants', function() {
       browser.click('.restaurant-link');
       browser.click('.my-page-link');
       browser.click('.logout');
-      expect(browser.getText('h1')).toEqual('login');
+      browser.waitUntil(function() {
+        return this.getText('h1').then(function(text) {
+          return text === 'login';
+        })
+      });
     }
 
     it('shows list of restaurants and adds a restaurant', function () {

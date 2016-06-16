@@ -9,31 +9,27 @@ const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
 
 describe("Actions", () => {
+  let store
+  beforeEach(() => {
+    store = mockStore({currentUser: {token: 'party'}})
+  })
   afterEach(() => {
     nock.cleanAll()
-    localStorage.clear()
     expect.restoreSpies()
   })
 
   it("creates the fetchSuggestions action", () => {
-    localStorage.setItem('token', 'party')
     let suggestions = [
       {name: 'Afuri', address: 'Roppongi'}
     ]
-    nock('http://localhost:8080', {
-      headers: {
-        'Authorization': 'Bearer party'
-      },
-      method: 'POST',
-      body: {restaurantName: 'Afuri'}
-    })
-    .post('/restaurant_suggestions')
+    nock('http://localhost:8080')
+    .post('/restaurant_suggestions', {restaurantName: 'AFURI'})
+    .matchHeader('Authorization', (val) => val == 'Bearer party')
     .reply(200, suggestions)
 
     const expectedActions = [
       {type: types.FETCH_SUGGESTIONS_SUCCESS, suggestions: suggestions}
     ]
-    const store = mockStore([])
     return store.dispatch(actions.fetchSuggestions('AFURI'))
       .then(() => {
         expect(nock.isDone()).toEqual(true)
@@ -42,22 +38,19 @@ describe("Actions", () => {
   })
 
   it("creates the fetchCuisineTypes action", () => {
-    localStorage.setItem('token', 'party')
     let cuisineTypes = [
       {id: 0, name: 'Not Specified'},
       {id: 1, name: 'Japanese'},
       {id: 2, name: 'French'}
     ]
-    nock('http://localhost:8080', {
-      headers: {'Authorization': 'Bearer party'}
-    })
+    nock('http://localhost:8080')
     .get('/cuisines')
+    .matchHeader('Authorization', (val) => val == 'Bearer party')
     .reply(200, cuisineTypes)
 
     const expectedActions = [
       {type: types.FETCH_CUISINE_TYPES_SUCCESS, cuisineTypes: cuisineTypes}
     ]
-    const store = mockStore([])
     return store.dispatch(actions.fetchCuisineTypes())
       .then(() => {
         expect(nock.isDone()).toEqual(true)
@@ -66,22 +59,19 @@ describe("Actions", () => {
   })
 
   it("creates the fetchPriceRanges action", () => {
-    localStorage.setItem('token', 'party')
     let priceRanges = [
       {id: 0, range: 'Not Specified'},
       {id: 1, range: '¥0~999'},
       {id: 2, range: '¥1000~1999'}
     ]
-    nock('http://localhost:8080', {
-      headers: {'Authorization': 'Bearer party'}
-    })
+    nock('http://localhost:8080')
     .get('/priceranges')
+    .matchHeader('Authorization', (val) => val == 'Bearer party')
     .reply(200, priceRanges)
 
     const expectedActions = [
       {type: types.FETCH_PRICE_RANGES_SUCCESS, priceRanges: priceRanges}
     ]
-    const store = mockStore([])
     return store.dispatch(actions.fetchPriceRanges())
       .then(() => {
         expect(nock.isDone()).toEqual(true)
@@ -90,27 +80,22 @@ describe("Actions", () => {
   })
 
   it("creates the fetchComments action", () => {
-    localStorage.setItem('token', 'party')
     let comments = [
       {id: 0, comment: 'Not Specified', restaurant_id: 10},
       {id: 1, comment: 'This is second comment', restaurant_id: 10}
     ]
-    nock('http://localhost:8080', {
-      headers: {'Authorization': 'Bearer party'}
-    })
+    nock('http://localhost:8080')
     .get('/restaurants/10/comments')
+    .matchHeader('Authorization', (val) => val == 'Bearer party')
     .reply(200, comments)
 
     const expectedActions = [
       {type: types.FETCH_COMMENTS_SUCCESS, comments: comments}
     ]
-    const store = mockStore([])
     return store.dispatch(actions.fetchComments(10))
       .then(() => {
         expect(nock.isDone()).toEqual(true)
         expect(store.getActions()).toEqual(expectedActions)
       })
   })
-
-
 })

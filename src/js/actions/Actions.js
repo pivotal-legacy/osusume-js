@@ -31,8 +31,32 @@ function receiveComments(json) {
 }
 
 export function fetchSuggestions(name) {
+  return function(dispatch, getState) {
+    return dispatch(fetchSuggestionsWithCurrentUser(name, getState().currentUser))
+  }
+}
+
+export function fetchCuisineTypes() {
+  return function(dispatch, getState) {
+    return dispatch(fetchCuisineTypesWithCurrentUser(getState().currentUser))
+  }
+}
+
+export function fetchPriceRanges() {
+  return function(dispatch, getState) {
+    return dispatch(fetchPriceRangesWithCurrentUser(getState().currentUser))
+  }
+}
+
+export function fetchComments(restaurantId) {
+  return function(dispatch, getState) {
+    return dispatch(fetchCommentsWithCurrentUser(restaurantId, getState().currentUser))
+  }
+}
+
+function fetchSuggestionsWithCurrentUser(name, currentUser) {
   return dispatch => {
-    let config = Object.assign({}, authorizationConfig(),
+    let config = Object.assign({}, authorizationConfig(currentUser),
       {method: "POST", body: JSON.stringify({restaurantName: name})}
     )
 
@@ -42,26 +66,25 @@ export function fetchSuggestions(name) {
   }
 }
 
-export function fetchCuisineTypes() {
+function fetchCuisineTypesWithCurrentUser(currentUser) {
   return dispatch => {
-    return fetch(`${process.env.API_SERVER}/cuisines`, authorizationConfig())
+    return fetch(`${process.env.API_SERVER}/cuisines`, authorizationConfig(currentUser))
       .then(response => response.json())
       .then(json => dispatch(receiveCuisineTypes(json)))
   }
 }
 
-
-export function fetchPriceRanges() {
+function fetchPriceRangesWithCurrentUser(currentUser) {
   return dispatch => {
-    return fetch(`${process.env.API_SERVER}/priceranges`, authorizationConfig())
+    return fetch(`${process.env.API_SERVER}/priceranges`, authorizationConfig(currentUser))
       .then(response => response.json())
       .then(json => dispatch(receivePriceRanges(json)))
   }
 }
 
-export function fetchComments(restaurantId) {
+function fetchCommentsWithCurrentUser(restaurantId, currentUser) {
   return dispatch => {
-    return fetch(`${process.env.API_SERVER}/restaurants/${restaurantId}/comments`, authorizationConfig())
+    return fetch(`${process.env.API_SERVER}/restaurants/${restaurantId}/comments`, authorizationConfig(currentUser))
       .then(response => response.json())
       .then(json => dispatch(receiveComments(json)))
   }

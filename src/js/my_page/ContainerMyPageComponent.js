@@ -2,16 +2,16 @@ import {connect} from 'react-redux'
 import * as actions from '../actions/AuthenticationActions'
 import * as restaurantActions from '../actions/RestaurantActions'
 import MyPageComponent from './MyPageComponent'
-import {getUserId} from '../Session'
 
 export const mapStateToProps = (state) => {
   return {
     myRestaurants: state.restaurants.filter((restaurant) =>
-      restaurant.user.id == getUserId()
+      restaurant.user.id == state.currentUser.id
     ),
     myLikedRestaurants: state.restaurants.filter((restaurant) =>
       restaurant.liked
-    )
+    ),
+    currentUser: state.currentUser
   }
 }
 

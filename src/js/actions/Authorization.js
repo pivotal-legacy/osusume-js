@@ -1,9 +1,7 @@
-import { getToken } from '../Session'
-
-export function authorizationConfig() {
+export function authorizationConfig(currentUser) {
   return {
     headers: {
-      'Authorization': `Bearer ${getToken()}`,
+      'Authorization': `Bearer ${currentUser.token}`,
       'Content-Type': 'application/json'
     }
   }
