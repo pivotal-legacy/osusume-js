@@ -6,6 +6,7 @@ import React from 'react'
 import {mapStateToProps, mapDispatchToProps} from '../../src/js/restaurant_detail/ContainerRestaurantDetailComponent'
 import * as actions from '../../src/js/actions/Actions'
 import * as restaurantActions from '../../src/js/actions/RestaurantActions'
+import * as commentActions from '../../src/js/actions/CommentActions'
 
 describe('ContainerRestaurantDetailComponent', () => {
   afterEach(function () {
@@ -29,10 +30,10 @@ describe('ContainerRestaurantDetailComponent', () => {
         restaurantId: 17
       }
     }
-    var spy = expect.spyOn(actions, 'fetchComments')
+    var spy = expect.spyOn(commentActions, 'fetchComments')
     mapDispatchToProps(dispatch, props).fetchComments(17)
     expect(spy).toHaveBeenCalledWith(17)
-    expect(dispatch).toHaveBeenCalledWith(actions.fetchComments())
+    expect(dispatch).toHaveBeenCalledWith(commentActions.fetchComments())
   })
 
   it('mapsDispatchToProps for fetchRestaurant', () => {
@@ -55,10 +56,10 @@ describe('ContainerRestaurantDetailComponent', () => {
           restaurantId: 17
         }
       }
-      var spy = expect.spyOn(restaurantActions, 'createComment')
+      var spy = expect.spyOn(commentActions, 'createComment')
       mapDispatchToProps(dispatch, props).createComment('it is a comment')
       expect(spy).toHaveBeenCalledWith(17, 'it is a comment')
-      expect(dispatch).toHaveBeenCalledWith(restaurantActions.createComment())
+      expect(dispatch).toHaveBeenCalledWith(commentActions.createComment())
   })
 
   it('mapsDispatchToProps for like', () => {

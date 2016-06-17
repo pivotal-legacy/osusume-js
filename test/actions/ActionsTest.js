@@ -78,24 +78,4 @@ describe("Actions", () => {
         expect(store.getActions()).toEqual(expectedActions)
       })
   })
-
-  it("creates the fetchComments action", () => {
-    let comments = [
-      {id: 0, comment: 'Not Specified', restaurant_id: 10},
-      {id: 1, comment: 'This is second comment', restaurant_id: 10}
-    ]
-    nock('http://localhost:8080')
-    .get('/restaurants/10/comments')
-    .matchHeader('Authorization', (val) => val == 'Bearer party')
-    .reply(200, comments)
-
-    const expectedActions = [
-      {type: types.FETCH_COMMENTS_SUCCESS, comments: comments}
-    ]
-    return store.dispatch(actions.fetchComments(10))
-      .then(() => {
-        expect(nock.isDone()).toEqual(true)
-        expect(store.getActions()).toEqual(expectedActions)
-      })
-  })
 })

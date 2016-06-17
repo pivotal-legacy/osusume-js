@@ -23,13 +23,6 @@ function receivePriceRanges(json) {
   }
 }
 
-function receiveComments(json) {
-  return {
-    type: types.FETCH_COMMENTS_SUCCESS,
-    comments: json
-  }
-}
-
 export function fetchSuggestions(name) {
   return function(dispatch, getState) {
     return dispatch(fetchSuggestionsWithCurrentUser(name, getState().currentUser))
@@ -45,12 +38,6 @@ export function fetchCuisineTypes() {
 export function fetchPriceRanges() {
   return function(dispatch, getState) {
     return dispatch(fetchPriceRangesWithCurrentUser(getState().currentUser))
-  }
-}
-
-export function fetchComments(restaurantId) {
-  return function(dispatch, getState) {
-    return dispatch(fetchCommentsWithCurrentUser(restaurantId, getState().currentUser))
   }
 }
 
@@ -79,13 +66,5 @@ function fetchPriceRangesWithCurrentUser(currentUser) {
     return fetch(`${process.env.API_SERVER}/priceranges`, authorizationConfig(currentUser))
       .then(response => response.json())
       .then(json => dispatch(receivePriceRanges(json)))
-  }
-}
-
-function fetchCommentsWithCurrentUser(restaurantId, currentUser) {
-  return dispatch => {
-    return fetch(`${process.env.API_SERVER}/restaurants/${restaurantId}/comments`, authorizationConfig(currentUser))
-      .then(response => response.json())
-      .then(json => dispatch(receiveComments(json)))
   }
 }
