@@ -94,4 +94,8 @@ describe('RestaurantReducer', () => {
 
     expect(reducer.restaurants(restaurants, action)).toEqual(updatedRestaurants)
   })
+
+  it('returns empty array by default', () => {
+    expect(reducer.restaurants(undefined, {})).toEqual([])
+  })
 })

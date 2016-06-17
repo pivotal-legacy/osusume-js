@@ -26,4 +26,10 @@ describe('CurrentUserReducer', () => {
 
     expect(currentUserReducer.currentUser(undefined, action)).toEqual(null)
   })
+
+  it('when there is no user, it uses the one from localStorage', () => {
+    let currentUser = {token: 'token'}
+    localStorage.setItem('user', JSON.stringify(currentUser))
+    expect(currentUserReducer.currentUser(undefined, {})).toEqual(currentUser)
+  })
 })

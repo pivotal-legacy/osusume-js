@@ -1,50 +1,18 @@
-import * as types from '../constants/ActionTypes';
-import * as restaurantReducer from './RestaurantReducer'
-import * as commentReducer from './CommentReducer'
-import * as currentUserReducer from './CurrentUserReducer'
+import {restaurants} from './RestaurantReducer'
+import {comments} from './CommentReducer'
+import {currentUser} from './CurrentUserReducer'
+import {suggestions} from './SuggestionReducer'
+import {cuisineTypes} from './CuisineTypeReducer'
+import {priceRanges} from './PriceRangeReducer'
 
-const initialState = () => {
+const reducer = (state={}, action) => {
   return {
-    restaurants: [],
-    suggestions: [],
-    cuisineTypes: [],
-    priceRanges: [],
-    comments: [],
-    currentUser: JSON.parse(localStorage.getItem('user'))
-  }
-}
-
-const reducer = (state = initialState(), action) => {
-  if (action.type == undefined)
-    return state
-
-  switch (action.type) {
-    case types.FETCH_RESTAURANTS_SUCCESS:
-    case types.FETCH_RESTAURANT_SUCCESS:
-    case types.CREATE_RESTAURANT_SUCCESS:
-    case types.CREATE_LIKE_SUCCESS:
-    case types.REMOVE_LIKE_SUCCESS:
-      return Object.assign({}, state,
-        {restaurants: restaurantReducer.restaurants(state.restaurants, action)})
-    case types.FETCH_SUGGESTIONS_SUCCESS:
-      return Object.assign({}, state,
-        {suggestions: action.suggestions});
-    case types.FETCH_CUISINE_TYPES_SUCCESS:
-      return Object.assign({}, state,
-        {cuisineTypes: action.cuisineTypes})
-    case types.FETCH_PRICE_RANGES_SUCCESS:
-      return Object.assign({}, state,
-        {priceRanges: action.priceRanges})
-    case types.FETCH_COMMENTS_SUCCESS:
-    case types.CREATE_COMMENT_SUCCESS:
-      return Object.assign({}, state,
-        {comments: commentReducer.comments(state.comments, action)})
-    case types.LOGIN_SUCCESS:
-    case types.LOGOUT_SUCCESS:
-      return Object.assign({}, state,
-        {currentUser: currentUserReducer.currentUser(state.currentUser, action)})
-    default:
-      return state
+    restaurants: restaurants(state.restaurants, action),
+    comments: comments(state.comments, action),
+    currentUser: currentUser(state.currentUser, action),
+    suggestions: suggestions(state.suggestions, action),
+    cuisineTypes: cuisineTypes(state.cuisineTypes, action),
+    priceRanges: priceRanges(state.priceRanges, action)
   }
 }
 

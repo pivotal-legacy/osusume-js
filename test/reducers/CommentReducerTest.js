@@ -32,4 +32,8 @@ describe('CommentReducer', () => {
 
     expect(commentReducer.comments(state, action)).toEqual([addedComment, comment])
   })
+
+  it('returns empty array by default', () => {
+    expect(commentReducer.comments(undefined, {})).toEqual([])
+  })
 })
