@@ -1,4 +1,5 @@
 import expect from 'expect'
+import {fromJS} from 'immutable'
 
 import * as currentUserReducer from '../../src/js/reducers/CurrentUserReducer'
 import * as types from '../../src/js/constants/ActionTypes'
@@ -15,7 +16,7 @@ describe('CurrentUserReducer', () => {
       user: user
     }
 
-    expect(currentUserReducer.currentUser(undefined, action)).toEqual(user)
+    expect(currentUserReducer.currentUser(undefined, action)).toEqual(fromJS(user))
   })
 
   it('delete the currentUser when the action is LOGOUT_SUCCESS', () => {
@@ -30,6 +31,6 @@ describe('CurrentUserReducer', () => {
   it('when there is no user, it uses the one from localStorage', () => {
     let currentUser = {token: 'token'}
     localStorage.setItem('user', JSON.stringify(currentUser))
-    expect(currentUserReducer.currentUser(undefined, {})).toEqual(currentUser)
+    expect(currentUserReducer.currentUser(undefined, {})).toEqual(fromJS(currentUser))
   })
 })

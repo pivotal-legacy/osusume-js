@@ -1,6 +1,7 @@
 import expect from "expect"
 import nock from "nock"
 import configureMockStore from "redux-mock-store"
+import {fromJS} from 'immutable'
 import thunk from "redux-thunk"
 import * as actions from "../../src/js/actions/AuthenticationActions"
 import * as types from "../../src/js/constants/ActionTypes"
@@ -35,7 +36,7 @@ describe("AuthenticationActions", () => {
   })
 
   it("logs the user out", () => {
-    const store = mockStore({currentUser: {token: 'party'}})
+    const store = mockStore({currentUser: fromJS({token: 'party'})})
     nock('http://localhost:8080')
     .matchHeader('Authorization', (val) => val == 'Bearer party')
     .delete('/session', {token: 'party'})

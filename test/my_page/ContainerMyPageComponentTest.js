@@ -33,7 +33,7 @@ describe('ContainerMyPageComponent', () => {
         {id: 0, name: 'Afuri', user: {id: 17}},
         {id: 1, name: 'Butagumi', user: {id: 18}}
       ]),
-      currentUser: {id: 17}
+      currentUser: fromJS({id: 17})
     }
     expect(mapStateToProps(state).myRestaurants).toEqual(
       fromJS([{id: 0, name: 'Afuri', user: {id: 17}}])
@@ -46,7 +46,7 @@ describe('ContainerMyPageComponent', () => {
         {id: 0, name: 'Afuri', liked: true, user: {id: 17}},
         {id: 1, name: 'Butagumi', liked: false, user: {id: 17}}
       ]),
-      currentUser: {id: 17}
+      currentUser: fromJS({id: 17})
     }
     expect(mapStateToProps(state).myLikedRestaurants).toEqual(
       fromJS([{id: 0, name: 'Afuri', liked: true, user: {id: 17}}])
@@ -56,10 +56,10 @@ describe('ContainerMyPageComponent', () => {
   it('mapStateToProps for currentUser', () => {
     let state = {
       restaurants: fromJS([]),
-      currentUser: {id: 17}
+      currentUser: fromJS({id: 17})
     }
     expect(mapStateToProps(state).currentUser).toEqual(
-      {id: 17}
+      fromJS({id: 17})
     )
   })
 })

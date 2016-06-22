@@ -2,6 +2,7 @@ import expect from "expect"
 import nock from "nock"
 import configureMockStore from "redux-mock-store"
 import thunk from "redux-thunk"
+import {fromJS} from 'immutable'
 import * as actions from "../../src/js/actions/Actions"
 import * as types from "../../src/js/constants/ActionTypes"
 
@@ -11,7 +12,7 @@ const mockStore = configureMockStore(middlewares)
 describe("Actions", () => {
   let store
   beforeEach(() => {
-    store = mockStore({currentUser: {token: 'party'}})
+    store = mockStore({currentUser: fromJS({token: 'party'})})
   })
   afterEach(() => {
     nock.cleanAll()

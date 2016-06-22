@@ -1,4 +1,5 @@
 import expect from 'expect'
+import {fromJS} from 'immutable'
 
 import {updateLocalStorageWithUser} from '../../src/js/subscribers/LocalStorage'
 
@@ -9,12 +10,13 @@ describe('LocalStorage', () => {
   })
 
   it('sets the current user in local storage and redirects if the user does not exist in local storage', () => {
+    let currentUser = {
+      token: 'token',
+      id: 'id',
+      name: 'name'
+    }
     let state = {
-      currentUser: {
-        token: 'token',
-        id: 'id',
-        name: 'name'
-      }
+      currentUser: fromJS(currentUser)
     }
     expect(localStorage.getItem('user')).toEqual(null)
 
@@ -23,7 +25,7 @@ describe('LocalStorage', () => {
 
     updateLocalStorageWithUser(state, hashHistory)
 
-    expect(JSON.parse(localStorage.getItem('user'))).toEqual(state.currentUser)
+    expect(JSON.parse(localStorage.getItem('user'))).toEqual(currentUser)
     expect(hashHandler).toHaveBeenCalledWith('/')
   })
 
@@ -45,14 +47,15 @@ describe('LocalStorage', () => {
   })
 
   it('does not set the current user in local storage nor redirect if the user matches the one in the store', () => {
-    let state = {
-      currentUser: {
-        token: 'token',
-        id: 'id',
-        name: 'name'
-      }
+    let currentUser = {
+      token: 'token',
+      id: 'id',
+      name: 'name'
     }
-    localStorage.setItem('user', JSON.stringify(state.currentUser))
+    let state = {
+      currentUser: fromJS(currentUser)
+    }
+    localStorage.setItem('user', JSON.stringify(currentUser))
     let spy = expect.spyOn(localStorage, 'setItem')
     let hashHistory = {push: () => {}}
     const hashHandler = expect.spyOn(hashHistory, 'push')
