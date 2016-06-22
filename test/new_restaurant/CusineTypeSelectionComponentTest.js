@@ -2,13 +2,14 @@ import expect from 'expect';
 import { shallow } from 'enzyme';
 import React from 'react';
 import CuisineTypeSelectionComponent from '../../src/js/new_restaurant/CuisineTypeSelectionComponent'
+import {fromJS} from 'immutable'
 
 describe('CuisineTypeSelectionComponent', () => {
-  let cuisineTypes = [
+  let cuisineTypes = fromJS([
     {id: 0, name: 'Not Specified'},
     {id: 1, name: 'Japanese'},
     {id: 2, name: 'French'}
-  ];
+  ])
   it('displays selection dropdown', () => {
     const component = shallow(<CuisineTypeSelectionComponent cuisineTypes={cuisineTypes}/>);
 

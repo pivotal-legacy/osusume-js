@@ -28,7 +28,7 @@ export default class CuisineTypeSelectionComponent extends React.Component {
   renderOptions() {
     return this.props.cuisineTypes.map((cuisineType) => {
       return (
-        <option key={cuisineType.id} value={cuisineType.id}>{cuisineType.name}</option>
+        <option key={cuisineType.get('id')} value={cuisineType.get('id')}>{cuisineType.get('name')}</option>
       )
     })
   }

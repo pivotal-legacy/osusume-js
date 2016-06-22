@@ -1,9 +1,10 @@
-import * as types from '../constants/ActionTypes';
+import * as types from '../constants/ActionTypes'
+import {List, fromJS} from 'immutable'
 
-export function cuisineTypes(cuisineTypes = [], action) {
+export function cuisineTypes(cuisineTypes = List(), action) {
   switch (action.type) {
     case types.FETCH_CUISINE_TYPES_SUCCESS:
-      return action.cuisineTypes
+      return fromJS(action.cuisineTypes)
     default:
       return cuisineTypes
   }
