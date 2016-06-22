@@ -28,7 +28,7 @@ export default class PriceRangeSelectionComponent extends React.Component {
   renderOptions() {
     return this.props.priceRanges.map((priceRange) => {
       return (
-        <option key={priceRange.id} value={priceRange.id}>{priceRange.range}</option>
+        <option key={priceRange.get('id')} value={priceRange.get('id')}>{priceRange.get('range')}</option>
       )
     })
   }
