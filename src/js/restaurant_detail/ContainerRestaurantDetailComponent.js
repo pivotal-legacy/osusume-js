@@ -4,15 +4,15 @@ import * as actions from '../actions/Actions'
 import * as restaurantActions from '../actions/RestaurantActions'
 import * as commentActions from '../actions/CommentActions'
 
-const findRestaurant = (state, restaurantId) => {
-  return state.restaurants.find((restaurant) => {
-    return restaurant.id == restaurantId
+const findRestaurant = (restaurants, restaurantId) => {
+  return restaurants.find((restaurant) => {
+    return restaurant.get('id') == restaurantId
   })
 }
 
 export const mapStateToProps = (state, ownProps) => {
   return {
-    restaurant: findRestaurant(state, ownProps.params.restaurantId),
+    restaurant: findRestaurant(state.restaurants, ownProps.params.restaurantId),
     comments: state.comments
   }
 }

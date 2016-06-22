@@ -2,6 +2,7 @@ import expect from 'expect'
 import { createStore } from 'redux'
 import { mount, shallow } from 'enzyme'
 import React from 'react'
+import {fromJS} from 'immutable'
 
 import {mapStateToProps, mapDispatchToProps} from '../../src/js/restaurant_detail/ContainerRestaurantDetailComponent'
 import * as actions from '../../src/js/actions/Actions'
@@ -15,11 +16,11 @@ describe('ContainerRestaurantDetailComponent', () => {
 
   it('mapsStateToProps', () => {
     let state = {
-      restaurants: [{id: 0, name: 'Afuri'}, {id: 1, name: 'Tsukemen'}],
+      restaurants: fromJS([{id: 0, name: 'Afuri'}, {id: 1, name: 'Tsukemen'}]),
       comments: [{id: 0, comment: 'i like this one'}]
     }
 
-    expect(mapStateToProps(state, {params: {restaurantId: 0}}).restaurant).toEqual({id: 0, name: 'Afuri'})
+    expect(mapStateToProps(state, {params: {restaurantId: 0}}).restaurant).toEqual(fromJS({id: 0, name: 'Afuri'}))
     expect(mapStateToProps(state, {params: {restaurantId: 0}}).comments).toEqual([{id: 0, comment: 'i like this one'}])
   })
 

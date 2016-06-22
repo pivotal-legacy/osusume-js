@@ -4,12 +4,13 @@ import * as restaurantActions from '../actions/RestaurantActions'
 import MyPageComponent from './MyPageComponent'
 
 export const mapStateToProps = (state) => {
+  let restaurants = state.restaurants
   return {
-    myRestaurants: state.restaurants.filter((restaurant) =>
-      restaurant.user.id == state.currentUser.id
+    myRestaurants: restaurants.filter((restaurant) =>
+      restaurant.get('user').get('id') == state.currentUser.id
     ),
-    myLikedRestaurants: state.restaurants.filter((restaurant) =>
-      restaurant.liked
+    myLikedRestaurants: restaurants.filter((restaurant) =>
+      restaurant.get('liked')
     ),
     currentUser: state.currentUser
   }

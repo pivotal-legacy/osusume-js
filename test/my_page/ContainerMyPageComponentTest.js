@@ -2,6 +2,7 @@ import expect from 'expect'
 import { createStore } from 'redux'
 import { mount, shallow } from 'enzyme'
 import React from 'react'
+import {fromJS} from 'immutable'
 
 import {mapDispatchToProps, mapStateToProps} from '../../src/js/my_page/ContainerMyPageComponent'
 import * as actions from '../../src/js/actions/AuthenticationActions'
@@ -26,35 +27,35 @@ describe('ContainerMyPageComponent', () => {
     expect(dispatch).toHaveBeenCalledWith(restaurantActions.fetchRestaurants())
   })
 
-  it('mapStateToProps for myRestaurats', () => {
+  it('mapStateToProps for myRestaurants', () => {
     let state = {
-      restaurants: [
+      restaurants: fromJS([
         {id: 0, name: 'Afuri', user: {id: 17}},
         {id: 1, name: 'Butagumi', user: {id: 18}}
-      ],
+      ]),
       currentUser: {id: 17}
     }
     expect(mapStateToProps(state).myRestaurants).toEqual(
-      [{id: 0, name: 'Afuri', user: {id: 17}}]
+      fromJS([{id: 0, name: 'Afuri', user: {id: 17}}])
     )
   })
 
   it('mapStateToProps for myLikedRestaurants', () => {
     let state = {
-      restaurants: [
+      restaurants: fromJS([
         {id: 0, name: 'Afuri', liked: true, user: {id: 17}},
         {id: 1, name: 'Butagumi', liked: false, user: {id: 17}}
-      ],
+      ]),
       currentUser: {id: 17}
     }
     expect(mapStateToProps(state).myLikedRestaurants).toEqual(
-      [{id: 0, name: 'Afuri', liked: true, user: {id: 17}}]
+      fromJS([{id: 0, name: 'Afuri', liked: true, user: {id: 17}}])
     )
   })
 
   it('mapStateToProps for currentUser', () => {
     let state = {
-      restaurants: [],
+      restaurants: fromJS([]),
       currentUser: {id: 17}
     }
     expect(mapStateToProps(state).currentUser).toEqual(

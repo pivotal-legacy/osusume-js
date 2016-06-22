@@ -16,14 +16,14 @@ export default class RestaurantDetailComponent extends React.Component {
   render() {
     let restaurant = this.props.restaurant
     if (restaurant) {
-      let photo_urls = restaurant.photo_urls || []
+      let photo_urls = restaurant.get('photo_urls') ? restaurant.get('photo_urls') : []
       let images = photo_urls.map((photo_url, index) => {
-        return (<img key={index} src={photo_url.url} width={210}  />)
+        return (<img key={index} src={photo_url.get('url')} width={210}  />)
       })
 
-      let date = new Date(restaurant.updated_at)
-      let author = restaurant.user ? restaurant.user.name : ""
-      let formatAuthor =  `${date.toLocaleDateString()} by ${author}`
+      let date = new Date(restaurant.get('updated_at'))
+      let author = restaurant.get('user') ? restaurant.get('user').get('name') : ""
+      let formatAuthor = `${date.toLocaleDateString()} by ${author}`
 
       let comments = this.props.comments || []
       let commentsToDisplay = comments.map((comment) => {
@@ -31,7 +31,7 @@ export default class RestaurantDetailComponent extends React.Component {
       })
 
       let maybeLikeButton = <button onClick={this.props.like}>like</button>
-      if ( restaurant.liked ) {
+      if ( restaurant.get('liked') ) {
         maybeLikeButton = <button onClick={this.props.removeLike}>remove like</button>
       }
 
@@ -39,16 +39,16 @@ export default class RestaurantDetailComponent extends React.Component {
         <div>
           <Link to='/'><button className='restaurant-link'>restaurants</button></Link>
           <div>{images}</div>
-          <h1>{restaurant.name}</h1>
+          <h1>{restaurant.get('name')}</h1>
 
-          <div className="cuisine">{restaurant.cuisine.name}</div>
-          <div className="address">{restaurant.address}</div>
-          <div className="notes">{restaurant.notes}</div>
+          <div className="cuisine">{restaurant.get('cuisine').get('name')}</div>
+          <div className="address">{restaurant.get('address')}</div>
+          <div className="notes">{restaurant.get('notes')}</div>
           <div className="likes">
-            <span className="num-likes">{ pluralize(restaurant.num_likes, 'like') }</span>
+            <span className="num-likes">{ pluralize(restaurant.get('num_likes'), 'like') }</span>
             {maybeLikeButton}
           </div>
-          <div className="price-range">{restaurant.price_range.range}</div>
+          <div className="price-range">{restaurant.get('price_range').get('range')}</div>
           <div className="date">{formatAuthor}</div>
           <CommentFormComponent createComment={this.props.createComment} />
           {commentsToDisplay}

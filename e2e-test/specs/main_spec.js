@@ -36,11 +36,7 @@ describe('restaurants', function() {
 
     const viewNewRestaurantDetails = () => {
       expect(browser.getText('h1')).toEqual('Restaurants');
-      browser.waitUntil(function() {
-        return this.getText('.name').then(function(text) {
-          return text[0] === 'ＡＦＵＲＩ'
-        });
-      });
+      expect(browser.getText('.name')).toContain('ＡＦＵＲＩ');
 
       browser.click('.name')
 

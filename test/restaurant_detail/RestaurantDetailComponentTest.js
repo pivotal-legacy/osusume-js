@@ -1,6 +1,7 @@
 import expect from 'expect'
 import { mount, shallow } from 'enzyme'
 import { Link } from 'react-router'
+import {fromJS} from 'immutable'
 
 import React from 'react'
 import RestaurantDetailComponent from '../../src/js/restaurant_detail/RestaurantDetailComponent'
@@ -17,7 +18,7 @@ describe('RestaurantDetailComponent', () => {
         name: 'Danny'
       }
     }
-    let restaurant = {
+    let restaurant = fromJS({
       id: 0,
       name: 'Afuri',
       cuisine: {name: "Japanese"},
@@ -30,7 +31,7 @@ describe('RestaurantDetailComponent', () => {
       num_likes: 5,
       created_at: "2016-05-26T10:03:17.736Z",
       updated_at: "2016-05-27T10:03:17.736Z"
-    }
+    })
     let createCommentCallback = function() {}
     let likeCallback = function() {}
     let removeLikeCallback = function() {}
@@ -51,12 +52,23 @@ describe('RestaurantDetailComponent', () => {
     expect(component.contains(<CommentComponent comment={comment} />)).toBe(true)
   })
 
+  it('shows no images if there are no photo urls', () => {
+    let restaurant = fromJS({
+      photo_urls: null,
+      cuisine: {},
+      price_range: {}
+    })
+
+    const component = shallow(<RestaurantDetailComponent restaurant={restaurant} />)
+    expect(component.find('img').length).toEqual(0)
+  })
+
   it('displays the remove like button when retaurant has been liked', () => {
-    let restaurant = {
+    let restaurant = fromJS({
       liked: true,
       price_range: {},
       cuisine: {}
-    }
+    })
     let likeCallback = function() {}
     let removeLikeCallback = function() {}
     const component = shallow(<RestaurantDetailComponent restaurant={restaurant} like={likeCallback} removeLike={removeLikeCallback}/>)
@@ -66,29 +78,29 @@ describe('RestaurantDetailComponent', () => {
   })
 
   it('displays likes pluralized correctly', () => {
-    let restaurantWithoutLikes = {
+    let restaurantWithoutLikes = fromJS({
       num_likes: 0,
       price_range: {},
       cuisine: {}
-    }
+    })
     expect(shallow(<RestaurantDetailComponent restaurant={restaurantWithoutLikes} />)
       .contains(<span className="num-likes">0 likes</span>)
     ).toBe(true)
 
-    let restaurantWithOneLike = {
+    let restaurantWithOneLike = fromJS({
       num_likes: 1,
       price_range: {},
       cuisine: {}
-    }
+    })
     expect(shallow(<RestaurantDetailComponent restaurant={restaurantWithOneLike} />)
       .contains(<span className="num-likes">1 like</span>)
     ).toBe(true)
 
-    let restaurantWithTwoLikes = {
+    let restaurantWithTwoLikes = fromJS({
       num_likes: 2,
       price_range: {},
       cuisine: {}
-    }
+    })
     expect(shallow(<RestaurantDetailComponent restaurant={restaurantWithTwoLikes} />)
       .contains(<span className="num-likes">2 likes</span>)
     ).toBe(true)
@@ -118,12 +130,12 @@ describe('RestaurantDetailComponent', () => {
     let props = {
       fetchComments: expect.createSpy(),
       fetchRestaurant: expect.createSpy(),
-      restaurant: {
+      restaurant: fromJS({
         id: 1,
         name: 'Afuri',
         price_range: {},
         cuisine: {}
-      }
+      })
     }
     expect(props.fetchRestaurant.calls.length).toBe(0)
     mount(<RestaurantDetailComponent {...props} />)
