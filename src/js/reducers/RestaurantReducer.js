@@ -1,5 +1,5 @@
 import * as types from '../constants/ActionTypes'
-import {List, Map, fromJS} from 'immutable'
+import {List, fromJS} from 'immutable'
 
 export function restaurants(state = List(), action) {
   switch (action.type) {

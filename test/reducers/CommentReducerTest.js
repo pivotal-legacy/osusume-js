@@ -1,4 +1,5 @@
 import expect from 'expect'
+import {fromJS} from 'immutable'
 import reducer from '../../src/js/reducers/CommentReducer'
 import * as types from '../../src/js/constants/ActionTypes'
 import * as commentReducer from '../../src/js/reducers/CommentReducer'
@@ -18,7 +19,7 @@ describe('CommentReducer', () => {
       comments: comments
     }
 
-    expect(commentReducer.comments(undefined, action)).toEqual(comments)
+    expect(commentReducer.comments(undefined, action)).toEqual(fromJS(comments))
   })
 
   it('returns all comments with the added comment first when action is CREATE_COMMENT_SUCCESS', () => {
@@ -28,12 +29,12 @@ describe('CommentReducer', () => {
       type: types.CREATE_COMMENT_SUCCESS,
       comment: addedComment
     }
-    let state = [comment]
+    let state = fromJS([comment])
 
-    expect(commentReducer.comments(state, action)).toEqual([addedComment, comment])
+    expect(commentReducer.comments(state, action)).toEqual(fromJS([addedComment, comment]))
   })
 
   it('returns empty array by default', () => {
-    expect(commentReducer.comments(undefined, {})).toEqual([])
+    expect(commentReducer.comments(undefined, {})).toEqual(fromJS([]))
   })
 })
