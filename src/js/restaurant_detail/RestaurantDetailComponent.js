@@ -41,17 +41,14 @@ export default class RestaurantDetailComponent extends React.Component {
           <div>{images}</div>
           <h1>{restaurant.name}</h1>
 
-          <div className="cuisine">{
-              restaurant.cuisine ? restaurant.cuisine.name : ""
-          }
-          </div>
+          <div className="cuisine">{restaurant.cuisine.name}</div>
           <div className="address">{restaurant.address}</div>
           <div className="notes">{restaurant.notes}</div>
           <div className="likes">
             <span className="num-likes">{ pluralize(restaurant.num_likes, 'like') }</span>
             {maybeLikeButton}
           </div>
-          <div className="price-range">{restaurant.price_range}</div>
+          <div className="price-range">{restaurant.price_range.range}</div>
           <div className="date">{formatAuthor}</div>
           <CommentFormComponent createComment={this.props.createComment} />
           {commentsToDisplay}

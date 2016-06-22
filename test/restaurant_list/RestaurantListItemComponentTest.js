@@ -11,7 +11,7 @@ describe('RestaurantListItemComponent', () => {
       id: 0,
       name: 'Afuri',
       cuisine: {name: 'Ramen'},
-      price_range: '1000 - 2000',
+      price_range: {range: '1000 - 2000'},
       address: 'Iidabashi West Exit',
       num_likes: 3,
       photo_urls: [{url: 'https://hoge/image.jpg'}],
@@ -31,14 +31,14 @@ describe('RestaurantListItemComponent', () => {
     expect(component.find('.updated-at').text()).toEqual('5/26/2016')
   })
 
-  it('displays no cuisine if cuisine is null', () => {
-    let restaurant = {id: 0, name: 'Afuri', cuisine: null}
-    const component = shallow(<RestaurantListItemComponent restaurant={restaurant} />)
-    expect(component.find('.cuisine').text()).toEqual('')
-  })
-
   it('displays no photo is there are no photos', () => {
-    let restaurant = {id: 0, name: 'Afuri', photo_urls: []}
+    let restaurant = {
+      id: 0,
+      name: 'Afuri',
+      cuisine: {},
+      price_range: {},
+      photo_urls: []
+    }
     const component = shallow(<RestaurantListItemComponent restaurant={restaurant} />)
     expect(component.find('img').length).toEqual(0)
   })

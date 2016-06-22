@@ -65,7 +65,14 @@ describe('MyPageComponent', () => {
 
   it('does not fetch the restaurant if there are restaurants available in props', () => {
     let props = {
-      myRestaurants: [{id: 0, name: 'afuri'}],
+      myRestaurants: [
+        {
+          id: 0,
+          name: 'afuri',
+          cuisine: {},
+          price_range: {}
+        }
+      ],
       fetchRestaurants: expect.createSpy(),
       currentUser: {name: 'Danny'}
     }

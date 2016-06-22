@@ -21,7 +21,7 @@ describe('RestaurantDetailComponent', () => {
       id: 0,
       name: 'Afuri',
       cuisine: {name: "Japanese"},
-      price_range: '¥0~999',
+      price_range: {range: '¥0~999'},
       user: {id: 0, email: "danny", name: "Danny"},
       address: "Roppongi",
       notes: "good",
@@ -54,6 +54,8 @@ describe('RestaurantDetailComponent', () => {
   it('displays the remove like button when retaurant has been liked', () => {
     let restaurant = {
       liked: true,
+      price_range: {},
+      cuisine: {}
     }
     let likeCallback = function() {}
     let removeLikeCallback = function() {}
@@ -64,15 +66,30 @@ describe('RestaurantDetailComponent', () => {
   })
 
   it('displays likes pluralized correctly', () => {
-    expect(shallow(<RestaurantDetailComponent restaurant={{num_likes: 0}} />)
+    let restaurantWithoutLikes = {
+      num_likes: 0,
+      price_range: {},
+      cuisine: {}
+    }
+    expect(shallow(<RestaurantDetailComponent restaurant={restaurantWithoutLikes} />)
       .contains(<span className="num-likes">0 likes</span>)
     ).toBe(true)
 
-    expect(shallow(<RestaurantDetailComponent restaurant={{num_likes: 1}} />)
+    let restaurantWithOneLike = {
+      num_likes: 1,
+      price_range: {},
+      cuisine: {}
+    }
+    expect(shallow(<RestaurantDetailComponent restaurant={restaurantWithOneLike} />)
       .contains(<span className="num-likes">1 like</span>)
     ).toBe(true)
 
-    expect(shallow(<RestaurantDetailComponent restaurant={{num_likes: 2}} />)
+    let restaurantWithTwoLikes = {
+      num_likes: 2,
+      price_range: {},
+      cuisine: {}
+    }
+    expect(shallow(<RestaurantDetailComponent restaurant={restaurantWithTwoLikes} />)
       .contains(<span className="num-likes">2 likes</span>)
     ).toBe(true)
   })
@@ -103,7 +120,9 @@ describe('RestaurantDetailComponent', () => {
       fetchRestaurant: expect.createSpy(),
       restaurant: {
         id: 1,
-        name: 'Afuri'
+        name: 'Afuri',
+        price_range: {},
+        cuisine: {}
       }
     }
     expect(props.fetchRestaurant.calls.length).toBe(0)
