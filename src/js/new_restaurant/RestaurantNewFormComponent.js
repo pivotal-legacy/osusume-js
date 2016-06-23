@@ -27,8 +27,8 @@ export default class RestaurantNewFormComponent extends React.Component {
     if (this.props.suggestion != undefined) {
       return (
         <div>
-          <div>{this.props.suggestion.name}</div>
-          <div>{this.props.suggestion.address}</div>
+          <div>{this.props.suggestion.get('name')}</div>
+          <div>{this.props.suggestion.get('address')}</div>
         </div>
       )
     } else {
@@ -51,8 +51,8 @@ export default class RestaurantNewFormComponent extends React.Component {
   saveRestaurant() {
     this.props.addNewRestaurant(
       {
-        name: this.props.suggestion.name,
-        address: this.props.suggestion.address,
+        name: this.props.suggestion.get('name'),
+        address: this.props.suggestion.get('address'),
         cuisine_id: this.state.selectedCuisine,
         price_range_id: this.state.selectedPriceRange,
         notes: this.state.notes

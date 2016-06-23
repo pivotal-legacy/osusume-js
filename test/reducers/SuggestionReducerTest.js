@@ -1,4 +1,5 @@
 import expect from 'expect'
+import {fromJS} from 'immutable'
 import * as suggestionReducer from '../../src/js/reducers/SuggestionReducer'
 import * as types from '../../src/js/constants/ActionTypes';
 
@@ -13,10 +14,10 @@ describe('SuggestionReducer', () => {
       suggestions: suggestions
     }
 
-    expect(suggestionReducer.suggestions(undefined, action)).toEqual(suggestions)
+    expect(suggestionReducer.suggestions(undefined, action)).toEqual(fromJS(suggestions))
   })
 
   it('returns empty array by default', () => {
-    expect(suggestionReducer.suggestions(undefined, {})).toEqual([])
+    expect(suggestionReducer.suggestions(undefined, {})).toEqual(fromJS([]))
   })
 })

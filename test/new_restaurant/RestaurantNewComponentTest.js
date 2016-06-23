@@ -1,6 +1,7 @@
 import expect from 'expect'
 import { mount, shallow } from 'enzyme'
 import React from 'react'
+import {fromJS} from 'immutable'
 import RestaurantNewComponent from '../../src/js/new_restaurant/RestaurantNewComponent'
 import RestaurantSuggestionComponent from '../../src/js/new_restaurant/RestaurantSuggestionComponent'
 
@@ -31,20 +32,20 @@ describe('RestaurantNewComponent', () => {
   })
 
   it('shows suggestions when receives suggestions as props', () => {
-    let suggestions = [
+    let suggestions = fromJS([
       {name: 'Afuri', address: 'Roppongi'},
       {name: 'Butagumi', address: 'Near The Station'}
-    ]
+    ])
     const component = shallow(<RestaurantNewComponent suggestions={suggestions}/>)
     const instance = component.instance()
     expect(component.contains(
       <RestaurantSuggestionComponent key="Afuri"
-                                     suggestion={suggestions[0]}
+                                     suggestion={suggestions.get(0)}
                                      selectSuggestion={instance.selectSuggestion}/>
     )).toBe(true)
     expect(component.contains(
       <RestaurantSuggestionComponent key="Butagumi"
-                                     suggestion={suggestions[1]}
+                                     suggestion={suggestions.get(1)}
                                      selectSuggestion={instance.selectSuggestion}/>
     )).toBe(true)
   })

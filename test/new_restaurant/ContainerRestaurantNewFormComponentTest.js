@@ -1,4 +1,4 @@
-import expect from 'expect';
+import expect from 'expect'
 import * as actions from '../../src/js/actions/Actions'
 import * as restaurantActions from '../../src/js/actions/RestaurantActions'
 import { mapStateToProps, mapDispatchToProps } from '../../src/js/new_restaurant/ContainerRestaurantNewFormComponent'

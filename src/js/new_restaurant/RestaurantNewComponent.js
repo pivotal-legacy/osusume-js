@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import RestaurantSuggestionComponent from './RestaurantSuggestionComponent'
 import ContainerRestaurantNewFormComponent from './ContainerRestaurantNewFormComponent'
 
@@ -11,23 +11,23 @@ export default class RestaurantNewComponent extends React.Component {
 
   renderHeader() {
     if (this.state.suggestion == undefined) {
-      return <h1>find a restaurant</h1>;
+      return <h1>find a restaurant</h1>
     } else {
-      return <h1>add a restaurant</h1>;
+      return <h1>add a restaurant</h1>
     }
   }
 
   renderFindRestaurantInput() {
     if (this.state.suggestion == undefined) {
-      let input;
+      let input
       return (
         <div>
           <input ref={node => {input = node}}/>
           <button onClick={_ => {this.props.fetchSuggestions(input.value)}}>find</button>
         </div>
-      );
+      )
     } else {
-      return null;
+      return null
     }
   }
 
@@ -39,13 +39,13 @@ export default class RestaurantNewComponent extends React.Component {
     if (this.state.suggestion == undefined && this.props.suggestions) {
       return(this.props.suggestions.map((suggestion) => {
         return (
-          <RestaurantSuggestionComponent key={suggestion.name}
+          <RestaurantSuggestionComponent key={suggestion.get('name')}
                                          suggestion={suggestion}
                                          selectSuggestion={this.selectSuggestion}/>
         )
-      }));
+      }))
     } else {
-      return null;
+      return null
     }
   }
 

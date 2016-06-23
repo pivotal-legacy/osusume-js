@@ -1,7 +1,8 @@
-import React from 'react';
-import expect from 'expect';
+import React from 'react'
+import expect from 'expect'
+import {fromJS} from 'immutable'
 import * as actions from '../../src/js/actions/Actions'
-import {mapStateToProps, mapDispatchToProps} from '../../src/js/new_restaurant/ContainerRestaurantNewComponent';
+import {mapStateToProps, mapDispatchToProps} from '../../src/js/new_restaurant/ContainerRestaurantNewComponent'
 
 describe('ContainerRestaurantNewComponent', () => {
   afterEach(function () {
@@ -9,22 +10,22 @@ describe('ContainerRestaurantNewComponent', () => {
   })
 
   it('mapsStateToProps', () => {
-    let suggestions = [
+    let suggestions = fromJS([
       {name: 'Afuri', address: 'Roppongi'},
       {name: 'Butagumi', address: 'Roppongi'}
-    ];
+    ])
     let state = {
       suggestions: suggestions
-    };
+    }
 
-    expect(mapStateToProps(state).suggestions).toEqual(suggestions);
-  });
+    expect(mapStateToProps(state).suggestions).toEqual(suggestions)
+  })
 
   it('mapsDispatchToProps fetchSuggestions', () => {
-    let dispatch = expect.createSpy();
+    let dispatch = expect.createSpy()
     var spy = expect.spyOn(actions, 'fetchSuggestions')
-    mapDispatchToProps(dispatch).fetchSuggestions('Afuri');
+    mapDispatchToProps(dispatch).fetchSuggestions('Afuri')
     expect(spy).toHaveBeenCalledWith('Afuri')
     expect(dispatch).toHaveBeenCalledWith(actions.fetchSuggestions())
-  });
-});
+  })
+})
