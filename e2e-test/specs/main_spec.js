@@ -36,11 +36,11 @@ describe('restaurants', function() {
 
     const viewNewRestaurantDetails = () => {
       expect(browser.getText('h1')).toEqual('Restaurants');
-      expect(browser.getText('.name')).toContain('ＡＦＵＲＩ');
+      expect(browser.getText('.name')).toContain('AFURI Ebisu');
 
       browser.click('.name')
 
-      expect(browser.getText('h1')).toEqual('ＡＦＵＲＩ');
+      expect(browser.getText('h1')).toEqual('AFURI Ebisu');
     }
 
     const addComment = () => {
