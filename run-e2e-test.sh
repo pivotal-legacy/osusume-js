@@ -6,6 +6,9 @@ JAVA_SERVER_PID=$!
 cd ../osusume-js
 
 cd e2e-test
+if [ ! -f selenium-server-standalone-2.53.0.jar ]; then
+  curl -O http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.0.jar
+fi
 java -jar selenium-server-standalone-2.53.0.jar &
 SELENIUM_PID=$!
 sleep 5
