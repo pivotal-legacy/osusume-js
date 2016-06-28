@@ -1,31 +1,20 @@
 import React from 'react';
+import CuisineTypeOptionComponent from './CuisineTypeOptionComponent'
 
-export default class CuisineTypeSelectionComponent extends React.Component {
-  constructor(props) {
-    super(props)
-    this.onChangeSelectValue = this.onChangeSelectValue.bind(this)
+export default function CuisineTypeSelectionComponent(props) {
+  let cuisineTypes = props.cuisineTypes.map((cuisineType) => {
+    return (<CuisineTypeOptionComponent cuisineType={cuisineType} />)
+  })
+
+  let onChange = (e) => {
+    const index = e.target.options.selectedIndex
+    props.changeHandler(e.target.options[index].value)
   }
 
-  onChangeSelectValue(e) {
-    let index = e.target.options.selectedIndex
-    let value = e.target.options[index].value
-    this.props.changeHandler(value)
-  }
-
-  render() {
-    let cuisineTypes = this.props.cuisineTypes.map((cuisineType) => {
-      return (
-        <option key={cuisineType.get('id')} value={cuisineType.get('id')}>
-          {cuisineType.get('name')}
-        </option>
-      )
-    })
-
-    return (
-      <select onChange={this.onChangeSelectValue}>
-        <option>Select a cuisine</option>
-        {cuisineTypes}
-      </select>
-    )
-  }
+  return (
+    <select onChange={onChange}>
+      <option>Select a cuisine</option>
+      {cuisineTypes}
+    </select>
+  )
 }
