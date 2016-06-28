@@ -51,7 +51,7 @@ describe('RestaurantNewFormComponent displays correct components', () => {
   })
 
   it('shows input area for notes', () => {
-    let component = shallow(<RestaurantNewFormComponent />)
+    let component = shallow(<RestaurantNewFormComponent suggestion={suggestion} />)
     let instance = component.instance()
     expect(component.contains(<textarea className="notes" onChange={instance.noteChanged}></textarea>)).toBe(true)
   })
@@ -111,21 +111,21 @@ describe('RestaurantNewFormComponent calls correct function', () => {
   })
 
   it('sets state when cuisineHandleChanged is called with new cuisine type id ', () => {
-    const component = shallow(<RestaurantNewFormComponent/>)
+    const component = shallow(<RestaurantNewFormComponent suggestion={suggestion}/>)
     let instance = component.instance()
     instance.cuisineHandleChanged(10)
     expect(instance.state.selectedCuisine).toBe(10)
   })
 
   it('sets state when priceRangeHandleChanged is called with new cuisine type id ', () => {
-    const component = shallow(<RestaurantNewFormComponent/>)
+    const component = shallow(<RestaurantNewFormComponent suggestion={suggestion}/>)
     let instance = component.instance()
     instance.priceRangeHandleChanged('¥0~999')
     expect(instance.state.selectedPriceRange).toBe('¥0~999')
   })
 
   it('it sets file in state when input is changed ', () => {
-    const component = shallow(<RestaurantNewFormComponent/>)
+    const component = shallow(<RestaurantNewFormComponent suggestion={suggestion}/>)
     let file = {name: "myfile.txt"}
     let e = {
       target: {

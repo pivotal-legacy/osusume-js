@@ -1,6 +1,6 @@
 import React from 'react'
-import RestaurantSuggestionComponent from './RestaurantSuggestionComponent'
 import ContainerRestaurantNewFormComponent from './ContainerRestaurantNewFormComponent'
+import FindRestaurantComponent from './FindRestaurantComponent'
 
 export default class RestaurantNewComponent extends React.Component {
   constructor(props) {
@@ -9,61 +9,25 @@ export default class RestaurantNewComponent extends React.Component {
     this.state = {suggestion: undefined}
   }
 
-  renderHeader() {
-    if (this.state.suggestion == undefined) {
-      return <h1>find a restaurant</h1>
-    } else {
-      return <h1>add a restaurant</h1>
-    }
-  }
-
-  renderFindRestaurantInput() {
-    if (this.state.suggestion == undefined) {
-      let input
-      return (
-        <div>
-          <input ref={node => {input = node}}/>
-          <button onClick={_ => {this.props.fetchSuggestions(input.value)}}>find</button>
-        </div>
-      )
-    } else {
-      return null
-    }
-  }
-
   selectSuggestion(suggestion) {
     this.setState({suggestion: suggestion})
   }
 
-  renderRestaurantSuggestions() {
-    if (this.state.suggestion == undefined && this.props.suggestions) {
-      return(this.props.suggestions.map((suggestion) => {
-        return (
-          <RestaurantSuggestionComponent key={suggestion.get('name')}
-                                         suggestion={suggestion}
-                                         selectSuggestion={this.selectSuggestion}/>
-        )
-      }))
-    } else {
-      return null
-    }
-  }
-
-  renderForm() {
-    if (this.state.suggestion != undefined) {
-      return <ContainerRestaurantNewFormComponent suggestion={this.state.suggestion} />
-    } else {
-      return null
-    }
-  }
-
   render() {
+    let component
+    if (this.state.suggestion == undefined) {
+      component = <FindRestaurantComponent
+        suggestions={this.props.suggestions}
+        fetchSuggestions={this.props.fetchSuggestions}
+        selectSuggestion={this.selectSuggestion}
+      />
+    } else {
+      component = <ContainerRestaurantNewFormComponent suggestion={this.state.suggestion} />
+    }
+
     return (
       <div>
-        {this.renderHeader()}
-        {this.renderFindRestaurantInput()}
-        {this.renderRestaurantSuggestions()}
-        {this.renderForm()}
+        {component}
       </div>
     )
   }

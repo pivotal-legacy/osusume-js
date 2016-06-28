@@ -23,19 +23,6 @@ export default class RestaurantNewFormComponent extends React.Component {
     this.props.fetchPriceRanges()
   }
 
-  renderSelectedSuggestion() {
-    if (this.props.suggestion != undefined) {
-      return (
-        <div>
-          <div>{this.props.suggestion.get('name')}</div>
-          <div>{this.props.suggestion.get('address')}</div>
-        </div>
-      )
-    } else {
-      return null
-    }
-  }
-
   cuisineHandleChanged(value) {
     this.setState({selectedCuisine: value})
   }
@@ -70,9 +57,13 @@ export default class RestaurantNewFormComponent extends React.Component {
   render() {
     return (
       <div>
+        <h1>add a restaurant</h1>
         <label>Add Photo</label>
         <input type="file" onChange={this.selectPhoto}/>
-        {this.renderSelectedSuggestion()}
+        <div>
+          <div>{this.props.suggestion.get('name')}</div>
+          <div>{this.props.suggestion.get('address')}</div>
+        </div>
         <CuisineTypeSelectionComponent cuisineTypes={this.props.cuisineTypes} changeHandler={this.cuisineHandleChanged} />
         <PriceRangeSelectionComponent priceRanges={this.props.priceRanges} changeHandler={this.priceRangeHandleChanged}/>
         <div>
