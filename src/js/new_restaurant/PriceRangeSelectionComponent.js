@@ -1,39 +1,20 @@
-import React from 'react';
+import React from 'react'
+import PriceRangeOptionComponent from './PriceRangeOptionComponent'
 
-export default class PriceRangeSelectionComponent extends React.Component {
-  constructor(props) {
-    super(props)
-    this.onChangeSelectValue = this.onChangeSelectValue.bind(this)
+export default function PriceRangeSelectionComponent(props) {
+  const priceRanges = props.priceRanges.map((priceRange) => {
+    return (<PriceRangeOptionComponent priceRange={priceRange} />)
+  })
+
+  const onChange = (e) => {
+    const index = e.target.options.selectedIndex
+    props.changeHandler(e.target.options[index].value)
   }
 
-  renderPriceRanges() {
-    if (this.props.priceRanges) {
-      return(
-        <select onChange={this.onChangeSelectValue}>
-          <option>Select a price range</option>
-          {this.renderOptions()}
-        </select>
-      )
-    } else {
-      return null;
-    }
-  }
-
-  onChangeSelectValue(e) {
-    let index = e.target.options.selectedIndex
-    let value = e.target.options[index].value
-    this.props.changeHandler(value)
-  }
-
-  renderOptions() {
-    return this.props.priceRanges.map((priceRange) => {
-      return (
-        <option key={priceRange.get('id')} value={priceRange.get('id')}>{priceRange.get('range')}</option>
-      )
-    })
-  }
-
-  render() {
-    return this.renderPriceRanges();
-  }
+  return (
+    <select onChange={onChange}>
+      <option>Select a price range</option>
+      {priceRanges}
+    </select>
+  )
 }
