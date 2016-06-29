@@ -46,12 +46,36 @@ describe('MyPageComponent', () => {
       currentUser: fromJS({name: 'Danny'})
     }
     const component = shallow(<MyPageComponent {...props} />)
+    const instance = component.instance()
 
     component.find('.my-likes').simulate('click')
 
     expect(component.contains(<RestaurantListItemComponent restaurant={fromJS(restaurant)} />)).toBe(true)
     expect(component.contains(<RestaurantListItemComponent restaurant={fromJS(anotherRestaurant)} />)).toBe(true)
+    expect(component.contains(<button className='my-posts' onClick={instance.myPostsClicked}>my posts</button>)).toBe(true)
+    expect(component.contains(<button className='my-likes' onClick={instance.myLikesClicked}>my likes</button>)).toBe(false)
   })
+
+  it('call myPostsClicked when My Posts is clicked', () => {
+    let restaurant = {id: 0, name: 'afuri'}
+    let anotherRestaurant = {id: 1, name: 'butagmui'}
+    let props = {
+      myRestaurants: fromJS([restaurant, anotherRestaurant]),
+      myLikedRestaurants: fromJS([]),
+      currentUser: fromJS({name: 'Danny'})
+    }
+
+    const component = shallow(<MyPageComponent {...props} />)
+    const instance = component.instance()
+
+    component.find('.my-likes').simulate('click')
+    component.find('.my-posts').simulate('click')
+
+    expect(component.contains(<RestaurantListItemComponent restaurant={fromJS(restaurant)} />)).toBe(true)
+    expect(component.contains(<RestaurantListItemComponent restaurant={fromJS(anotherRestaurant)} />)).toBe(true)
+    expect(component.contains(<button className='my-likes' onClick={instance.myLikesClicked}>my likes</button>)).toBe(true)
+    expect(component.contains(<button className='my-posts' onClick={instance.myPostsClicked}>my posts</button>)).toBe(false)
+})
 
   it('fetches the restaurant if there is no restaurants available in props', () => {
     let props = {

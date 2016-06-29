@@ -7,6 +7,7 @@ export default class MyPageComponent extends React.Component {
     super(props)
 
     this.myLikesClicked = this.myLikesClicked.bind(this)
+    this.myPostsClicked = this.myPostsClicked.bind(this)
     this.state = {showMyLiked: false}
   }
 
@@ -20,6 +21,10 @@ export default class MyPageComponent extends React.Component {
     this.setState({showMyLiked: true})
   }
 
+  myPostsClicked() {
+    this.setState({showMyLiked: false})
+  }
+
   render() {
     let restaurants = this.props.myRestaurants
     if (this.state.showMyLiked) {
@@ -28,6 +33,10 @@ export default class MyPageComponent extends React.Component {
     let restaurantItems = restaurants.map((restaurant) => {
       return (<RestaurantListItemComponent key={restaurant.get('id')} restaurant={restaurant} />)
     })
+    let toggleButton = <button className='my-likes' onClick={this.myLikesClicked}>my likes</button>
+    if (this.state.showMyLiked) {
+      toggleButton = <button className='my-posts' onClick={this.myPostsClicked}>my posts</button>
+    }
     return (
       <div>
         <Link to="/"><button>restaurants</button></Link>
@@ -36,7 +45,7 @@ export default class MyPageComponent extends React.Component {
           <span>{this.props.currentUser.get('name')}</span>
           <button className='logout' onClick={this.props.logout}>logout</button>
         </div>
-        <button className='my-likes' onClick={this.myLikesClicked}>my likes</button>
+        {toggleButton}
         {restaurantItems}
       </div>
     )
