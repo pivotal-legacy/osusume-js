@@ -30,7 +30,7 @@ export default function AppComponent() {
         <Route path="/restaurants/new" component={ContainerRestaurantNewComponent} onEnter={ourRequireAuth}/>
         <Route path="/restaurants/:restaurantId" component={ContainerRestaurantDetailComponent} onEnter={ourRequireAuth}/>
         <Route path="/my_page" component={ContainerMyPageComponent} onEnter={ourRequireAuth}/>
-        <Route path="/map" component={MapComponent} onEnter={ourRequireAuth}/>
+        <Route path="/map/:place_id" component={MapComponent} onEnter={ourRequireAuth}/>
       </Router>
     </Provider>
   )

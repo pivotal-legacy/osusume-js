@@ -24,7 +24,8 @@ describe('RestaurantDetailComponent', () => {
       cuisine: {name: "Japanese"},
       price_range: {range: '¥0~999'},
       user: {id: 0, email: "danny", name: "Danny"},
-      address: "Roppongi",
+      address: "Roppongi Hills",
+      place_id: 'some-place-id',
       notes: "good",
       liked: false,
       photo_urls: [{url: 'https://hoge/image.jpg'}, {url: 'https://hoge/image2.jpg'}],
@@ -43,8 +44,8 @@ describe('RestaurantDetailComponent', () => {
     expect(component.contains(<div className="cuisine">Japanese</div>)).toBe(true)
     expect(component.contains(<div className="price-range">¥0~999</div>)).toBe(true)
     expect(component.contains(<div className="date">5/27/2016 by Danny</div>)).toBe(true)
-    expect(component.contains(<span>Roppongi</span>)).toBe(true)
-    expect(component.contains(<Link to='/map'><button className='map-link'>view map</button></Link>)).toBe(true)
+    expect(component.contains(<span>Roppongi Hills</span>)).toBe(true)
+    expect(component.contains(<Link to='/map/some-place-id'><button className='map-link'>view map</button></Link>)).toBe(true)
     expect(component.contains(<div className="notes">good</div>)).toBe(true)
     expect(component.contains(<span className="num-likes">5 likes</span>)).toBe(true)
     expect(component.contains(<button onClick={likeCallback}>like</button>)).toBe(true)

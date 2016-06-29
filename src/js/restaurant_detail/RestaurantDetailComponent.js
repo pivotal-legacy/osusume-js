@@ -44,7 +44,9 @@ export default class RestaurantDetailComponent extends React.Component {
           <div className="cuisine">{restaurant.get('cuisine').get('name')}</div>
           <div className="address">
             <span>{restaurant.get('address')}</span>
-            <Link to='/map'><button className='map-link'>view map</button></Link>
+            <Link to={`/map/${restaurant.get('place_id')}`}>
+              <button className='map-link'>view map</button>
+            </Link>
           </div>
           <div className="notes">{restaurant.get('notes')}</div>
           <div className="likes">

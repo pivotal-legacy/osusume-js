@@ -8,7 +8,7 @@ import ContainerRestaurantNewFormComponent from '../../src/js/new_restaurant/Con
 
 describe('RestaurantNewComponent', () => {
   it('displays find restaurant component when no suggestion has been selected', () => {
-    let suggestions = [{name: 'Afuri', address: 'Roppongi'}]
+    let suggestions = [{name: 'Afuri', address: 'Roppongi', place_id: 'some-place-id'}]
     let fetchSuggestions = () => {}
     const component = shallow(<RestaurantNewComponent suggestions={suggestions} fetchSuggestions={fetchSuggestions}/>)
     expect(component.contains(
@@ -20,7 +20,7 @@ describe('RestaurantNewComponent', () => {
   })
 
   it('displays new restaurant label and restaurant details when a restaurant has been selected', () => {
-    let suggestion = {name: 'Afuri', address: 'Roppongi'}
+    let suggestion = {name: 'Afuri', address: 'Roppongi', place_id: 'some-place-id'}
     const component = shallow(<RestaurantNewComponent />)
     component.setState({suggestion: suggestion})
     expect(component.contains(

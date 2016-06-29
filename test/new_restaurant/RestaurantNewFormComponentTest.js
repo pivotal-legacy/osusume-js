@@ -7,7 +7,11 @@ import CuisineTypeSelectionComponent from '../../src/js/new_restaurant/CuisineTy
 import PriceRangeSelectionComponent from '../../src/js/new_restaurant/PriceRangeSelectionComponent'
 
 describe('RestaurantNewFormComponent', () => {
-  const suggestion = fromJS({name: 'Afuri', address: 'Roppongi'})
+  const suggestion = fromJS({
+    name: 'Afuri',
+    address: 'Roppongi',
+    place_id: 'some place id'
+  })
   const cuisineTypes = fromJS([
     {id: 0, name: 'Not Specified'},
     {id: 1, name: 'Japanese'}
@@ -80,6 +84,7 @@ describe('RestaurantNewFormComponent', () => {
       {
         name: 'Afuri',
         address: 'Roppongi',
+        place_id: 'some place id',
         cuisine_id: instance.state.selectedCuisine,
         price_range_id: instance.state.selectedPriceRange,
         notes: '美味しいです'

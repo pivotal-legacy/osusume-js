@@ -42,7 +42,8 @@ export default class RestaurantNewFormComponent extends React.Component {
         address: this.props.suggestion.get('address'),
         cuisine_id: this.state.selectedCuisine,
         price_range_id: this.state.selectedPriceRange,
-        notes: this.state.notes
+        notes: this.state.notes,
+        place_id: this.props.suggestion.get('place_id')
       },
       this.state.selectedPhoto,
       this.props.fileUploader
