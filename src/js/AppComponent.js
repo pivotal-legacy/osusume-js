@@ -9,6 +9,7 @@ import ContainerRestaurantDetailComponent from './restaurant_detail/ContainerRes
 import ContainerRestaurantNewComponent from './new_restaurant/ContainerRestaurantNewComponent'
 import ContainerLoginComponent from './login/ContainerLoginComponent'
 import ContainerMyPageComponent from './my_page/ContainerMyPageComponent'
+import MapComponent from './map/MapComponent'
 import {updateLocalStorageWithUser} from './subscribers/LocalStorage'
 import {requireAuth} from './Authentication'
 
@@ -29,6 +30,7 @@ export default function AppComponent() {
         <Route path="/restaurants/new" component={ContainerRestaurantNewComponent} onEnter={ourRequireAuth}/>
         <Route path="/restaurants/:restaurantId" component={ContainerRestaurantDetailComponent} onEnter={ourRequireAuth}/>
         <Route path="/my_page" component={ContainerMyPageComponent} onEnter={ourRequireAuth}/>
+        <Route path="/map" component={MapComponent} onEnter={ourRequireAuth}/>
       </Router>
     </Provider>
   )

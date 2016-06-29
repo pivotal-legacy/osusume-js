@@ -42,7 +42,10 @@ export default class RestaurantDetailComponent extends React.Component {
           <h1>{restaurant.get('name')}</h1>
 
           <div className="cuisine">{restaurant.get('cuisine').get('name')}</div>
-          <div className="address">{restaurant.get('address')}</div>
+          <div className="address">
+            <span>{restaurant.get('address')}</span>
+            <Link to='/map'><button className='map-link'>view map</button></Link>
+          </div>
           <div className="notes">{restaurant.get('notes')}</div>
           <div className="likes">
             <span className="num-likes">{ pluralize(restaurant.get('num_likes'), 'like') }</span>

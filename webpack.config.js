@@ -15,7 +15,8 @@ module.exports = {
         }),
         new webpack.EnvironmentPlugin([
             "API_SERVER",
-            "S3_IDENTITY_POOL_ID"
+            "S3_IDENTITY_POOL_ID",
+            "GOOGLE_PLACES_KEY"
         ])],
     node: {
       fs: 'empty'
