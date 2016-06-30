@@ -80,13 +80,16 @@ describe("RestaurantActions", () => {
 
     let s3FileUploader = new S3FileUploader()
     expect.spyOn(s3FileUploader, 'upload').andReturn(promise)
+    const hashHistory = { push: () => {} }
+    expect.spyOn(hashHistory, 'push')
 
     let file = {name: "myfile.txt"}
     let restaurantParam = {name: 'Afuri', address: 'Roppongi', cuisineId: 0, priceRangeId: 1, notes: 'notes'}
-    return store.dispatch(actions.addNewRestaurant(restaurantParam, file, s3FileUploader))
+    return store.dispatch(actions.addNewRestaurant(restaurantParam, file, s3FileUploader, hashHistory))
       .then(() => {
         expect(s3FileUploader.upload).toHaveBeenCalledWith(file)
         expect(nock.isDone()).toEqual(true)
+        expect(hashHistory.push).toHaveBeenCalledWith('/')
       })
   })
 
@@ -106,16 +109,15 @@ describe("RestaurantActions", () => {
 
     let s3FileUploader = new S3FileUploader()
     expect.spyOn(s3FileUploader, 'upload')
-    const expectedActions = [
-      {type: types.CREATE_RESTAURANT_SUCCESS, restaurant: restaurant}
-    ]
+    const hashHistory = { push: () => {} }
+    expect.spyOn(hashHistory, 'push')
 
     let restaurantParam = {name: 'Afuri', address: 'Roppongi', cuisineId: 0, priceRangeId: 1, notes: 'notes'}
-    return store.dispatch(actions.addNewRestaurant(restaurantParam, undefined, s3FileUploader))
+    return store.dispatch(actions.addNewRestaurant(restaurantParam, undefined, s3FileUploader, hashHistory))
       .then(() => {
         expect(s3FileUploader.upload).toNotHaveBeenCalled()
         expect(nock.isDone()).toEqual(true)
-        expect(store.getActions()).toEqual(expectedActions)
+        expect(hashHistory.push).toHaveBeenCalledWith('/')
       })
   })
 

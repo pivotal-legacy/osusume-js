@@ -1,6 +1,7 @@
 import * as types from "../constants/ActionTypes"
 import fetch from "isomorphic-fetch"
 import {authorizationConfig} from './Authorization'
+import {hashHistory} from 'react-router'
 
 function receiveRestaurants(json) {
   return {
@@ -16,11 +17,8 @@ function receiveRestaurant(json) {
   }
 }
 
-function receiveCreatedRestaurant(json) {
-  return {
-    type: types.CREATE_RESTAURANT_SUCCESS,
-    restaurant: json
-  }
+function receiveCreatedRestaurant(hashHistoryParam) {
+  return hashHistoryParam.push("/")
 }
 
 function receiveCreatedLike(json) {
@@ -49,9 +47,9 @@ export function fetchRestaurants() {
   }
 }
 
-export function addNewRestaurant(restaurant, file, fileUploader) {
+export function addNewRestaurant(restaurant, file, fileUploader, hashHistoryParam=hashHistory) {
   return function(dispatch, getState) {
-    return dispatch(addNewRestaurantWithCurrentUser(restaurant, file, fileUploader, getState().currentUser))
+    return dispatch(addNewRestaurantWithCurrentUser(restaurant, file, fileUploader, getState().currentUser, hashHistoryParam))
   }
 }
 
@@ -67,7 +65,7 @@ export function removeLike(restaurantId) {
   }
 }
 
-function createRestaurant(restaurant, currentUser) {
+function createRestaurant(restaurant, currentUser, hashHistoryParam) {
   let config = Object.assign({}, authorizationConfig(currentUser),
     {
       method: "POST",
@@ -76,16 +74,15 @@ function createRestaurant(restaurant, currentUser) {
   )
   return dispatch => {
     return fetch(`${process.env.API_SERVER}/restaurants`, config)
-    .then(response => response.json())
-    .then(json => dispatch(receiveCreatedRestaurant(json)))
+    .then(dispatch(receiveCreatedRestaurant(hashHistoryParam)))
   }
 }
 
-function uploadPhoto(nextAction, restaurant, file, fileUploader, currentUser) {
+function uploadPhoto(nextAction, restaurant, file, fileUploader, currentUser, hashHistoryParam) {
   return dispatch => {
     return fileUploader.upload(file).then((photoUrl) => {
       let restaurantWithPhotoUrl = Object.assign({}, restaurant, {photo_urls: [{url: photoUrl}]})
-      dispatch(nextAction(restaurantWithPhotoUrl, currentUser))
+      dispatch(nextAction(restaurantWithPhotoUrl, currentUser, hashHistoryParam))
     })
   }
 }
@@ -106,14 +103,14 @@ function fetchRestaurantsWithCurrentUser(currentUser) {
   }
 }
 
-function addNewRestaurantWithCurrentUser(restaurant, file, fileUploader, currentUser) {
+function addNewRestaurantWithCurrentUser(restaurant, file, fileUploader, currentUser, hashHistoryParam) {
   return dispatch => {
     restaurant['photo_urls'] = []
 
     if (file == undefined) {
-      return dispatch(createRestaurant(restaurant, currentUser))
+      return dispatch(createRestaurant(restaurant, currentUser, hashHistoryParam))
     } else {
-      return dispatch(uploadPhoto(createRestaurant, restaurant, file, fileUploader, currentUser))
+      return dispatch(uploadPhoto(createRestaurant, restaurant, file, fileUploader, currentUser, hashHistoryParam))
     }
   }
 }

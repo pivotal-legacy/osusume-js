@@ -20,12 +20,8 @@ describe('RestaurantNewFormComponent', () => {
     {id: 0, range: 'Not Specified'},
     {id: 1, range: '¥0~999'}
   ])
-  const hashHistory = {
-    push: () => {}
-  }
   const handler = expect.createSpy()
   const props = {
-    hashHistory: hashHistory,
     suggestion: suggestion,
     priceRanges: priceRanges,
     cuisineTypes: cuisineTypes,
@@ -92,16 +88,6 @@ describe('RestaurantNewFormComponent', () => {
       instance.state.selectedPhoto,
       instance.props.fileUploader
     )
-  })
-
-  it('redirects to the list of restaurants when "save" is clicked', () => {
-    const handler = expect.createSpy()
-    const hashHandler = expect.spyOn(hashHistory, 'push')
-    const component = mount(<RestaurantNewFormComponent {...props} />)
-    const instance = component.instance()
-    component.find('button').simulate('click')
-
-    expect(hashHandler).toHaveBeenCalledWith('/')
   })
 
   it('sets state when cuisineHandleChanged is called with new cuisine type id ', () => {

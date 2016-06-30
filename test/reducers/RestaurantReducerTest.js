@@ -48,21 +48,6 @@ describe('RestaurantReducer', () => {
     expect(reducer.restaurants(undefined, action)).toEqual(fromJS([restaurant]))
   })
 
-  it('returns all restaurants with the new restaurant at the head of the list when action is CREATE_RESTAURANT_SUCCESS', () => {
-    let existingRestaurant = {name: "Butagumi", address: "Roppongi"}
-    let newRestaurant = {name: "Afuri", address: "Roppongi"}
-    let action = {
-      type: types.CREATE_RESTAURANT_SUCCESS,
-      restaurant: newRestaurant
-    }
-
-    let existingState = fromJS([existingRestaurant])
-
-    expect(reducer.restaurants(existingState, action)).toEqual(fromJS([
-      newRestaurant, existingRestaurant
-    ]))
-  })
-
   it('returns the restaurant with number of likes when the action is CREATE_LIKE_SUCCESS', () => {
     let restaurants = fromJS([
       {id: 2, comment: 'another one'},

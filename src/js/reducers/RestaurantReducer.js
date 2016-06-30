@@ -7,8 +7,6 @@ export function restaurants(state = List(), action) {
       return fromJS(action.restaurants)
     case types.FETCH_RESTAURANT_SUCCESS:
       return state.mergeDeep(fromJS([action.restaurant]))
-    case types.CREATE_RESTAURANT_SUCCESS:
-      return state.insert(0, fromJS(action.restaurant))
     case types.CREATE_LIKE_SUCCESS:
       return state.update(
         state.findIndex(function(item) {
