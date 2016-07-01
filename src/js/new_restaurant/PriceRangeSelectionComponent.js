@@ -3,7 +3,7 @@ import PriceRangeOptionComponent from './PriceRangeOptionComponent'
 
 export default function PriceRangeSelectionComponent(props) {
   const priceRanges = props.priceRanges.map((priceRange) => {
-    return (<PriceRangeOptionComponent priceRange={priceRange} />)
+    return (<PriceRangeOptionComponent key={priceRange.get('id')} priceRange={priceRange} />)
   })
 
   const onChange = (e) => {

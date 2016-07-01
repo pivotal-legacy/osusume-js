@@ -5,7 +5,7 @@ export default function FindRestaurantComponent(props) {
   let input
   let suggestions = (props.suggestions.map((suggestion) => {
     return (
-      <RestaurantSuggestionComponent key={suggestion.get('name')}
+      <RestaurantSuggestionComponent key={suggestion.get('place_id')}
                                      suggestion={suggestion}
                                      selectSuggestion={props.selectSuggestion}/>
     )

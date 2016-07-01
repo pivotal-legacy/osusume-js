@@ -3,7 +3,7 @@ import CuisineTypeOptionComponent from './CuisineTypeOptionComponent'
 
 export default function CuisineTypeSelectionComponent(props) {
   const cuisineTypes = props.cuisineTypes.map((cuisineType) => {
-    return (<CuisineTypeOptionComponent cuisineType={cuisineType} />)
+    return (<CuisineTypeOptionComponent key={cuisineType.get('id')} cuisineType={cuisineType} />)
   })
 
   const onChange = (e) => {

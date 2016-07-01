@@ -18,7 +18,9 @@ function receiveRestaurant(json) {
 }
 
 function receiveCreatedRestaurant(hashHistoryParam) {
-  return hashHistoryParam.push("/")
+  return dispatch => {
+    return hashHistoryParam.push("/")
+  }
 }
 
 function receiveCreatedLike(json) {
