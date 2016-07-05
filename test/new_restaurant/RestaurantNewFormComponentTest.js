@@ -10,7 +10,9 @@ describe('RestaurantNewFormComponent', () => {
   const suggestion = fromJS({
     name: 'Afuri',
     address: 'Roppongi',
-    place_id: 'some place id'
+    place_id: 'some place id',
+    latitude: '1.23',
+    longitude: '2.34'
   })
   const cuisineTypes = fromJS([
     {id: 0, name: 'Not Specified'},
@@ -20,12 +22,12 @@ describe('RestaurantNewFormComponent', () => {
     {id: 0, range: 'Not Specified'},
     {id: 1, range: '¥0~999'}
   ])
-  const handler = expect.createSpy()
+  const addNewRestaurantHandler = expect.createSpy()
   const props = {
     suggestion: suggestion,
     priceRanges: priceRanges,
     cuisineTypes: cuisineTypes,
-    addNewRestaurant: handler,
+    addNewRestaurant: addNewRestaurantHandler,
     fetchCuisineTypes: () => {},
     fetchPriceRanges: () => {},
     fileUploder: () => {}
@@ -76,11 +78,13 @@ describe('RestaurantNewFormComponent', () => {
     component.find('.notes').simulate('change')
     component.find('button').simulate('click')
 
-    expect(handler).toHaveBeenCalledWith(
+    expect(addNewRestaurantHandler).toHaveBeenCalledWith(
       {
         name: 'Afuri',
         address: 'Roppongi',
         place_id: 'some place id',
+        latitude: '1.23',
+        longitude: '2.34',
         cuisine_id: instance.state.selectedCuisine,
         price_range_id: instance.state.selectedPriceRange,
         notes: '美味しいです'
