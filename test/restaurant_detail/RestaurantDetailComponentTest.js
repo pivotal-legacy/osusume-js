@@ -45,7 +45,7 @@ describe('RestaurantDetailComponent', () => {
     expect(component.contains(<div className="price-range">¥0~999</div>)).toBe(true)
     expect(component.contains(<div className="date">5/27/2016 by Danny</div>)).toBe(true)
     expect(component.contains(<span>Roppongi Hills</span>)).toBe(true)
-    expect(component.contains(<Link to='/map/some-place-id'><button className='map-link'>view map</button></Link>)).toBe(true)
+    expect(component.contains(<Link to='/restaurants/0/map/some-place-id'><button className='map-link'>view map</button></Link>)).toBe(true)
     expect(component.contains(<div className="notes">good</div>)).toBe(true)
     expect(component.contains(<span className="num-likes">5 likes</span>)).toBe(true)
     expect(component.contains(<button onClick={likeCallback}>like</button>)).toBe(true)

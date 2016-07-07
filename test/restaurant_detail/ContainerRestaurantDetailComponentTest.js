@@ -10,27 +10,31 @@ import * as restaurantActions from '../../src/js/actions/RestaurantActions'
 import * as commentActions from '../../src/js/actions/CommentActions'
 
 describe('ContainerRestaurantDetailComponent', () => {
+  let dispatch, props
+
+  beforeEach(function() {
+    dispatch = expect.createSpy()
+    props = {
+      params: {
+        restaurant_id: 17
+      }
+    }
+  })
   afterEach(function () {
     expect.restoreSpies()
   })
 
   it('mapsStateToProps', () => {
     let state = {
-      restaurants: fromJS([{id: 0, name: 'Afuri'}, {id: 1, name: 'Tsukemen'}]),
+      restaurants: fromJS([{id: 17, name: 'Afuri'}, {id: 1, name: 'Tsukemen'}]),
       comments: [{id: 0, comment: 'i like this one'}]
     }
 
-    expect(mapStateToProps(state, {params: {restaurantId: 0}}).restaurant).toEqual(fromJS({id: 0, name: 'Afuri'}))
-    expect(mapStateToProps(state, {params: {restaurantId: 0}}).comments).toEqual([{id: 0, comment: 'i like this one'}])
+    expect(mapStateToProps(state, props).restaurant).toEqual(fromJS({id: 17, name: 'Afuri'}))
+    expect(mapStateToProps(state, props).comments).toEqual([{id: 0, comment: 'i like this one'}])
   })
 
   it('mapsDispatchToProps for fetchComments', () => {
-    let dispatch = expect.createSpy()
-    let props = {
-      params: {
-        restaurantId: 17
-      }
-    }
     var spy = expect.spyOn(commentActions, 'fetchComments')
     mapDispatchToProps(dispatch, props).fetchComments(17)
     expect(spy).toHaveBeenCalledWith(17)
@@ -38,12 +42,6 @@ describe('ContainerRestaurantDetailComponent', () => {
   })
 
   it('mapsDispatchToProps for fetchRestaurant', () => {
-    let dispatch = expect.createSpy()
-    let props = {
-      params: {
-        restaurantId: 17
-      }
-    }
     var spy = expect.spyOn(restaurantActions, 'fetchRestaurant')
     mapDispatchToProps(dispatch, props).fetchRestaurant(17)
     expect(spy).toHaveBeenCalledWith(17)
@@ -51,12 +49,6 @@ describe('ContainerRestaurantDetailComponent', () => {
   })
 
   it('mapsDispatchToProps for createComment', () => {
-      let dispatch = expect.createSpy()
-      let props = {
-        params: {
-          restaurantId: 17
-        }
-      }
       var spy = expect.spyOn(commentActions, 'createComment')
       mapDispatchToProps(dispatch, props).createComment('it is a comment')
       expect(spy).toHaveBeenCalledWith(17, 'it is a comment')
@@ -64,12 +56,6 @@ describe('ContainerRestaurantDetailComponent', () => {
   })
 
   it('mapsDispatchToProps for like', () => {
-    let dispatch = expect.createSpy()
-    let props = {
-      params: {
-        restaurantId: 17
-      }
-    }
     var spy = expect.spyOn(restaurantActions, 'like')
     mapDispatchToProps(dispatch, props).like()
     expect(spy).toHaveBeenCalledWith(17)
@@ -77,12 +63,6 @@ describe('ContainerRestaurantDetailComponent', () => {
   })
 
   it('mapsDispatchToProps for removeLike', () => {
-    let dispatch = expect.createSpy()
-    let props = {
-      params: {
-        restaurantId: 17
-      }
-    }
     var spy = expect.spyOn(restaurantActions, 'removeLike')
     mapDispatchToProps(dispatch, props).removeLike()
     expect(spy).toHaveBeenCalledWith(17)

@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router'
 
 export default function MapComponent(props) {
   let baseUrl = "https://www.google.com/maps/embed/v1/place"
@@ -7,7 +8,12 @@ export default function MapComponent(props) {
   let key = "&key=" + process.env.GOOGLE_PLACES_KEY
   return (
     <div>
-      <h1>location</h1>
+      <div>
+      <span>location</span>
+        <Link to={`/restaurants/${props.params.restaurant_id}`}>
+          <button>details</button>
+        </Link>
+      </div>
       <iframe src={baseUrl + location + zoom + key}></iframe>
     </div>
   )
