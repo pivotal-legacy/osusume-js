@@ -13,10 +13,12 @@ export default function RestaurantListItemComponent(props) {
       {photo}
       <span className='item-info'>
         <div className='name'>{props.restaurant.get('name')}</div>
-        <div className='cuisine'>{props.restaurant.get('cuisine').get('name')} | {props.restaurant.get('price_range').get('range')}</div>
+        <div className='cuisine-and-price-range'>
+          {props.restaurant.get('cuisine').get('name')} | {props.restaurant.get('price_range').get('range')}
+        </div>
         <div>
-          <span>{pluralize(props.restaurant.get('num_likes'), 'like')}</span>
-          <span className='pull-right'>{date.toLocaleDateString()}</span>
+          <span className='number-likes'>{pluralize(props.restaurant.get('num_likes'), 'like')}</span>
+          <span className='pull-right updated-at'>{date.toLocaleDateString()}</span>
         </div>
       </span>
     </Link>
