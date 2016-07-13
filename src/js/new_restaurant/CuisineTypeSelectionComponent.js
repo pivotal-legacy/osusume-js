@@ -12,7 +12,7 @@ export default function CuisineTypeSelectionComponent(props) {
   }
 
   return (
-    <select onChange={onChange}>
+    <select className='cuisine' onChange={onChange}>
       <option>Select a cuisine</option>
       {cuisineTypes}
     </select>

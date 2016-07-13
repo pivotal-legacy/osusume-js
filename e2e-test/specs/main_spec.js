@@ -33,9 +33,9 @@ describe('restaurants', function() {
 
       expect(browser.getText('h1')).toEqual('add a restaurant');
 
-      var cusineSelect = browser.element('select:nth-of-type(1)');
+      var cusineSelect = browser.element('select.cuisine');
       cusineSelect.selectByVisibleText('Japanese');
-      var priceRangeSelect = browser.element('select:nth-of-type(2)');
+      var priceRangeSelect = browser.element('select.price-range');
       priceRangeSelect.selectByVisibleText('¥0~999');
       browser.click('button');
     }

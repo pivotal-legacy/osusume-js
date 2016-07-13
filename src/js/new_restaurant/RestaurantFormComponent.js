@@ -59,7 +59,7 @@ export default class RestaurantNewFormComponent extends React.Component {
   renderRestaurantSuggestionSection() {
     if (this.props.suggestion) {
       return (
-        <div className='restaurant-suggestion'>
+        <div className='selected-restaurant'>
           <div>{this.props.suggestion.get('name')}</div>
           <div>{this.props.suggestion.get('address')}</div>
         </div>
@@ -77,18 +77,15 @@ export default class RestaurantNewFormComponent extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='stacked-form'>
         <h1>add a restaurant</h1>
-        <label>Add Photo</label>
-        <input type="file" onChange={this.selectPhoto}/>
         {this.renderRestaurantSuggestionSection()}
         <CuisineTypeSelectionComponent cuisineTypes={this.props.cuisineTypes} changeHandler={this.cuisineHandleChanged} />
         <PriceRangeSelectionComponent priceRanges={this.props.priceRanges} changeHandler={this.priceRangeHandleChanged}/>
-        <div>
-          <label>Notes</label>
-          <textarea className="notes" onChange={this.noteChanged}></textarea>
-        </div>
-
+        <label>Add Photo</label>
+        <input type="file" onChange={this.selectPhoto}/>
+        <label>Notes</label>
+        <textarea className="notes" onChange={this.noteChanged}></textarea>
         <button onClick={this.saveRestaurant}>save</button>
       </div>
     )
