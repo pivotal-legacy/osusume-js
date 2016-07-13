@@ -6,7 +6,7 @@ import { createStore, applyMiddleware } from 'redux'
 import reducer from './reducers/Reducer'
 import ContainerRestaurantListComponent from './restaurant_list/ContainerRestaurantListComponent'
 import ContainerRestaurantDetailComponent from './restaurant_detail/ContainerRestaurantDetailComponent'
-import ContainerRestaurantNewComponent from './new_restaurant/ContainerRestaurantNewComponent'
+import AddRestaurantComponent from './new_restaurant/AddRestaurantComponent'
 import ContainerLoginComponent from './login/ContainerLoginComponent'
 import ContainerMyPageComponent from './my_page/ContainerMyPageComponent'
 import MapComponent from './map/MapComponent'
@@ -27,7 +27,7 @@ export default function AppComponent() {
       <Router history={hashHistory}>
         <Route path="/" component={ContainerRestaurantListComponent} onEnter={ourRequireAuth}/>
         <Route path="/login" component={ContainerLoginComponent}/>
-        <Route path="/restaurants/new" component={ContainerRestaurantNewComponent} onEnter={ourRequireAuth}/>
+        <Route path="/restaurants/new" component={AddRestaurantComponent} onEnter={ourRequireAuth}/>
         <Route path="/restaurants/:restaurant_id/map/:place_id" component={MapComponent} onEnter={ourRequireAuth}/>
         <Route path="/restaurants/:restaurant_id" component={ContainerRestaurantDetailComponent} onEnter={ourRequireAuth}/>
         <Route path="/my_page" component={ContainerMyPageComponent} onEnter={ourRequireAuth}/>

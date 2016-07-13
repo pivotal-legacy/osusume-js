@@ -2,9 +2,9 @@ import React from 'react'
 import expect from 'expect'
 import {fromJS} from 'immutable'
 import * as actions from '../../src/js/actions/Actions'
-import {mapStateToProps, mapDispatchToProps} from '../../src/js/new_restaurant/ContainerRestaurantNewComponent'
+import {mapStateToProps, mapDispatchToProps} from '../../src/js/new_restaurant/ContainerRestaurantSearchComponent'
 
-describe('ContainerRestaurantNewComponent', () => {
+describe('ContainerRestaurantSearchComponent', () => {
   afterEach(function () {
     expect.restoreSpies()
   })

@@ -19,6 +19,10 @@ describe('restaurants', function() {
     const addRestaurant = () => {
       browser.click('button');
 
+      expect(browser.getText('h1')).toEqual('add a restaurant');
+
+      browser.click('.find-restaurant');
+
       expect(browser.getText('h1')).toEqual('find a restaurant');
 
       var input = browser.element('input');
@@ -26,6 +30,8 @@ describe('restaurants', function() {
       browser.click('button');
       browser.waitForExist('.restaurant-suggestion')
       browser.click('.restaurant-suggestion :nth-of-type(1)');
+
+      expect(browser.getText('h1')).toEqual('add a restaurant');
 
       var cusineSelect = browser.element('select:nth-of-type(1)');
       cusineSelect.selectByVisibleText('Japanese');

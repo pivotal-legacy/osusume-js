@@ -56,16 +56,32 @@ export default class RestaurantNewFormComponent extends React.Component {
     this.setState({selectedPhoto: e.target.files[0]})
   }
 
+  renderRestaurantSuggestionSection() {
+    if (this.props.suggestion) {
+      return (
+        <div className='restaurant-suggestion'>
+          <div>{this.props.suggestion.get('name')}</div>
+          <div>{this.props.suggestion.get('address')}</div>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <button className='find-restaurant' onClick={this.props.findRestaurantClicked}>
+            find restaurant
+          </button>
+        </div>
+      )
+    }
+  }
+
   render() {
     return (
       <div>
         <h1>add a restaurant</h1>
         <label>Add Photo</label>
         <input type="file" onChange={this.selectPhoto}/>
-        <div>
-          <div>{this.props.suggestion.get('name')}</div>
-          <div>{this.props.suggestion.get('address')}</div>
-        </div>
+        {this.renderRestaurantSuggestionSection()}
         <CuisineTypeSelectionComponent cuisineTypes={this.props.cuisineTypes} changeHandler={this.cuisineHandleChanged} />
         <PriceRangeSelectionComponent priceRanges={this.props.priceRanges} changeHandler={this.priceRangeHandleChanged}/>
         <div>

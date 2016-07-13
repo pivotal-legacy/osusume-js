@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import RestaurantNewComponent from './RestaurantNewComponent'
+import RestaurantSearchComponent from './RestaurantSearchComponent'
 import * as actions from '../actions/Actions'
 
 export const mapStateToProps = (state) => {
@@ -16,9 +16,9 @@ export const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const ContainerRestaurantNewComponent = connect(
+const ContainerRestaurantSearchComponent = connect(
   mapStateToProps,
   mapDispatchToProps
-)(RestaurantNewComponent)
+)(RestaurantSearchComponent)
 
-export default ContainerRestaurantNewComponent
+export default ContainerRestaurantSearchComponent

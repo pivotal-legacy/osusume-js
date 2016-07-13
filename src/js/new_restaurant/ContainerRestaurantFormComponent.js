@@ -1,7 +1,7 @@
 import * as actions from '../actions/Actions'
 import * as restaurantActions from '../actions/RestaurantActions'
 import {connect} from 'react-redux'
-import RestaurantNewFormComponent from './RestaurantNewFormComponent'
+import RestaurantFormComponent from './RestaurantFormComponent'
 import S3FileUploader from '../S3FileUploader'
 import {hashHistory} from "react-router"
 import uuid from 'node-uuid'
@@ -29,9 +29,9 @@ export const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const ContainerRestaurantNewFormComponent = connect (
+const ContainerRestaurantFormComponent = connect (
   mapStateToProps,
   mapDispatchToProps
-)(RestaurantNewFormComponent)
+)(RestaurantFormComponent)
 
-export default ContainerRestaurantNewFormComponent
+export default ContainerRestaurantFormComponent

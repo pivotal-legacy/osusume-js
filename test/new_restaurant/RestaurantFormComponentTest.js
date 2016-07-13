@@ -2,11 +2,11 @@ import { shallow, mount } from 'enzyme'
 import expect from 'expect'
 import React from 'react'
 import {fromJS} from 'immutable'
-import RestaurantNewFormComponent from '../../src/js/new_restaurant/RestaurantNewFormComponent'
+import RestaurantFormComponent from '../../src/js/new_restaurant/RestaurantFormComponent'
 import CuisineTypeSelectionComponent from '../../src/js/new_restaurant/CuisineTypeSelectionComponent'
 import PriceRangeSelectionComponent from '../../src/js/new_restaurant/PriceRangeSelectionComponent'
 
-describe('RestaurantNewFormComponent', () => {
+describe('RestaurantFormComponent', () => {
   const suggestion = fromJS({
     name: 'Afuri',
     address: 'Roppongi',
@@ -23,11 +23,12 @@ describe('RestaurantNewFormComponent', () => {
     {id: 1, range: '¥0~999'}
   ])
   const addNewRestaurantHandler = expect.createSpy()
-  const props = {
+  let props = {
     suggestion: suggestion,
     priceRanges: priceRanges,
     cuisineTypes: cuisineTypes,
     addNewRestaurant: addNewRestaurantHandler,
+    findRestaurantClicked: () => {},
     fetchCuisineTypes: () => {},
     fetchPriceRanges: () => {},
     fileUploder: () => {}
@@ -38,7 +39,7 @@ describe('RestaurantNewFormComponent', () => {
   })
 
   it('renders correct elements', () => {
-    const component = shallow(<RestaurantNewFormComponent {...props} />)
+    const component = shallow(<RestaurantFormComponent {...props} />)
     const instance = component.instance()
 
     expect(component.contains(
@@ -57,7 +58,7 @@ describe('RestaurantNewFormComponent', () => {
     const modifiedProps = Object.assign({}, props, {
       fetchCuisineTypes: expect.createSpy()
     })
-    mount(<RestaurantNewFormComponent {...modifiedProps} />)
+    mount(<RestaurantFormComponent {...modifiedProps} />)
 
     expect(modifiedProps.fetchCuisineTypes.calls.length).toBe(1)
   })
@@ -66,13 +67,13 @@ describe('RestaurantNewFormComponent', () => {
     const modifiedProps = Object.assign({}, props, {
       fetchPriceRanges: expect.createSpy()
     })
-    mount(<RestaurantNewFormComponent {...modifiedProps} />)
+    mount(<RestaurantFormComponent {...modifiedProps} />)
 
     expect(modifiedProps.fetchPriceRanges.calls.length).toBe(1)
   })
 
   it('calls onSubmit handler with new restaurant data when "save" is clicked', () => {
-    const component = mount(<RestaurantNewFormComponent {...props} />)
+    const component = mount(<RestaurantFormComponent {...props} />)
     const instance = component.instance()
     component.find('.notes').get(0).value = '美味しいです'
     component.find('.notes').simulate('change')
@@ -95,7 +96,7 @@ describe('RestaurantNewFormComponent', () => {
   })
 
   it('sets state when cuisineHandleChanged is called with new cuisine type id ', () => {
-    const component = shallow(<RestaurantNewFormComponent {...props} />)
+    const component = shallow(<RestaurantFormComponent {...props} />)
     const instance = component.instance()
     instance.cuisineHandleChanged(10)
 
@@ -103,7 +104,7 @@ describe('RestaurantNewFormComponent', () => {
   })
 
   it('sets state when priceRangeHandleChanged is called with new cuisine type id ', () => {
-    const component = shallow(<RestaurantNewFormComponent {...props} />)
+    const component = shallow(<RestaurantFormComponent {...props} />)
     const instance = component.instance()
     instance.priceRangeHandleChanged('¥0~999')
 
@@ -111,7 +112,7 @@ describe('RestaurantNewFormComponent', () => {
   })
 
   it('it sets file in state when input is changed ', () => {
-    const component = shallow(<RestaurantNewFormComponent {...props} />)
+    const component = shallow(<RestaurantFormComponent {...props} />)
     const file = {name: "myfile.txt"}
     const e = {
       target: {
@@ -123,5 +124,26 @@ describe('RestaurantNewFormComponent', () => {
     const instance = component.instance()
 
     expect(instance.state.selectedPhoto).toBe(file)
+  })
+
+  it('does not show the name and address if there is no suggestion', () => {
+    const modifiedProps = Object.assign({}, props, {
+      suggestion: null
+    })
+    const component = shallow(<RestaurantFormComponent {...modifiedProps} />)
+
+    expect(component.find('.restaurant-suggestion').length).toEqual(0)
+  })
+
+  it('calls findRestaurantClicked when the find restaurant button is clicked', () => {
+    const modifiedProps = Object.assign({}, props, {
+      suggestion: null,
+      findRestaurantClicked: expect.createSpy()
+    })
+    const component = shallow(<RestaurantFormComponent {...modifiedProps} />)
+
+    component.find('.find-restaurant').simulate('click')
+
+    expect(modifiedProps.findRestaurantClicked.calls.length).toBe(1)
   })
 })
