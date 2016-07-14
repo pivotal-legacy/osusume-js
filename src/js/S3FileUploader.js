@@ -10,6 +10,15 @@ export default class S3FileUploader {
     this.uuid = uuid
   }
 
+  uploadPhotos(files) {
+    var uploadPromises = []
+    for (var i = 0; i < files.length; i++) {
+      uploadPromises.push(this.upload(files[i]))
+    }
+
+    return Promise.all(uploadPromises)
+  }
+
   upload(file) {
     let promise = new Promise((resolve) => {
       let params = {

@@ -1,6 +1,7 @@
 import React from 'react'
 import CuisineTypeSelectionComponent from './CuisineTypeSelectionComponent'
 import PriceRangeSelectionComponent from './PriceRangeSelectionComponent'
+import ListComponent from './ListComponent'
 
 export default class RestaurantNewFormComponent extends React.Component {
   constructor(props) {
@@ -10,11 +11,13 @@ export default class RestaurantNewFormComponent extends React.Component {
     this.saveRestaurant = this.saveRestaurant.bind(this)
     this.selectPhoto = this.selectPhoto.bind(this)
     this.noteChanged = this.noteChanged.bind(this)
+    this.openPhotoLibrary = this.openPhotoLibrary.bind(this)
     this.state = {
       selectedCuisine: 0,
       selectedPriceRange: 0,
       notes: '',
-      selectedPhoto: undefined
+      selectedPhotos: [],
+      selectPhotoNames: []
     }
   }
 
@@ -47,13 +50,19 @@ export default class RestaurantNewFormComponent extends React.Component {
         latitude: this.props.suggestion.get('latitude'),
         longitude: this.props.suggestion.get('longitude')
       },
-      this.state.selectedPhoto,
+      this.state.selectedPhotos,
       this.props.fileUploader
     )
   }
 
   selectPhoto(e) {
-    this.setState({selectedPhoto: e.target.files[0]})
+    var photoNames = []
+    for (var i = 0; i < e.target.files.length; i++) {
+      photoNames.push(e.target.files[i].name)
+    }
+
+    this.setState({selectedPhotoNames: photoNames})
+    this.setState({selectedPhotos: e.target.files})
   }
 
   renderRestaurantSuggestionSection() {
@@ -75,10 +84,18 @@ export default class RestaurantNewFormComponent extends React.Component {
     }
   }
 
+  openPhotoLibrary() {
+    document.getElementById('file-input').click()
+  }
+
   render() {
     return (
       <div className='stacked-form'>
         <h1>add a restaurant</h1>
+        <label>Add Photo</label>
+        <ListComponent items={this.state.selectedPhotoNames} />
+        <input id="file-input" className="file-input" type="file" multiple="multiple" onChange={this.selectPhoto}/>
+        <input type="button" value="select photos" onClick={this.openPhotoLibrary} />
         {this.renderRestaurantSuggestionSection()}
         <CuisineTypeSelectionComponent cuisineTypes={this.props.cuisineTypes} changeHandler={this.cuisineHandleChanged} />
         <PriceRangeSelectionComponent priceRanges={this.props.priceRanges} changeHandler={this.priceRangeHandleChanged}/>

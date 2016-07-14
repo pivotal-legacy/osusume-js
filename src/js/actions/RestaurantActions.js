@@ -49,9 +49,9 @@ export function fetchRestaurants() {
   }
 }
 
-export function addNewRestaurant(restaurant, file, fileUploader, hashHistoryParam=hashHistory) {
+export function addNewRestaurant(restaurant, files, fileUploader, hashHistoryParam=hashHistory) {
   return function(dispatch, getState) {
-    return dispatch(addNewRestaurantWithCurrentUser(restaurant, file, fileUploader, getState().currentUser, hashHistoryParam))
+    return dispatch(addNewRestaurantWithCurrentUser(restaurant, files, fileUploader, getState().currentUser, hashHistoryParam))
   }
 }
 
@@ -80,10 +80,14 @@ function createRestaurant(restaurant, currentUser, hashHistoryParam) {
   }
 }
 
-function uploadPhoto(nextAction, restaurant, file, fileUploader, currentUser, hashHistoryParam) {
+function uploadPhotos(nextAction, restaurant, files, fileUploader, currentUser, hashHistoryParam) {
   return dispatch => {
-    return fileUploader.upload(file).then((photoUrl) => {
-      let restaurantWithPhotoUrl = Object.assign({}, restaurant, {photo_urls: [{url: photoUrl}]})
+    return fileUploader.uploadPhotos(files).then((photoUrls) => {
+      var photoUrlsArray = []
+      for(var i = 0; i < photoUrls.length; i++ ) {
+        photoUrlsArray.push({url: photoUrls[i]})
+      }
+      let restaurantWithPhotoUrl = Object.assign({}, restaurant, {photo_urls: photoUrlsArray})
       dispatch(nextAction(restaurantWithPhotoUrl, currentUser, hashHistoryParam))
     })
   }
@@ -105,14 +109,13 @@ function fetchRestaurantsWithCurrentUser(currentUser) {
   }
 }
 
-function addNewRestaurantWithCurrentUser(restaurant, file, fileUploader, currentUser, hashHistoryParam) {
+function addNewRestaurantWithCurrentUser(restaurant, files, fileUploader, currentUser, hashHistoryParam) {
   return dispatch => {
     restaurant['photo_urls'] = []
-
-    if (file == undefined) {
+    if (files.length <= 0) {
       return dispatch(createRestaurant(restaurant, currentUser, hashHistoryParam))
     } else {
-      return dispatch(uploadPhoto(createRestaurant, restaurant, file, fileUploader, currentUser, hashHistoryParam))
+      return dispatch(uploadPhotos(createRestaurant, restaurant, files, fileUploader, currentUser, hashHistoryParam))
     }
   }
 }

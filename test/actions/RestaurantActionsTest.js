@@ -67,27 +67,29 @@ describe("RestaurantActions", () => {
       cuisineId: 0,
       priceRangeId: 1,
       notes: 'notes',
-      photo_urls: [{url: 'http://its.a.party!!'}]
+      photo_urls: [{url: 'http://its.a.party!!'}, {url: 'http://backhome.com'}]
     }})
     .matchHeader('Authorization', (val) => val == 'Bearer party')
     .reply(200, {})
 
-    let expectedUrl = 'http://its.a.party!!'
-    let promise = Promise.resolve(expectedUrl)
-    promise.then((expectedUrl) => {
-      expect(expectedUrl).toBe(url)
+    let expectedUrls = ['http://its.a.party!!', 'http://backhome.com']
+    let promise = Promise.resolve(expectedUrls)
+    promise.then((expectedUrls) => {
+      expect(expectedUrls[0]).toBe(url)
+      expect(expectedUrls[1]).toBe(url)
     })
 
     let s3FileUploader = new S3FileUploader()
+    expect.spyOn(s3FileUploader, 'uploadPhotos').andReturn(promise)
     expect.spyOn(s3FileUploader, 'upload').andReturn(promise)
     const hashHistory = { push: () => {} }
     expect.spyOn(hashHistory, 'push')
 
-    let file = {name: "myfile.txt"}
+    let files = [{name: "aaa.txt"}, {name: "bbb.txt"}]
     let restaurantParam = {name: 'Afuri', address: 'Roppongi', cuisineId: 0, priceRangeId: 1, notes: 'notes'}
-    return store.dispatch(actions.addNewRestaurant(restaurantParam, file, s3FileUploader, hashHistory))
+    return store.dispatch(actions.addNewRestaurant(restaurantParam, files, s3FileUploader, hashHistory))
       .then(() => {
-        expect(s3FileUploader.upload).toHaveBeenCalledWith(file)
+        expect(s3FileUploader.uploadPhotos).toHaveBeenCalledWith(files)
         expect(nock.isDone()).toEqual(true)
         expect(hashHistory.push).toHaveBeenCalledWith('/')
       })
@@ -113,7 +115,7 @@ describe("RestaurantActions", () => {
     expect.spyOn(hashHistory, 'push')
 
     let restaurantParam = {name: 'Afuri', address: 'Roppongi', cuisineId: 0, priceRangeId: 1, notes: 'notes'}
-    return store.dispatch(actions.addNewRestaurant(restaurantParam, undefined, s3FileUploader, hashHistory))
+    return store.dispatch(actions.addNewRestaurant(restaurantParam, [], s3FileUploader, hashHistory))
       .then(() => {
         expect(s3FileUploader.upload).toNotHaveBeenCalled()
         expect(nock.isDone()).toEqual(true)

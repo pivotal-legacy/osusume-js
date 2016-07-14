@@ -3,6 +3,7 @@ import expect from 'expect'
 import React from 'react'
 import {fromJS} from 'immutable'
 import RestaurantFormComponent from '../../src/js/new_restaurant/RestaurantFormComponent'
+import ListComponent from '../../src/js/new_restaurant/ListComponent'
 import CuisineTypeSelectionComponent from '../../src/js/new_restaurant/CuisineTypeSelectionComponent'
 import PriceRangeSelectionComponent from '../../src/js/new_restaurant/PriceRangeSelectionComponent'
 
@@ -50,7 +51,8 @@ describe('RestaurantFormComponent', () => {
       <PriceRangeSelectionComponent
         priceRanges={priceRanges}
         changeHandler={instance.priceRangeHandleChanged} />)).toBe(true)
-    expect(component.contains(<input type="file" onChange={instance.selectPhoto}/>)).toBe(true)
+    expect(component.contains(<input id="file-input" className="file-input" type="file" multiple="multiple" onChange={instance.selectPhoto}/>)).toBe(true)
+    expect(component.contains(<input type="button" value="select photos" onClick={instance.openPhotoLibrary} />)).toBe(true)
     expect(component.contains(<textarea className="notes" onChange={instance.noteChanged}></textarea>)).toBe(true)
   })
 
@@ -90,7 +92,7 @@ describe('RestaurantFormComponent', () => {
         price_range_id: instance.state.selectedPriceRange,
         notes: '美味しいです'
       },
-      instance.state.selectedPhoto,
+      instance.state.selectedPhotos,
       instance.props.fileUploader
     )
   })
@@ -113,17 +115,21 @@ describe('RestaurantFormComponent', () => {
 
   it('it sets file in state when input is changed ', () => {
     const component = shallow(<RestaurantFormComponent {...props} />)
-    const file = {name: "myfile.txt"}
+    const files = [{name: "myfile.txt"}, {name: "newfile.txt"}]
+    const names = files.map((file) => file.name)
     const e = {
       target: {
         value: "C:\fakepath\myfile.txt",
-        files: [file]
+        files: files
       }
     }
-    component.find('input').simulate('change', e)
+    component.find('.file-input').simulate('change', e)
     const instance = component.instance()
 
-    expect(instance.state.selectedPhoto).toBe(file)
+    expect(instance.state.selectedPhotos).toBe(files)
+    expect(instance.state.selectedPhotoNames[0]).toBe(names[0])
+    expect(instance.state.selectedPhotoNames[1]).toBe(names[1])
+    expect(component.contains(<ListComponent items={names} />)).toBe(true)
   })
 
   it('does not show the name and address if there is no suggestion', () => {
