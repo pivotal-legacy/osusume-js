@@ -37,7 +37,7 @@ describe('restaurants', function() {
       cusineSelect.selectByVisibleText('Japanese');
       var priceRangeSelect = browser.element('select.price-range');
       priceRangeSelect.selectByVisibleText('¥0~999');
-      browser.click('button');
+      browser.click('button.save-restaurant');
     }
 
     const viewNewRestaurantDetails = () => {

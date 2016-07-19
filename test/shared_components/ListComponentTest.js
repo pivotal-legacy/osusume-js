@@ -1,7 +1,7 @@
 import expect from 'expect'
 import { shallow } from 'enzyme'
 import React from 'react'
-import ListComponent from '../../src/js/new_restaurant/ListComponent'
+import ListComponent from '../../src/js/shared_components/ListComponent'
 
 describe('ListComponent', () => {
   it('displays the items passed in props', () => {

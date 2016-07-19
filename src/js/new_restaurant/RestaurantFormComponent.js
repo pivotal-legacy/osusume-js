@@ -1,7 +1,7 @@
 import React from 'react'
 import CuisineTypeSelectionComponent from './CuisineTypeSelectionComponent'
 import PriceRangeSelectionComponent from './PriceRangeSelectionComponent'
-import ListComponent from './ListComponent'
+import PhotoPickerComponent from './PhotoPickerComponent'
 
 export default class RestaurantNewFormComponent extends React.Component {
   constructor(props) {
@@ -9,9 +9,8 @@ export default class RestaurantNewFormComponent extends React.Component {
     this.cuisineHandleChanged = this.cuisineHandleChanged.bind(this)
     this.priceRangeHandleChanged = this.priceRangeHandleChanged.bind(this)
     this.saveRestaurant = this.saveRestaurant.bind(this)
-    this.selectPhoto = this.selectPhoto.bind(this)
+    this.selectPhotos = this.selectPhotos.bind(this)
     this.noteChanged = this.noteChanged.bind(this)
-    this.openPhotoLibrary = this.openPhotoLibrary.bind(this)
     this.state = {
       selectedCuisine: 0,
       selectedPriceRange: 0,
@@ -55,14 +54,8 @@ export default class RestaurantNewFormComponent extends React.Component {
     )
   }
 
-  selectPhoto(e) {
-    var photoNames = []
-    for (var i = 0; i < e.target.files.length; i++) {
-      photoNames.push(e.target.files[i].name)
-    }
-
-    this.setState({selectedPhotoNames: photoNames})
-    this.setState({selectedPhotos: e.target.files})
+  selectPhotos(photoFiles) {
+    this.setState({selectedPhotos: photoFiles})
   }
 
   renderRestaurantSuggestionSection() {
@@ -84,10 +77,6 @@ export default class RestaurantNewFormComponent extends React.Component {
     }
   }
 
-  openPhotoLibrary() {
-    document.getElementById('file-input').click()
-  }
-
   render() {
     return (
       <div className='stacked-form'>
@@ -95,13 +84,10 @@ export default class RestaurantNewFormComponent extends React.Component {
         {this.renderRestaurantSuggestionSection()}
         <CuisineTypeSelectionComponent cuisineTypes={this.props.cuisineTypes} changeHandler={this.cuisineHandleChanged} />
         <PriceRangeSelectionComponent priceRanges={this.props.priceRanges} changeHandler={this.priceRangeHandleChanged}/>
-        <label>Add Photo</label>
-        <ListComponent items={this.state.selectedPhotoNames} />
-        <input id="file-input" className="file-input" type="file" multiple="multiple" onChange={this.selectPhoto}/>
-        <input type="button" value="select photos" onClick={this.openPhotoLibrary} />
+        <PhotoPickerComponent selectedPhotos={this.state.selectedPhotos} selectPhotos={this.selectPhotos}/>
         <label>Notes</label>
         <textarea className="notes" onChange={this.noteChanged}></textarea>
-        <button onClick={this.saveRestaurant}>save</button>
+        <button className='save-restaurant' onClick={this.saveRestaurant}>save</button>
       </div>
     )
   }
