@@ -92,15 +92,13 @@ export default class RestaurantNewFormComponent extends React.Component {
     return (
       <div className='stacked-form'>
         <h1>add a restaurant</h1>
-        <label>Add Photo</label>
-        <ListComponent items={this.state.selectedPhotoNames} />
-        <input id="file-input" className="file-input" type="file" multiple="multiple" onChange={this.selectPhoto}/>
-        <input type="button" value="select photos" onClick={this.openPhotoLibrary} />
         {this.renderRestaurantSuggestionSection()}
         <CuisineTypeSelectionComponent cuisineTypes={this.props.cuisineTypes} changeHandler={this.cuisineHandleChanged} />
         <PriceRangeSelectionComponent priceRanges={this.props.priceRanges} changeHandler={this.priceRangeHandleChanged}/>
         <label>Add Photo</label>
-        <input type="file" onChange={this.selectPhoto}/>
+        <ListComponent items={this.state.selectedPhotoNames} />
+        <input id="file-input" className="file-input" type="file" multiple="multiple" onChange={this.selectPhoto}/>
+        <input type="button" value="select photos" onClick={this.openPhotoLibrary} />
         <label>Notes</label>
         <textarea className="notes" onChange={this.noteChanged}></textarea>
         <button onClick={this.saveRestaurant}>save</button>
