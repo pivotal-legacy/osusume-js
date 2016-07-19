@@ -1,4 +1,5 @@
 ./gradlew build
+make test-refreshdb
 make test-loadsampledata
 OSUSUME_DATABASE_URL=jdbc:postgresql://pivotal:@localhost/osusume-test java -jar build/libs/osusume-java-spring-0.0.1-SNAPSHOT.jar &
 JAVA_SERVER_PID=$!
