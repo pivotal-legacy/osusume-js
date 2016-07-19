@@ -6,6 +6,7 @@ import RestaurantFormComponent from '../../src/js/new_restaurant/RestaurantFormC
 import CuisineTypeSelectionComponent from '../../src/js/new_restaurant/CuisineTypeSelectionComponent'
 import PriceRangeSelectionComponent from '../../src/js/new_restaurant/PriceRangeSelectionComponent'
 import PhotoPickerComponent from '../../src/js/new_restaurant/PhotoPickerComponent'
+import SelectedRestaurantComponent from '../../src/js/new_restaurant/SelectedRestaurantComponent'
 
 describe('RestaurantFormComponent', () => {
   const suggestion = fromJS({
@@ -128,15 +129,13 @@ describe('RestaurantFormComponent', () => {
     })
     const component = shallow(<RestaurantFormComponent {...modifiedProps} />)
 
-    expect(component.find('.restaurant-suggestion').length).toEqual(0)
+    expect(component.find(SelectedRestaurantComponent).length).toEqual(0)
   })
 
-  it('sets the entered notes in the state when notes are entered', () => {
+  it('does show the name and address if there is a suggestion', () => {
     const component = shallow(<RestaurantFormComponent {...props} />)
 
-    component.instance().noteChanged({target: {value: '美味しいです'}})
-
-    expect(component.instance().state.notes).toEqual('美味しいです')
+    expect(component.contains(<SelectedRestaurantComponent suggestion={props.suggestion} />)).toBe(true)
   })
 
   it('calls findRestaurantClicked when the find restaurant button is clicked', () => {
@@ -149,5 +148,13 @@ describe('RestaurantFormComponent', () => {
     component.find('.find-restaurant').simulate('click')
 
     expect(modifiedProps.findRestaurantClicked.calls.length).toBe(1)
+  })
+
+  it('sets the entered notes in the state when notes are entered', () => {
+    const component = shallow(<RestaurantFormComponent {...props} />)
+
+    component.instance().noteChanged({target: {value: '美味しいです'}})
+
+    expect(component.instance().state.notes).toEqual('美味しいです')
   })
 })

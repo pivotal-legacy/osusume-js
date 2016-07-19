@@ -2,6 +2,7 @@ import React from 'react'
 import CuisineTypeSelectionComponent from './CuisineTypeSelectionComponent'
 import PriceRangeSelectionComponent from './PriceRangeSelectionComponent'
 import PhotoPickerComponent from './PhotoPickerComponent'
+import SelectedRestaurantComponent from './SelectedRestaurantComponent'
 
 export default class RestaurantNewFormComponent extends React.Component {
   constructor(props) {
@@ -60,19 +61,12 @@ export default class RestaurantNewFormComponent extends React.Component {
 
   renderRestaurantSuggestionSection() {
     if (this.props.suggestion) {
-      return (
-        <div className='selected-restaurant'>
-          <div>{this.props.suggestion.get('name')}</div>
-          <div>{this.props.suggestion.get('address')}</div>
-        </div>
-      )
+      return (<SelectedRestaurantComponent suggestion={this.props.suggestion} />)
     } else {
       return (
-        <div>
-          <button className='find-restaurant' onClick={this.props.findRestaurantClicked}>
-            find restaurant
-          </button>
-        </div>
+        <button className='find-restaurant' onClick={this.props.findRestaurantClicked}>
+          find restaurant
+        </button>
       )
     }
   }
