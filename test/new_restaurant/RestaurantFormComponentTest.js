@@ -135,7 +135,10 @@ describe('RestaurantFormComponent', () => {
   it('does show the name and address if there is a suggestion', () => {
     const component = shallow(<RestaurantFormComponent {...props} />)
 
-    expect(component.contains(<SelectedRestaurantComponent suggestion={props.suggestion} />)).toBe(true)
+    expect(component.contains(<SelectedRestaurantComponent
+      editRestaurantClicked={props.findRestaurantClicked}
+      suggestion={props.suggestion}/>)
+    ).toBe(true)
   })
 
   it('calls findRestaurantClicked when the find restaurant button is clicked', () => {

@@ -12,6 +12,7 @@ describe('RestaurantSearchResultComponent', () => {
     }
     let component = shallow(<RestaurantSearchResultComponent {...props}/>)
     component.find('div').simulate('click')
+
     expect(props.restaurantSuggestionSelected.calls.length).toBe(1)
   })
 })

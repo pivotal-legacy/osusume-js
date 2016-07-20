@@ -61,7 +61,7 @@ export default class RestaurantNewFormComponent extends React.Component {
 
   renderRestaurantSuggestionSection() {
     if (this.props.suggestion) {
-      return (<SelectedRestaurantComponent suggestion={this.props.suggestion} />)
+      return (<SelectedRestaurantComponent editRestaurantClicked={this.props.findRestaurantClicked} suggestion={this.props.suggestion} />)
     } else {
       return (
         <button className='find-restaurant' onClick={this.props.findRestaurantClicked}>
