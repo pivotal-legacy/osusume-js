@@ -30,7 +30,7 @@ describe('RestaurantListItemComponent', () => {
     expect(component.find('.updated-at').text()).toEqual('5/26/2016')
   })
 
-  it('displays no photo is there are no photos', () => {
+  it('displays placeholder when there are no photos', () => {
     let restaurant = fromJS({
       id: 0,
       name: 'Afuri',
@@ -41,5 +41,6 @@ describe('RestaurantListItemComponent', () => {
 
     const component = shallow(<RestaurantListItemComponent restaurant={restaurant} />)
     expect(component.find('img').length).toEqual(0)
+    expect(component.contains(<div className='photo-placeholder'></div>)).toBe(true)
   })
 })

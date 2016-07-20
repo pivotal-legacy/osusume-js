@@ -5,6 +5,15 @@
 
   .photo {
     margin-right: 10px;
+    width: 210px;
+  }
+
+  .photo-placeholder {
+    display: inline-block;
+    margin-right: 10px;
+    width: 210px;
+    height: 158px;
+    background-color: gainsboro;
   }
 
   .item-info {

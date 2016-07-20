@@ -5,7 +5,9 @@ import { pluralize } from '../utils/StringHelpers'
 export default function RestaurantListItemComponent(props) {
   let photo
   if ( props.restaurant.get('photo_urls') && props.restaurant.get('photo_urls').size > 0 ) {
-    photo = <img className='photo' src={props.restaurant.get('photo_urls').first().get('url')} width={210}  />
+    photo = <img className='photo' src={props.restaurant.get('photo_urls').first().get('url')}  />
+  } else {
+    photo = <div className='photo-placeholder'></div>
   }
   let date = new Date(props.restaurant.get('updated_at'))
   return (
