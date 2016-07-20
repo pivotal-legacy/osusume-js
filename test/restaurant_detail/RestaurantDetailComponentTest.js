@@ -33,10 +33,11 @@ describe('RestaurantDetailComponent', () => {
       created_at: "2016-05-26T10:03:17.736Z",
       updated_at: "2016-05-27T10:03:17.736Z"
     })
+    let currentUser = fromJS({id: 0, name: 'Danny'})
     let createCommentCallback = function() {}
     let likeCallback = function() {}
     let removeLikeCallback = function() {}
-    const component = shallow(<RestaurantDetailComponent restaurant={restaurant} comments={[comment]} createComment={createCommentCallback} like={likeCallback} removeLike={removeLikeCallback}/>)
+    const component = shallow(<RestaurantDetailComponent restaurant={restaurant} comments={[comment]} createComment={createCommentCallback} like={likeCallback} removeLike={removeLikeCallback} currentUser={currentUser}/>)
     expect(component.contains(<Link to='/'><button className='restaurant-link'>restaurants</button></Link>)).toBe(true)
     expect(component.contains(<h1>Afuri</h1>)).toBe(true)
     expect(component.contains(<img key={0} src='https://hoge/image.jpg' width={210}  />)).toBe(true)
@@ -54,56 +55,112 @@ describe('RestaurantDetailComponent', () => {
     expect(component.contains(<CommentComponent comment={comment} />)).toBe(true)
   })
 
-  it('shows no images if there are no photo urls', () => {
-    let restaurant = fromJS({
-      photo_urls: null,
-      cuisine: {},
-      price_range: {}
-    })
+  it('shows delete button if restaurant is owned by current_user', () => {
+    let props = {
+      restaurant: fromJS({
+        id: 0,
+        name: 'Afuri',
+        cuisine: {name: "Japanese"},
+        price_range: {range: '¥0~999'},
+        user: {id: 0, email: "danny", name: "Danny"}
+      }),
+      deleteRestaurant: expect.createSpy(),
+      currentUser: fromJS({id: 0, name: 'Danny'})
+    }
+    const component = shallow(<RestaurantDetailComponent {...props} />)
 
-    const component = shallow(<RestaurantDetailComponent restaurant={restaurant} />)
+    component.find(".delete-button").simulate("click")
+
+    expect(props.deleteRestaurant).toHaveBeenCalled()
+  })
+
+  it('does not show delete button if restaurant is not owned by current_user', () => {
+    let props = {
+      restaurant: fromJS({
+        id: 0,
+        name: 'Afuri',
+        cuisine: {name: "Japanese"},
+        price_range: {range: '¥0~999'},
+        user: {id: 0, email: "danny", name: "Danny"}
+      }),
+      currentUser: fromJS({id: 1, name: 'Robert'})
+    }
+    const component = shallow(<RestaurantDetailComponent {...props} />)
+
+    expect(component.find(".delete-button").length).toEqual(0)
+  })
+
+  it('shows no images if there are no photo urls', () => {
+    let props = {
+      restaurant: fromJS({
+        photo_urls: null,
+        cuisine: {},
+        price_range: {},
+        user: {id: 0, email: "danny", name: "Danny"}
+      }),
+      currentUser: fromJS({id: 0, name: 'Danny'})
+    }
+    const component = shallow(<RestaurantDetailComponent {...props} />)
     expect(component.find('img').length).toEqual(0)
   })
 
   it('displays the remove like button when retaurant has been liked', () => {
-    let restaurant = fromJS({
-      liked: true,
-      price_range: {},
-      cuisine: {}
-    })
-    let likeCallback = function() {}
-    let removeLikeCallback = function() {}
-    const component = shallow(<RestaurantDetailComponent restaurant={restaurant} like={likeCallback} removeLike={removeLikeCallback}/>)
-    expect(component.contains(<button onClick={removeLikeCallback}>remove like</button>)).toBe(true)
-    expect(component.contains(<button onClick={likeCallback}>like</button>)).toBe(false)
-
+    let props = {
+      restaurant: fromJS({
+        liked: true,
+        price_range: {},
+        cuisine: {},
+        user: {id: 0, email: "danny", name: "Danny"}
+      }),
+      currentUser: fromJS({id: 0, name: 'Danny'}),
+      like: () => {},
+      removeLike: () => {}
+    }
+    const component = shallow(<RestaurantDetailComponent {...props} />)
+    expect(component.contains(<button onClick={props.removeLike}>remove like</button>)).toBe(true)
+    expect(component.contains(<button onClick={props.like}>like</button>)).toBe(false)
   })
 
   it('displays likes pluralized correctly', () => {
-    let restaurantWithoutLikes = fromJS({
-      num_likes: 0,
-      price_range: {},
-      cuisine: {}
-    })
-    expect(shallow(<RestaurantDetailComponent restaurant={restaurantWithoutLikes} />)
+    let propsNoLikes = {
+      restaurant: fromJS({
+        num_likes: 0,
+        price_range: {},
+        cuisine: {},
+        user: {id: 0, email: "danny", name: "Danny"}
+      }),
+      currentUser: fromJS({id: 0, name: 'Danny'})
+    }
+    expect(shallow(<RestaurantDetailComponent {...propsNoLikes} />)
       .contains(<span className="num-likes">0 likes</span>)
     ).toBe(true)
 
-    let restaurantWithOneLike = fromJS({
-      num_likes: 1,
-      price_range: {},
-      cuisine: {}
-    })
-    expect(shallow(<RestaurantDetailComponent restaurant={restaurantWithOneLike} />)
+
+    let propsOneLike = {
+      restaurant: fromJS({
+        num_likes: 1,
+        price_range: {},
+        cuisine: {},
+        user: {id: 0, email: "danny", name: "Danny"}
+      }),
+      currentUser: fromJS({id: 0, name: 'Danny'})
+    }
+
+    expect(shallow(<RestaurantDetailComponent {...propsOneLike} />)
       .contains(<span className="num-likes">1 like</span>)
     ).toBe(true)
 
-    let restaurantWithTwoLikes = fromJS({
-      num_likes: 2,
-      price_range: {},
-      cuisine: {}
-    })
-    expect(shallow(<RestaurantDetailComponent restaurant={restaurantWithTwoLikes} />)
+    let propsTwoLikes = {
+      restaurant: fromJS({
+        num_likes: 2,
+        price_range: {},
+        cuisine: {},
+        user: {id: 0, email: "danny", name: "Danny"}
+      }),
+      currentUser: fromJS({id: 0, name: 'Danny'})
+    }
+
+    expect(shallow(<RestaurantDetailComponent {...propsTwoLikes} />)
       .contains(<span className="num-likes">2 likes</span>)
     ).toBe(true)
   })
@@ -136,8 +193,10 @@ describe('RestaurantDetailComponent', () => {
         id: 1,
         name: 'Afuri',
         price_range: {},
-        cuisine: {}
-      })
+        cuisine: {},
+        user: {id: 0, email: "danny", name: "Danny"}
+      }),
+      currentUser: fromJS({id: 0, name: 'Danny'})
     }
     expect(props.fetchRestaurant.calls.length).toBe(0)
     mount(<RestaurantDetailComponent {...props} />)

@@ -37,6 +37,12 @@ function receiveRemovedLike(restaurantId) {
   }
 }
 
+function receiveDeletedRestaurant(hashHistoryParam) {
+  return dispatch => {
+    hashHistoryParam.push("/")
+  }
+}
+
 export function fetchRestaurant(restaurantId) {
   return function(dispatch, getState) {
     return dispatch(fetchRestaurantWithCurrentUser(restaurantId, getState().currentUser))
@@ -64,6 +70,12 @@ export function like(restaurantId) {
 export function removeLike(restaurantId) {
   return function(dispatch, getState) {
     return dispatch(removeLikeWithCurrentUser(restaurantId, getState().currentUser))
+  }
+}
+
+export function deleteRestaurant(restaurantId, hashHistoryParam=hashHistory) {
+  return function(dispatch, getState) {
+    return dispatch(deleteRestaurantWithCurrentUser(restaurantId, getState().currentUser, hashHistoryParam))
   }
 }
 
@@ -134,5 +146,13 @@ function removeLikeWithCurrentUser(restaurantId, currentUser) {
   return dispatch => {
     return fetch(`${process.env.API_SERVER}/restaurants/${restaurantId}/likes`, config)
     .then(response => dispatch(receiveRemovedLike(parseInt(restaurantId))))
+  }
+}
+
+function deleteRestaurantWithCurrentUser(restaurantId, currentUser, hashHistoryParam) {
+  let config = Object.assign({}, authorizationConfig(currentUser), {method: "DELETE"})
+  return dispatch => {
+    return fetch(`${process.env.API_SERVER}/restaurants/${restaurantId}`, config)
+    .then(response => dispatch(receiveDeletedRestaurant(hashHistoryParam)))
   }
 }

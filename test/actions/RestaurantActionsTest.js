@@ -156,4 +156,23 @@ describe("RestaurantActions", () => {
         expect(store.getActions()).toEqual(expectedActions)
       })
   })
+
+  it("delete", () => {
+    const hashHistory = { push: () => {} }
+    expect.spyOn(hashHistory, 'push')
+    nock('http://localhost:8080')
+    .delete('/restaurants/1')
+    .matchHeader('Authorization', (val) => val == 'Bearer party')
+    .reply(200, {})
+
+    const expectedActions = [
+      {type: types.REMOVE_RESTAURANT_SUCCESS, restaurantId: 1}
+    ]
+
+    return store.dispatch(actions.deleteRestaurant('1', hashHistory))
+      .then(() => {
+        expect(nock.isDone()).toEqual(true)
+        expect(hashHistory.push).toHaveBeenCalledWith('/')
+      })
+  })
 })

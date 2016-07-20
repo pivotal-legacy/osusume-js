@@ -13,7 +13,8 @@ const findRestaurant = (restaurants, restaurant_id) => {
 export const mapStateToProps = (state, ownProps) => {
   return {
     restaurant: findRestaurant(state.restaurants, ownProps.params.restaurant_id),
-    comments: state.comments
+    comments: state.comments,
+    currentUser: state.currentUser
   }
 }
 
@@ -33,6 +34,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     },
     removeLike: () => {
       dispatch(restaurantActions.removeLike(ownProps.params.restaurant_id))
+    },
+    deleteRestaurant: () => {
+      dispatch(restaurantActions.deleteRestaurant(ownProps.params.restaurant_id))
     }
   }
 }

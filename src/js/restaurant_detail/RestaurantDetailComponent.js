@@ -35,6 +35,11 @@ export default class RestaurantDetailComponent extends React.Component {
         maybeLikeButton = <button onClick={this.props.removeLike}>remove like</button>
       }
 
+      let deleteButton
+      if (this.props.currentUser.get('id') == restaurant.get('user').get('id')) {
+        deleteButton = <button className="delete-button" onClick={this.props.deleteRestaurant}>delete</button>
+      }
+
       return  (
         <div>
           <Link to='/'><button className='restaurant-link'>restaurants</button></Link>
@@ -57,6 +62,7 @@ export default class RestaurantDetailComponent extends React.Component {
           <div className="date">{formatAuthor}</div>
           <CommentFormComponent createComment={this.props.createComment} />
           {commentsToDisplay}
+          {deleteButton}
         </div>
       )
     } else {

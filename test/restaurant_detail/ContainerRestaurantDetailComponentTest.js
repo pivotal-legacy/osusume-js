@@ -27,11 +27,13 @@ describe('ContainerRestaurantDetailComponent', () => {
   it('mapsStateToProps', () => {
     let state = {
       restaurants: fromJS([{id: 17, name: 'Afuri'}, {id: 1, name: 'Tsukemen'}]),
-      comments: [{id: 0, comment: 'i like this one'}]
+      comments: [{id: 0, comment: 'i like this one'}],
+      currentUser: fromJS({id: 0, name: 'Danny'})
     }
 
     expect(mapStateToProps(state, props).restaurant).toEqual(fromJS({id: 17, name: 'Afuri'}))
     expect(mapStateToProps(state, props).comments).toEqual([{id: 0, comment: 'i like this one'}])
+    expect(mapStateToProps(state, props).currentUser).toEqual(fromJS({id: 0, name: 'Danny'}))
   })
 
   it('mapsDispatchToProps for fetchComments', () => {
@@ -67,5 +69,12 @@ describe('ContainerRestaurantDetailComponent', () => {
     mapDispatchToProps(dispatch, props).removeLike()
     expect(spy).toHaveBeenCalledWith(17)
     expect(dispatch).toHaveBeenCalledWith(restaurantActions.removeLike())
+  })
+
+  it('mapsDispatchToProps for deleteRestaurant', () => {
+    var spy = expect.spyOn(restaurantActions, 'deleteRestaurant')
+    mapDispatchToProps(dispatch, props).deleteRestaurant()
+    expect(spy).toHaveBeenCalledWith(17)
+    expect(dispatch).toHaveBeenCalledWith(restaurantActions.deleteRestaurant())
   })
 })
