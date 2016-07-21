@@ -1,3 +1,4 @@
+make test-refreshdb
 ./gradlew build
 OSUSUME_DATABASE_URL=jdbc:postgresql://pivotal:@localhost/osusume-test java -jar build/libs/osusume-java-spring-0.0.1-SNAPSHOT.jar &
 JAVA_SERVER_PID=$!
@@ -8,11 +9,8 @@ if [ ! -f selenium-server-standalone-2.53.0.jar ]; then
 fi
 java -jar selenium-server-standalone-2.53.0.jar &
 SELENIUM_PID=$!
-sleep 5
-
-make test-refreshdb
+sleep 10
 make test-loadsampledata
-
 cd e2e-test
 npm install
 npm test
