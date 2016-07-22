@@ -16,6 +16,12 @@ function logoutComplete() {
   }
 }
 
+function loginFailure() {
+  return {
+    type: types.LOGIN_FAILURE
+  }
+}
+
 export function login(email, password) {
   let config = {
     method: 'POST',
@@ -25,9 +31,18 @@ export function login(email, password) {
 
   return dispatch => {
     return fetch(`${process.env.API_SERVER}/session`, config)
-      .then(response => response.json())
+      .then(response => {
+        if (response.status >= 400) {
+            throw new Error("login failure");
+        } else {
+          return response.json()
+        }
+      })
       .then((json) => {
         dispatch(receiveUser(json))
+      })
+      .catch((error) => {
+        dispatch(loginFailure())
       })
   }
 }

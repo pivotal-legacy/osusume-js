@@ -35,6 +35,26 @@ describe("AuthenticationActions", () => {
       })
   })
 
+  it("LOGIN_FAILURE is dispatched when login fails", () => {
+    const store = mockStore([])
+    nock('http://localhost:8080')
+    .post('/session', {
+      email: 'danny@pivotal.io',
+      password: 'wrong-password'
+    })
+    .reply(404, {error: 'Invalid email or password.'})
+
+    const expectedActions = [
+      {type: types.LOGIN_FAILURE}
+    ]
+
+    return store.dispatch(actions.login('danny@pivotal.io', 'wrong-password'))
+      .then(() => {
+        expect(nock.isDone()).toEqual(true)
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+  })
+
   it("logs the user out", () => {
     const store = mockStore({currentUser: fromJS({token: 'party'})})
     nock('http://localhost:8080')
