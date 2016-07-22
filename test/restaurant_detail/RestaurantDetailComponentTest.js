@@ -52,7 +52,7 @@ describe('RestaurantDetailComponent', () => {
     expect(component.contains(<button onClick={likeCallback}>like</button>)).toBe(true)
     expect(component.contains(<button onClick={removeLikeCallback}>remove like</button>)).toBe(false)
     expect(component.contains(<CommentFormComponent createComment={createCommentCallback} />)).toBe(true)
-    expect(component.contains(<CommentComponent comment={comment} />)).toBe(true)
+    expect(component.contains(<CommentComponent key={0} comment={comment} />)).toBe(true)
   })
 
   it('shows delete button if restaurant is owned by current_user', () => {
