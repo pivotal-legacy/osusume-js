@@ -1,18 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router'
 import { pluralize } from '../utils/StringHelpers'
+import placeholder from '../../images/placeholder.jpg'
 
 export default function RestaurantListItemComponent(props) {
-  let photo
+  let photoSrc = placeholder
   if ( props.restaurant.get('photo_urls') && props.restaurant.get('photo_urls').size > 0 ) {
-    photo = <img className='photo' src={props.restaurant.get('photo_urls').first().get('url')}  />
-  } else {
-    photo = <div className='photo-placeholder'></div>
+    photoSrc = props.restaurant.get('photo_urls').first().get('url')
   }
   let date = new Date(props.restaurant.get('updated_at'))
   return (
     <Link className='item-with-photo' to={`/restaurants/${props.restaurant.get('id')}`}>
-      {photo}
+      <img className='photo' src={photoSrc}  />
       <span className='item-info'>
         <div className='name'>{props.restaurant.get('name')}</div>
         <div className='cuisine-and-price-range'>

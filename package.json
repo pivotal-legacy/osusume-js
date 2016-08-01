@@ -5,7 +5,7 @@
   "license": "MIT",
   "description": "A React client for Osusume",
   "scripts": {
-    "test": "API_SERVER=http://localhost:8080 ./node_modules/.bin/mocha --recursive --require test/utils/setup.js --compilers js:babel-core/register",
+    "test": "API_SERVER=http://localhost:8080 ./node_modules/.bin/mocha",
     "start": "API_SERVER=http://localhost:8080 ./node_modules/.bin/webpack-dev-server --content-base dist/ --port 8000",
     "deploy": "API_SERVER=http://osusume.cfapps.io ./node_modules/.bin/webpack --config webpack.config.js && cf push osusume-js -p dist/ -b https://github.com/cloudfoundry/staticfile-buildpack.git"
   },
@@ -33,6 +33,7 @@
     "css-loader": "^0.23.1",
     "enzyme": "^2.3.0",
     "html-webpack-plugin": "^2.17.0",
+    "image-webpack-loader": "^2.0.0",
     "jsdom": "^9.1.0",
     "json-loader": "^0.5.4",
     "localStorage": "^1.0.3",

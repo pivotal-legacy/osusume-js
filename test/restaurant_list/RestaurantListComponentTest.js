@@ -5,7 +5,7 @@ import {fromJS} from 'immutable'
 import { Link } from 'react-router'
 import React from 'react'
 import RestaurantListComponent from '../../src/js/restaurant_list/RestaurantListComponent'
-import RestaurantComponent from '../../src/js/restaurant_list/RestaurantListItemComponent'
+import RestaurantListItemComponent from '../../src/js/restaurant_list/RestaurantListItemComponent'
 
 describe('RestaurantListComponent', () => {
   it('displays the restaurants passed as props', () => {
@@ -15,8 +15,8 @@ describe('RestaurantListComponent', () => {
     ])
     const component = shallow(<RestaurantListComponent restaurants={restaurants} />)
 
-    expect(component.contains(<RestaurantComponent restaurant={fromJS({id: 0, name: 'Afuri'})} />)).toBe(true)
-    expect(component.contains(<RestaurantComponent restaurant={fromJS({id: 1, name: 'Tsukemen'})} />)).toBe(true)
+    expect(component.contains(<RestaurantListItemComponent restaurant={fromJS({id: 0, name: 'Afuri'})}/>)).toBe(true)
+    expect(component.contains(<RestaurantListItemComponent restaurant={fromJS({id: 1, name: 'Tsukemen'})}/>)).toBe(true)
   })
 
   it('display add restaurant and my page buttons above the restaurant list', () => {

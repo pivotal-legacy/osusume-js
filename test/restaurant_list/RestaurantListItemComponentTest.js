@@ -5,6 +5,7 @@ import {fromJS} from 'immutable'
 
 import React from 'react'
 import RestaurantListItemComponent from '../../src/js/restaurant_list/RestaurantListItemComponent'
+import placeholder from '../../src/images/placeholder.jpg'
 
 describe('RestaurantListItemComponent', () => {
   it('displays the restaurant passed in props', () => {
@@ -40,7 +41,7 @@ describe('RestaurantListItemComponent', () => {
     })
 
     const component = shallow(<RestaurantListItemComponent restaurant={restaurant} />)
-    expect(component.find('img').length).toEqual(0)
-    expect(component.contains(<div className='photo-placeholder'></div>)).toBe(true)
+
+    expect(component.contains(<img className='photo' src={placeholder}/>)).toBe(true)
   })
 })
