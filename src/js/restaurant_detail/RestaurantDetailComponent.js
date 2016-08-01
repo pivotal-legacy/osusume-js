@@ -26,8 +26,8 @@ export default class RestaurantDetailComponent extends React.Component {
       let formatAuthor = `${date.toLocaleDateString()} by ${author}`
 
       let comments = this.props.comments || []
-      let commentsToDisplay = comments.map((comment, index) => {
-        return (<CommentComponent key={index} comment={comment} />)
+      let commentsToDisplay = comments.map((comment) => {
+        return (<CommentComponent key={comment.get('id')} comment={comment} />)
       })
 
       let maybeLikeButton = <button onClick={this.props.like}>like</button>

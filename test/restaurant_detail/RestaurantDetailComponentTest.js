@@ -10,14 +10,14 @@ import CommentFormComponent from '../../src/js/restaurant_detail/CommentFormComp
 
 describe('RestaurantDetailComponent', () => {
   it('displays the restaurant passed in props', () => {
-    let comment = {
+    let comments = fromJS([{
       comment: 'I love it',
       created_at: "2016-06-09T07:21:52.211Z",
       id: 1,
       user: {
         name: 'Danny'
       }
-    }
+    }])
     let restaurant = fromJS({
       id: 0,
       name: 'Afuri',
@@ -37,7 +37,7 @@ describe('RestaurantDetailComponent', () => {
     let createCommentCallback = function() {}
     let likeCallback = function() {}
     let removeLikeCallback = function() {}
-    const component = shallow(<RestaurantDetailComponent restaurant={restaurant} comments={[comment]} createComment={createCommentCallback} like={likeCallback} removeLike={removeLikeCallback} currentUser={currentUser}/>)
+    const component = shallow(<RestaurantDetailComponent restaurant={restaurant} comments={comments} createComment={createCommentCallback} like={likeCallback} removeLike={removeLikeCallback} currentUser={currentUser}/>)
     expect(component.contains(<Link to='/'><button className='restaurant-link'>restaurants</button></Link>)).toBe(true)
     expect(component.contains(<h1>Afuri</h1>)).toBe(true)
     expect(component.contains(<img key={0} src='https://hoge/image.jpg' width={210}  />)).toBe(true)
@@ -52,7 +52,7 @@ describe('RestaurantDetailComponent', () => {
     expect(component.contains(<button onClick={likeCallback}>like</button>)).toBe(true)
     expect(component.contains(<button onClick={removeLikeCallback}>remove like</button>)).toBe(false)
     expect(component.contains(<CommentFormComponent createComment={createCommentCallback} />)).toBe(true)
-    expect(component.contains(<CommentComponent key={0} comment={comment} />)).toBe(true)
+    expect(component.contains(<CommentComponent key={0} comment={comments.get(0)} />)).toBe(true)
   })
 
   it('shows delete button if restaurant is owned by current_user', () => {
