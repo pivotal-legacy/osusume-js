@@ -60,68 +60,64 @@ describe("RestaurantActions", () => {
   })
 
   it("uploads a photo and saves new restaurant to server", () => {
-    nock('http://localhost:8080')
-    .post('/restaurants', {restaurant: {
+    const restaurant = {
       name: 'Afuri',
-      address: 'Roppongi',
-      cuisineId: 0,
-      priceRangeId: 1,
-      notes: 'notes',
       photo_urls: [{url: 'http://its.a.party!!'}, {url: 'http://backhome.com'}]
-    }})
-    .matchHeader('Authorization', (val) => val == 'Bearer party')
-    .reply(200, {})
+    }
+    nock('http://localhost:8080')
+      .post('/restaurants', {restaurant: restaurant})
+      .matchHeader('Authorization', (val) => val == 'Bearer party')
+      .reply(200, {})
 
     let expectedUrls = ['http://its.a.party!!', 'http://backhome.com']
-    let promise = Promise.resolve(expectedUrls)
-    promise.then((expectedUrls) => {
-      expect(expectedUrls[0]).toBe(url)
-      expect(expectedUrls[1]).toBe(url)
-    })
+    let uploadPhotosPromise = Promise.resolve(expectedUrls)
 
     let s3FileUploader = new S3FileUploader()
-    expect.spyOn(s3FileUploader, 'uploadPhotos').andReturn(promise)
-    expect.spyOn(s3FileUploader, 'upload').andReturn(promise)
+    expect.spyOn(s3FileUploader, 'uploadPhotos').andReturn(uploadPhotosPromise)
+
     const hashHistory = { push: () => {} }
-    expect.spyOn(hashHistory, 'push')
 
     let files = [{name: "aaa.txt"}, {name: "bbb.txt"}]
-    let restaurantParam = {name: 'Afuri', address: 'Roppongi', cuisineId: 0, priceRangeId: 1, notes: 'notes'}
+    const restaurantParam = {name: 'Afuri'}
     return store.dispatch(actions.addNewRestaurant(restaurantParam, files, s3FileUploader, hashHistory))
       .then(() => {
         expect(s3FileUploader.uploadPhotos).toHaveBeenCalledWith(files)
         expect(nock.isDone()).toEqual(true)
-        expect(hashHistory.push).toHaveBeenCalledWith('/')
       })
   })
 
   it("just saves the restaurant when no photo is specified", () => {
-    let restaurant = {name: "Afuri", address: "Roppongi"}
+    let restaurant = {name: "Afuri"}
     nock('http://localhost:8080')
-    .post('/restaurants', {restaurant: {
-      name: 'Afuri',
-      address: 'Roppongi',
-      cuisineId: 0,
-      priceRangeId: 1,
-      notes: 'notes',
-      photo_urls: []
-    }})
-    .matchHeader('Authorization', (val) => val == 'Bearer party')
-    .reply(200, restaurant)
+      .post('/restaurants', {restaurant: restaurant})
+      .matchHeader('Authorization', (val) => val == 'Bearer party')
+      .reply(200, {})
 
     let s3FileUploader = new S3FileUploader()
     expect.spyOn(s3FileUploader, 'upload')
+
+    return store.dispatch(actions.addNewRestaurant(restaurant, [], s3FileUploader))
+      .then(() => {
+        expect(s3FileUploader.upload).toNotHaveBeenCalled()
+        expect(nock.isDone()).toEqual(true)
+      })
+  })
+
+  it("redirects after saving a restaurant", () => {
+    let restaurant = {name: "Afuri"}
+    nock('http://localhost:8080')
+      .post('/restaurants', {restaurant: restaurant})
+      .matchHeader('Authorization', (val) => val == 'Bearer party')
+      .reply(200, {})
+
     const hashHistory = { push: () => {} }
     expect.spyOn(hashHistory, 'push')
 
-    let restaurantParam = {name: 'Afuri', address: 'Roppongi', cuisineId: 0, priceRangeId: 1, notes: 'notes'}
-    let promise =  store.dispatch(actions.addNewRestaurant(restaurantParam, [], s3FileUploader, hashHistory))
+    let promise =  store.dispatch(actions.addNewRestaurant(restaurant, [], new S3FileUploader(), hashHistory))
 
     expect(hashHistory.push).toNotHaveBeenCalled()
 
     promise.then(() => {
-      expect(s3FileUploader.upload).toNotHaveBeenCalled()
-      expect(nock.isDone()).toEqual(true)
       expect(hashHistory.push).toHaveBeenCalledWith('/')
     })
     return promise
