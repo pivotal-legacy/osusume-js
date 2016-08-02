@@ -115,12 +115,16 @@ describe("RestaurantActions", () => {
     expect.spyOn(hashHistory, 'push')
 
     let restaurantParam = {name: 'Afuri', address: 'Roppongi', cuisineId: 0, priceRangeId: 1, notes: 'notes'}
-    return store.dispatch(actions.addNewRestaurant(restaurantParam, [], s3FileUploader, hashHistory))
-      .then(() => {
-        expect(s3FileUploader.upload).toNotHaveBeenCalled()
-        expect(nock.isDone()).toEqual(true)
-        expect(hashHistory.push).toHaveBeenCalledWith('/')
-      })
+    let promise =  store.dispatch(actions.addNewRestaurant(restaurantParam, [], s3FileUploader, hashHistory))
+
+    expect(hashHistory.push).toNotHaveBeenCalled()
+
+    promise.then(() => {
+      expect(s3FileUploader.upload).toNotHaveBeenCalled()
+      expect(nock.isDone()).toEqual(true)
+      expect(hashHistory.push).toHaveBeenCalledWith('/')
+    })
+    return promise
   })
 
   it("like", () => {

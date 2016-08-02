@@ -41,7 +41,11 @@ describe('restaurants', function() {
     }
 
     const viewNewRestaurantDetails = () => {
-      expect(browser.getText('h1')).toEqual('Restaurants');
+      browser.waitUntil(function() {
+        return this.getText('h1').then(function(text) {
+          return text === 'Restaurants';
+        })
+      });
       expect(browser.getText('.name')).toContain('AFURI Ebisu');
 
       browser.click('.name')

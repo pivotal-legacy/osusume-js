@@ -88,7 +88,7 @@ function createRestaurant(restaurant, currentUser, hashHistoryParam) {
   )
   return dispatch => {
     return fetch(`${process.env.API_SERVER}/restaurants`, config)
-    .then(dispatch(receiveCreatedRestaurant(hashHistoryParam)))
+    .then(() => dispatch(receiveCreatedRestaurant(hashHistoryParam)))
   }
 }
 
@@ -100,7 +100,7 @@ function uploadPhotos(nextAction, restaurant, files, fileUploader, currentUser, 
         photoUrlsArray.push({url: photoUrls[i]})
       }
       let restaurantWithPhotoUrl = Object.assign({}, restaurant, {photo_urls: photoUrlsArray})
-      dispatch(nextAction(restaurantWithPhotoUrl, currentUser, hashHistoryParam))
+      return dispatch(nextAction(restaurantWithPhotoUrl, currentUser, hashHistoryParam))
     })
   }
 }
