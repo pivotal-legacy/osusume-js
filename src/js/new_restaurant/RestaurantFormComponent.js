@@ -16,8 +16,7 @@ export default class RestaurantNewFormComponent extends React.Component {
       selectedCuisine: 0,
       selectedPriceRange: 0,
       notes: '',
-      selectedPhotos: [],
-      selectPhotoNames: []
+      selectedPhotos: []
     }
   }
 
@@ -38,6 +37,14 @@ export default class RestaurantNewFormComponent extends React.Component {
     this.setState({notes: e.target.value})
   }
 
+  selectPhotos(photoFiles) {
+    this.setState((previousState, currentProps) => {
+      const photoFilesArray = Array.from(photoFiles)
+      const allPhotos = previousState.selectedPhotos.concat(photoFilesArray)
+      return {selectedPhotos: allPhotos}
+    })
+  }
+
   saveRestaurant() {
     this.props.addNewRestaurant(
       {
@@ -53,10 +60,6 @@ export default class RestaurantNewFormComponent extends React.Component {
       this.state.selectedPhotos,
       this.props.fileUploader
     )
-  }
-
-  selectPhotos(photoFiles) {
-    this.setState({selectedPhotos: photoFiles})
   }
 
   renderRestaurantSuggestionSection() {

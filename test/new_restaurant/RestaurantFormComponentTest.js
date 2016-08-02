@@ -113,14 +113,30 @@ describe('RestaurantFormComponent', () => {
     expect(instance.state.selectedPriceRange).toBe('¥0~999')
   })
 
-  it('it sets file in state when input is changed ', () => {
+  it('selectPhotos() accepts a FileList and adds those files to existing files in state', () => {
     const component = shallow(<RestaurantFormComponent {...props} />)
     const instance = component.instance()
-    const photoFiles = [{name: "myfile.txt"}, {name: "newfile.txt"}]
+    instance.state.selectedPhotos = [{name: "myfile.txt"}]
 
-    instance.selectPhotos(photoFiles)
+    var anotherFileIterable = {
+      [Symbol.iterator]() {
+        return {
+          i: 0,
+          next() {
+            if (this.i < 1) {
+              this.i++
+              return {value: {name: "anotherfile.txt"}, done: false}
+            }
+            return { value: undefined, done: true };
+          }
+        };
+      }
+    }
 
-    expect(instance.state.selectedPhotos).toBe(photoFiles)
+    instance.selectPhotos(anotherFileIterable)
+
+    const expectedPhotoFiles = [{name: "myfile.txt"}, {name: "anotherfile.txt"}]
+    expect(instance.state.selectedPhotos).toEqual(expectedPhotoFiles)
   })
 
   it('does not show the name and address if there is no suggestion', () => {
