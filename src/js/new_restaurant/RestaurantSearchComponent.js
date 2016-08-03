@@ -21,6 +21,7 @@ export default class RestaurantSearchComponent extends React.Component {
                                          restaurantSuggestionSelected={this.props.restaurantSuggestionSelected}/>
       )
     }))
+
     return (
       <div>
         <h1>find a restaurant</h1>

@@ -4,7 +4,7 @@ import PriceRangeSelectionComponent from './PriceRangeSelectionComponent'
 import PhotoPickerComponent from './PhotoPickerComponent'
 import SelectedRestaurantComponent from './SelectedRestaurantComponent'
 
-export default class RestaurantNewFormComponent extends React.Component {
+export default class RestaurantFormComponent extends React.Component {
   constructor(props) {
     super(props)
     this.cuisineHandleChanged = this.cuisineHandleChanged.bind(this)
@@ -64,7 +64,8 @@ export default class RestaurantNewFormComponent extends React.Component {
 
   renderRestaurantSuggestionSection() {
     if (this.props.suggestion) {
-      return (<SelectedRestaurantComponent editRestaurantClicked={this.props.findRestaurantClicked} suggestion={this.props.suggestion} />)
+      return (<SelectedRestaurantComponent editRestaurantClicked={this.props.findRestaurantClicked}
+                                           suggestion={this.props.suggestion}/>)
     } else {
       return (
         <button className='find-restaurant' onClick={this.props.findRestaurantClicked}>
@@ -79,8 +80,10 @@ export default class RestaurantNewFormComponent extends React.Component {
       <div className='stacked-form'>
         <h1>add a restaurant</h1>
         {this.renderRestaurantSuggestionSection()}
-        <CuisineTypeSelectionComponent cuisineTypes={this.props.cuisineTypes} changeHandler={this.cuisineHandleChanged} />
-        <PriceRangeSelectionComponent priceRanges={this.props.priceRanges} changeHandler={this.priceRangeHandleChanged}/>
+        <CuisineTypeSelectionComponent cuisineTypes={this.props.cuisineTypes}
+                                       changeHandler={this.cuisineHandleChanged}/>
+        <PriceRangeSelectionComponent priceRanges={this.props.priceRanges}
+                                      changeHandler={this.priceRangeHandleChanged}/>
         <PhotoPickerComponent selectedPhotos={this.state.selectedPhotos} selectPhotos={this.selectPhotos}/>
         <label>Notes</label>
         <textarea className="notes" onChange={this.noteChanged}></textarea>

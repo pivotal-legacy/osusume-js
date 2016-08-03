@@ -16,15 +16,19 @@ describe('RestaurantFormComponent', () => {
     latitude: '1.23',
     longitude: '2.34'
   })
+
   const cuisineTypes = fromJS([
     {id: 0, name: 'Not Specified'},
     {id: 1, name: 'Japanese'}
   ])
+
   const priceRanges = fromJS([
     {id: 0, range: 'Not Specified'},
     {id: 1, range: '¥0~999'}
   ])
+
   const addNewRestaurantHandler = expect.createSpy()
+
   let props = {
     suggestion: suggestion,
     priceRanges: priceRanges,

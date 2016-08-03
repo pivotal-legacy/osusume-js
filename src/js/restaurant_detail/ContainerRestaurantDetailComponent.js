@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import RestaurantDetailComponent from './RestaurantDetailComponent'
-import * as actions from '../actions/Actions'
 import * as restaurantActions from '../actions/RestaurantActions'
 import * as commentActions from '../actions/CommentActions'
 

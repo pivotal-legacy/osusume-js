@@ -7,6 +7,7 @@ import reducer from './reducers/Reducer'
 import ContainerRestaurantListComponent from './restaurant_list/ContainerRestaurantListComponent'
 import ContainerRestaurantDetailComponent from './restaurant_detail/ContainerRestaurantDetailComponent'
 import AddRestaurantComponent from './new_restaurant/AddRestaurantComponent'
+import ContainerEditRestaurantFormComponent from './edit_restaurant/ContainerEditRestaurantFormComponent'
 import ContainerLoginComponent from './login/ContainerLoginComponent'
 import ContainerMyPageComponent from './my_page/ContainerMyPageComponent'
 import MapComponent from './map/MapComponent'
@@ -30,6 +31,7 @@ export default function AppComponent() {
         <Route path="/restaurants/new" component={AddRestaurantComponent} onEnter={ourRequireAuth}/>
         <Route path="/restaurants/:restaurant_id/map/:place_id" component={MapComponent} onEnter={ourRequireAuth}/>
         <Route path="/restaurants/:restaurant_id" component={ContainerRestaurantDetailComponent} onEnter={ourRequireAuth}/>
+        <Route path="/restaurants/:restaurant_id/edit" component={ContainerEditRestaurantFormComponent} onEnter={ourRequireAuth}/>
         <Route path="/my_page" component={ContainerMyPageComponent} onEnter={ourRequireAuth}/>
       </Router>
     </Provider>

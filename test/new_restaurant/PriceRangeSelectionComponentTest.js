@@ -31,4 +31,15 @@ describe('PriceRangeSelectionComponent', () => {
     component.find('select').simulate('change', e)
     expect(handler).toHaveBeenCalledWith(1)
   })
+
+  it('selects passed in price range by default', () => {
+    const props = {
+      priceRanges: priceRanges,
+      selectedPriceRange: 1
+    }
+
+    const component = shallow(<PriceRangeSelectionComponent {...props} />)
+
+    expect(component.find('select').props().defaultValue).toEqual(1)
+  })
 })

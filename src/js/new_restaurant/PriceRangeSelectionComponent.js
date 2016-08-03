@@ -12,7 +12,7 @@ export default function PriceRangeSelectionComponent(props) {
   }
 
   return (
-    <select className='price-range' onChange={onChange}>
+    <select className='price-range' onChange={onChange} defaultValue={props.selectedPriceRange}>
       <option>Select a price range</option>
       {priceRanges}
     </select>

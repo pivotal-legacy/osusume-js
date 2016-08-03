@@ -76,6 +76,22 @@ describe('restaurants', function () {
     expect(browser.getText('.likes button')).toInclude('like');
   }
 
+  const editRestaurant = () => {
+    browser.click('button.edit-details')
+
+    expect(browser.getText('h1')).toEqual('edit a restaurant')
+    expect(browser.getText('h2')).toEqual('AFURI Ebisu')
+
+    var cusineSelect = browser.element('select.cuisine')
+    cusineSelect.selectByVisibleText('Chinese')
+
+    var priceRangeSelect = browser.element('select.price-range')
+    priceRangeSelect.selectByVisibleText('¥1000~1999')
+
+    browser.back()
+    // browser.click('button.save-restaurant');
+  }
+
   const logout = () => {
     browser.click('.restaurant-link');
     browser.click('.my-page-link');
@@ -101,6 +117,8 @@ describe('restaurants', function () {
     addComment();
 
     likeAndRemoveLike();
+
+    editRestaurant();
 
     logout();
   });

@@ -43,6 +43,7 @@ export default class RestaurantDetailComponent extends React.Component {
       return  (
         <div>
           <Link to='/'><button className='restaurant-link'>restaurants</button></Link>
+          <Link to={`/restaurants/${restaurant.get('id')}/edit`}><button className='edit-details'>Edit Details</button></Link>
           <div>{images}</div>
           <h1>{restaurant.get('name')}</h1>
 

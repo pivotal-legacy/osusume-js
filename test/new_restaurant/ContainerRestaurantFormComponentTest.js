@@ -43,7 +43,9 @@ describe('ContainerRestaurantFormComponent', () => {
     let fileUploader = expect.createSpy()
     var spy = expect.spyOn(restaurantActions, 'addNewRestaurant')
     let restaurant = {name: 'Afuri', address: 'Roppongi', cuisine_id: 0, price_range_id: 1, notes: 'notes'}
+
     mapDispatchToProps(dispatch).addNewRestaurant(restaurant, {name: 'ramen.png'}, fileUploader)
+
     expect(spy).toHaveBeenCalledWith(restaurant, {name: 'ramen.png'}, fileUploader)
     expect(dispatch).toHaveBeenCalledWith(restaurantActions.addNewRestaurant())
   })

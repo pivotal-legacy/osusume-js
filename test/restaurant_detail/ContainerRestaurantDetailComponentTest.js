@@ -1,11 +1,8 @@
 import expect from 'expect'
-import { createStore } from 'redux'
-import { mount, shallow } from 'enzyme'
 import React from 'react'
 import {fromJS} from 'immutable'
 
 import {mapStateToProps, mapDispatchToProps} from '../../src/js/restaurant_detail/ContainerRestaurantDetailComponent'
-import * as actions from '../../src/js/actions/Actions'
 import * as restaurantActions from '../../src/js/actions/RestaurantActions'
 import * as commentActions from '../../src/js/actions/CommentActions'
 
@@ -20,6 +17,7 @@ describe('ContainerRestaurantDetailComponent', () => {
       }
     }
   })
+
   afterEach(function () {
     expect.restoreSpies()
   })
