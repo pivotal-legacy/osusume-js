@@ -1,7 +1,6 @@
 import expect from 'expect'
-import { mount, shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 import React from 'react'
-import {fromJS} from 'immutable'
 import AddRestaurantComponent from '../../src/js/new_restaurant/AddRestaurantComponent'
 import ContainerRestaurantSearchComponent from '../../src/js/new_restaurant/ContainerRestaurantSearchComponent'
 import ContainerRestaurantFormComponent from '../../src/js/new_restaurant/ContainerRestaurantFormComponent'

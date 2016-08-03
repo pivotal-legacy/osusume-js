@@ -84,7 +84,7 @@ export default class RestaurantNewFormComponent extends React.Component {
         <PhotoPickerComponent selectedPhotos={this.state.selectedPhotos} selectPhotos={this.selectPhotos}/>
         <label>Notes</label>
         <textarea className="notes" onChange={this.noteChanged}></textarea>
-        <button className='save-restaurant' onClick={this.saveRestaurant}>save</button>
+        <button className='save-restaurant' onClick={this.saveRestaurant} disabled={this.props.suggestion == null}>save</button>
       </div>
     )
   }
