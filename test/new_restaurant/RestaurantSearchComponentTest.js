@@ -15,6 +15,7 @@ describe('RestaurantSearchComponent', () => {
     />)
     const input = component.find('input').get(0)
     input.value = 'AFURI'
+    component.find('input').simulate('change')
     component.find('button').simulate('click')
     expect(handler).toHaveBeenCalledWith('AFURI')
   })
@@ -40,4 +41,15 @@ describe('RestaurantSearchComponent', () => {
                                        restaurantSuggestionSelected={restaurantSuggestionSelected}/>
     )).toBe(true)
   })
+
+  it('disables the find button when the input has no text', () => {
+    const props = {
+      restaurantSuggestionSelected: () => {},
+      suggestions: []
+    }
+    const component = mount(<RestaurantSearchComponent {...props}/>)
+
+    expect(component.find('button').props().disabled).toBe(true)
+  })
+
 })

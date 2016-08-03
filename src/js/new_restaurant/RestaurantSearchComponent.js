@@ -1,21 +1,34 @@
 import React from 'react'
 import RestaurantSearchResultComponent from './RestaurantSearchResultComponent'
 
-export default function RestaurantSearchComponent(props) {
-  let input
-  let suggestions = (props.suggestions.map((suggestion) => {
+export default class RestaurantSearchComponent extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      searchTerm: ''
+    }
+  }
+
+  inputChanged(event) {
+    this.setState({searchTerm: event.target.value})
+  }
+
+  render() {
+    let suggestions = (this.props.suggestions.map((suggestion) => {
+      return (
+        <RestaurantSearchResultComponent key={suggestion.get('place_id')}
+                                         suggestion={suggestion}
+                                         restaurantSuggestionSelected={this.props.restaurantSuggestionSelected}/>
+      )
+    }))
     return (
-      <RestaurantSearchResultComponent key={suggestion.get('place_id')}
-                                       suggestion={suggestion}
-                                       restaurantSuggestionSelected={props.restaurantSuggestionSelected}/>
+      <div>
+        <h1>find a restaurant</h1>
+        <input ref="searchInput" onChange={this.inputChanged.bind(this)}/>
+        <button disabled={this.state.searchTerm.length == 0}
+                onClick={_ => {this.props.fetchSuggestions(this.refs.searchInput.value)}}>find</button>
+        {suggestions}
+      </div>
     )
-  }))
-  return (
-    <div>
-      <h1>find a restaurant</h1>
-      <input ref={node => {input = node}}/>
-      <button onClick={_ => {props.fetchSuggestions(input.value)}}>find</button>
-      {suggestions}
-    </div>
-  )
+  }
 }
