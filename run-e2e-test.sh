@@ -7,6 +7,7 @@ OSUSUME_DATABASE_URL=jdbc:postgresql://localhost/osusume-test java -jar build/li
 JAVA_SERVER_PID=$!
 cd ../osusume-js
 
+npm install
 npm start &
 CLIENT_PID=$!
 
