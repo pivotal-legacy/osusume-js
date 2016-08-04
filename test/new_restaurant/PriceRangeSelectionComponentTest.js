@@ -3,7 +3,6 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import {fromJS} from 'immutable'
 import PriceRangeSelectionComponent from '../../src/js/new_restaurant/PriceRangeSelectionComponent'
-import PriceRangeOptionComponent from '../../src/js/new_restaurant/PriceRangeOptionComponent'
 
 describe('PriceRangeSelectionComponent', () => {
   let priceRanges = fromJS([
@@ -16,9 +15,15 @@ describe('PriceRangeSelectionComponent', () => {
     const component = shallow(<PriceRangeSelectionComponent priceRanges={priceRanges}/>)
 
     expect(component.find('select').length).toBe(1)
-    expect(component.contains(<PriceRangeOptionComponent priceRange={priceRanges.get(0)}/>)).toEqual(true)
-    expect(component.contains(<PriceRangeOptionComponent priceRange={priceRanges.get(1)}/>)).toEqual(true)
-    expect(component.contains(<PriceRangeOptionComponent priceRange={priceRanges.get(2)}/>)).toEqual(true)
+    expect(component.contains(
+      <option key={0} value={0}>Not Specified</option>
+    )).toEqual(true)
+    expect(component.contains(
+      <option key={1} value={1}>¥0~999</option>
+    )).toEqual(true)
+    expect(component.contains(
+      <option key={2} value={2}>¥1000~1999</option>
+    )).toEqual(true)
   })
 
   it('calls changeHandler with selected price range on change', () => {

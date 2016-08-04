@@ -4,7 +4,6 @@ import React from 'react'
 import {fromJS} from 'immutable'
 
 import CuisineTypeSelectionComponent from '../../src/js/new_restaurant/CuisineTypeSelectionComponent'
-import CuisineTypeOptionComponent from '../../src/js/new_restaurant/CuisineTypeOptionComponent'
 
 describe('CuisineTypeSelectionComponent', () => {
   let cuisineTypes = fromJS([
@@ -17,9 +16,15 @@ describe('CuisineTypeSelectionComponent', () => {
     const component = shallow(<CuisineTypeSelectionComponent cuisineTypes={cuisineTypes}/>)
 
     expect(component.find('select').length).toBe(1)
-    expect(component.contains(<CuisineTypeOptionComponent cuisineType={cuisineTypes.get(0)} />)).toEqual(true)
-    expect(component.contains(<CuisineTypeOptionComponent cuisineType={cuisineTypes.get(1)} />)).toEqual(true)
-    expect(component.contains(<CuisineTypeOptionComponent cuisineType={cuisineTypes.get(2)} />)).toEqual(true)
+    expect(component.contains(
+      <option key={0} value={0}>Not Specified</option>
+    )).toEqual(true)
+    expect(component.contains(
+      <option key={1} value={1}>Japanese</option>
+    )).toEqual(true)
+    expect(component.contains(
+      <option key={2} value={2}>French</option>
+    )).toEqual(true)
   })
 
   it('calls changeHandler with selected cuisine type on change', () => {

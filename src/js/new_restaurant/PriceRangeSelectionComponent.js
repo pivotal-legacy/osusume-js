@@ -1,9 +1,12 @@
 import React from 'react'
-import PriceRangeOptionComponent from './PriceRangeOptionComponent'
 
 export default function PriceRangeSelectionComponent(props) {
   const priceRanges = props.priceRanges.map((priceRange) => {
-    return (<PriceRangeOptionComponent key={priceRange.get('id')} priceRange={priceRange} />)
+    return (
+      <option key={priceRange.get('id')} value={priceRange.get('id')}>
+        {priceRange.get('range')}
+      </option>
+    )
   })
 
   const onChange = (e) => {

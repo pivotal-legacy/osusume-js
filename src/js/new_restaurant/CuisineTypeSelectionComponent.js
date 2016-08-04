@@ -1,9 +1,12 @@
 import React from 'react'
-import CuisineTypeOptionComponent from './CuisineTypeOptionComponent'
 
 export default function CuisineTypeSelectionComponent(props) {
   const cuisineTypes = props.cuisineTypes.map((cuisineType) => {
-    return (<CuisineTypeOptionComponent key={cuisineType.get('id')} cuisineType={cuisineType} />)
+    return (
+      <option key={cuisineType.get('id')} value={cuisineType.get('id')}>
+        {cuisineType.get('name')}
+      </option>
+    )
   })
 
   const onChange = (e) => {
