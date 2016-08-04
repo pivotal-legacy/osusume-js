@@ -1,23 +1,24 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import DropDownMenu from '../shared_components/DropDownMenu'
 
-export default function CuisineTypeSelectionComponent(props) {
-  const cuisineTypes = props.cuisineTypes.map((cuisineType) => {
-    return (
-      <option key={cuisineType.get('id')} value={cuisineType.get('id')}>
-        {cuisineType.get('name')}
-      </option>
-    )
+export function mapStateToProps(_, ownProps) {
+  const options = []
+
+  ownProps.cuisineTypes.forEach((cuisineType) => {
+    options.push({
+      label: cuisineType.get('name'),
+      value: cuisineType.get('id').toString()
+    })
   })
 
-  const onChange = (e) => {
-    const index = e.target.options.selectedIndex
-    props.changeHandler(e.target.options[index].value)
+  return {
+    className: 'cuisine',
+    defaultValue: (ownProps.selectedCuisine || '').toString(),
+    options
   }
-
-  return (
-    <select className='cuisine' onChange={onChange} defaultValue={props.selectedCuisine}>
-      <option>Select a cuisine</option>
-      {cuisineTypes}
-    </select>
-  )
 }
+
+const CuisineTypeSelectionComponent = connect(mapStateToProps)(DropDownMenu)
+
+export default CuisineTypeSelectionComponent

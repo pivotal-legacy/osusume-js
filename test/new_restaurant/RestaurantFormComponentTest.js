@@ -1,4 +1,4 @@
-import { mount, shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 import expect from 'expect'
 import React from 'react'
 import {fromJS} from 'immutable'
@@ -156,9 +156,10 @@ describe('RestaurantFormComponent', () => {
     const modifiedProps = Object.assign({}, props, {
       suggestion: null
     })
-    const component = mount(<RestaurantFormComponent {...modifiedProps} />)
 
-    expect(component.find('.save-restaurant').node.disabled).toBe(true)
+    const component = shallow(<RestaurantFormComponent {...modifiedProps} />)
+
+    expect(component.find('.save-restaurant').props().disabled).toBe(true)
   })
 
   it('does show the name and address if there is a suggestion', () => {

@@ -1,23 +1,24 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import DropDownMenu from '../shared_components/DropDownMenu'
 
-export default function PriceRangeSelectionComponent(props) {
-  const priceRanges = props.priceRanges.map((priceRange) => {
-    return (
-      <option key={priceRange.get('id')} value={priceRange.get('id')}>
-        {priceRange.get('range')}
-      </option>
-    )
+export function mapStateToProps(_, ownProps) {
+  const options = []
+
+  ownProps.priceRanges.forEach((priceRange) => {
+    options.push({
+      label: priceRange.get('range'),
+      value: priceRange.get('id').toString()
+    })
   })
 
-  const onChange = (e) => {
-    const index = e.target.options.selectedIndex
-    props.changeHandler(e.target.options[index].value)
+  return {
+    className: 'price-range',
+    defaultValue: (ownProps.selectedPriceRange || '').toString(),
+    options
   }
-
-  return (
-    <select className='price-range' onChange={onChange} defaultValue={props.selectedPriceRange}>
-      <option>Select a price range</option>
-      {priceRanges}
-    </select>
-  )
 }
+
+const PriceRangeSelectionComponent = connect(mapStateToProps)(DropDownMenu)
+
+export default PriceRangeSelectionComponent
