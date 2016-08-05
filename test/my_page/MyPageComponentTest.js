@@ -13,7 +13,7 @@ describe('MyPageComponent', () => {
     let props = {
       myRestaurants: fromJS([]),
       logout: logoutCallback,
-      currentUser: fromJS({name: 'Danny'})
+      currentUser: {name: 'Danny'}
     }
     const component = shallow(<MyPageComponent {...props} />)
 
@@ -28,7 +28,7 @@ describe('MyPageComponent', () => {
     let anotherRestaurant = {id: 1, name: 'butagmui'}
     let props = {
       myRestaurants: fromJS([restaurant, anotherRestaurant]),
-      currentUser: fromJS({name: 'Danny'})
+      currentUser: {name: 'Danny'}
     }
     const component = shallow(<MyPageComponent {...props} />)
 
@@ -43,7 +43,7 @@ describe('MyPageComponent', () => {
     let props = {
       myRestaurants: fromJS([]),
       myLikedRestaurants: fromJS([restaurant, anotherRestaurant]),
-      currentUser: fromJS({name: 'Danny'})
+      currentUser: {name: 'Danny'}
     }
     const component = shallow(<MyPageComponent {...props} />)
     const instance = component.instance()
@@ -62,7 +62,7 @@ describe('MyPageComponent', () => {
     let props = {
       myRestaurants: fromJS([restaurant, anotherRestaurant]),
       myLikedRestaurants: fromJS([]),
-      currentUser: fromJS({name: 'Danny'})
+      currentUser: {name: 'Danny'}
     }
 
     const component = shallow(<MyPageComponent {...props} />)
@@ -81,7 +81,7 @@ describe('MyPageComponent', () => {
     let props = {
       myRestaurants: fromJS([]),
       fetchRestaurants: expect.createSpy(),
-      currentUser: fromJS({name: 'Danny'})
+      currentUser: {name: 'Danny'}
     }
     expect(props.fetchRestaurants.calls.length).toBe(0)
     mount(<MyPageComponent {...props} />)
@@ -99,7 +99,7 @@ describe('MyPageComponent', () => {
         }
       ]),
       fetchRestaurants: expect.createSpy(),
-      currentUser: fromJS({name: 'Danny'})
+      currentUser: {name: 'Danny'}
     }
     expect(props.fetchRestaurants.calls.length).toBe(0)
     mount(<MyPageComponent {...props} />)

@@ -1,6 +1,5 @@
 import React from 'react'
 import expect from 'expect'
-import {fromJS} from 'immutable'
 import * as actions from '../../src/js/actions/Actions'
 import {mapStateToProps, mapDispatchToProps} from '../../src/js/new_restaurant/ContainerRestaurantSearchComponent'
 
@@ -10,10 +9,10 @@ describe('ContainerRestaurantSearchComponent', () => {
   })
 
   it('mapsStateToProps', () => {
-    let suggestions = fromJS([
+    let suggestions = [
       {name: 'Afuri', address: 'Roppongi'},
       {name: 'Butagumi', address: 'Roppongi'}
-    ])
+    ]
     let state = {
       suggestions: suggestions
     }

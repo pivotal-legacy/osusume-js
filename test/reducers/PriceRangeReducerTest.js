@@ -1,6 +1,5 @@
 import expect from 'expect'
-import {fromJS} from 'immutable'
-import * as priceRangeReducer from '../../src/js/reducers/PriceRangeReducer'
+import priceRangeReducer from '../../src/js/reducers/PriceRangeReducer'
 import * as types from '../../src/js/constants/ActionTypes'
 
 describe('PriceRangeReducer', () => {
@@ -15,10 +14,10 @@ describe('PriceRangeReducer', () => {
       priceRanges: priceRanges
     }
 
-    expect(priceRangeReducer.priceRanges(undefined, action)).toEqual(fromJS(priceRanges))
+    expect(priceRangeReducer(undefined, action)).toEqual(priceRanges)
   })
 
   it('returns empty array by default', () => {
-    expect(priceRangeReducer.priceRanges(undefined, {})).toEqual(fromJS([]))
+    expect(priceRangeReducer(undefined, {})).toEqual([])
   })
 })

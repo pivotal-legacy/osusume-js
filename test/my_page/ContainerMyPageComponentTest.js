@@ -1,6 +1,4 @@
 import expect from 'expect'
-import { createStore } from 'redux'
-import { mount, shallow } from 'enzyme'
 import React from 'react'
 import {fromJS} from 'immutable'
 
@@ -33,7 +31,7 @@ describe('ContainerMyPageComponent', () => {
         {id: 0, name: 'Afuri', user: {id: 17}},
         {id: 1, name: 'Butagumi', user: {id: 18}}
       ]),
-      currentUser: fromJS({id: 17})
+      currentUser: {id: 17}
     }
     expect(mapStateToProps(state).myRestaurants).toEqual(
       fromJS([{id: 0, name: 'Afuri', user: {id: 17}}])
@@ -46,7 +44,7 @@ describe('ContainerMyPageComponent', () => {
         {id: 0, name: 'Afuri', liked: true, user: {id: 17}},
         {id: 1, name: 'Butagumi', liked: false, user: {id: 17}}
       ]),
-      currentUser: fromJS({id: 17})
+      currentUser: {id: 17}
     }
     expect(mapStateToProps(state).myLikedRestaurants).toEqual(
       fromJS([{id: 0, name: 'Afuri', liked: true, user: {id: 17}}])
@@ -56,10 +54,10 @@ describe('ContainerMyPageComponent', () => {
   it('mapStateToProps for currentUser', () => {
     let state = {
       restaurants: fromJS([]),
-      currentUser: fromJS({id: 17})
+      currentUser: {id: 17}
     }
     expect(mapStateToProps(state).currentUser).toEqual(
-      fromJS({id: 17})
+      {id: 17}
     )
   })
 })

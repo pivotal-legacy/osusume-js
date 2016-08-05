@@ -10,14 +10,14 @@ import CommentFormComponent from '../../src/js/restaurant_detail/CommentFormComp
 
 describe('RestaurantDetailComponent', () => {
   it('displays the restaurant passed in props', () => {
-    let comments = fromJS([{
+    let comments = [{
       comment: 'I love it',
       created_at: "2016-06-09T07:21:52.211Z",
       id: 1,
       user: {
         name: 'Danny'
       }
-    }])
+    }]
     let restaurant = fromJS({
       id: 0,
       name: 'Afuri',
@@ -33,7 +33,7 @@ describe('RestaurantDetailComponent', () => {
       created_at: "2016-05-26T10:03:17.736Z",
       updated_at: "2016-05-27T10:03:17.736Z"
     })
-    let currentUser = fromJS({id: 0, name: 'Danny'})
+    let currentUser = {id: 0, name: 'Danny'}
     let createCommentCallback = function() {}
     let likeCallback = function() {}
     let removeLikeCallback = function() {}
@@ -52,7 +52,7 @@ describe('RestaurantDetailComponent', () => {
     expect(component.contains(<button onClick={likeCallback}>like</button>)).toBe(true)
     expect(component.contains(<button onClick={removeLikeCallback}>remove like</button>)).toBe(false)
     expect(component.contains(<CommentFormComponent createComment={createCommentCallback} />)).toBe(true)
-    expect(component.contains(<CommentComponent key={0} comment={comments.get(0)} />)).toBe(true)
+    expect(component.contains(<CommentComponent key={0} comment={comments[0]} />)).toBe(true)
   })
 
   it('shows delete button if restaurant is owned by current_user', () => {
@@ -65,7 +65,7 @@ describe('RestaurantDetailComponent', () => {
         user: {id: 0, email: "danny", name: "Danny"}
       }),
       deleteRestaurant: expect.createSpy(),
-      currentUser: fromJS({id: 0, name: 'Danny'})
+      currentUser: {id: 0, name: 'Danny'}
     }
     const component = shallow(<RestaurantDetailComponent {...props} />)
 
@@ -83,7 +83,7 @@ describe('RestaurantDetailComponent', () => {
         price_range: {range: '¥0~999'},
         user: {id: 0, email: "danny", name: "Danny"}
       }),
-      currentUser: fromJS({id: 1, name: 'Robert'})
+      currentUser: {id: 1, name: 'Robert'}
     }
     const component = shallow(<RestaurantDetailComponent {...props} />)
 
@@ -98,7 +98,7 @@ describe('RestaurantDetailComponent', () => {
         price_range: {},
         user: {id: 0, email: "danny", name: "Danny"}
       }),
-      currentUser: fromJS({id: 0, name: 'Danny'})
+      currentUser: {id: 0, name: 'Danny'}
     }
     const component = shallow(<RestaurantDetailComponent {...props} />)
     expect(component.find('img').length).toEqual(0)
@@ -112,7 +112,7 @@ describe('RestaurantDetailComponent', () => {
         cuisine: {},
         user: {id: 0, email: "danny", name: "Danny"}
       }),
-      currentUser: fromJS({id: 0, name: 'Danny'}),
+      currentUser: {id: 0, name: 'Danny'},
       like: () => {},
       removeLike: () => {}
     }
@@ -129,7 +129,7 @@ describe('RestaurantDetailComponent', () => {
         cuisine: {},
         user: {id: 0, email: "danny", name: "Danny"}
       }),
-      currentUser: fromJS({id: 0, name: 'Danny'})
+      currentUser: {id: 0, name: 'Danny'}
     }
     expect(shallow(<RestaurantDetailComponent {...propsNoLikes} />)
       .contains(<span className="num-likes">0 likes</span>)
@@ -143,7 +143,7 @@ describe('RestaurantDetailComponent', () => {
         cuisine: {},
         user: {id: 0, email: "danny", name: "Danny"}
       }),
-      currentUser: fromJS({id: 0, name: 'Danny'})
+      currentUser: {id: 0, name: 'Danny'}
     }
 
     expect(shallow(<RestaurantDetailComponent {...propsOneLike} />)
@@ -157,7 +157,7 @@ describe('RestaurantDetailComponent', () => {
         cuisine: {},
         user: {id: 0, email: "danny", name: "Danny"}
       }),
-      currentUser: fromJS({id: 0, name: 'Danny'})
+      currentUser: {id: 0, name: 'Danny'}
     }
 
     expect(shallow(<RestaurantDetailComponent {...propsTwoLikes} />)
@@ -196,7 +196,7 @@ describe('RestaurantDetailComponent', () => {
         cuisine: {},
         user: {id: 0, email: "danny", name: "Danny"}
       }),
-      currentUser: fromJS({id: 0, name: 'Danny'})
+      currentUser: {id: 0, name: 'Danny'}
     }
     expect(props.fetchRestaurant.calls.length).toBe(0)
     mount(<RestaurantDetailComponent {...props} />)

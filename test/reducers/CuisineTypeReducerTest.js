@@ -1,6 +1,5 @@
 import expect from 'expect'
-import {fromJS} from 'immutable'
-import * as cuisineTypeReducer from '../../src/js/reducers/CuisineTypeReducer'
+import cuisineTypeReducer from '../../src/js/reducers/CuisineTypeReducer'
 import * as types from '../../src/js/constants/ActionTypes'
 
 describe('CuisineTypeReducer', () => {
@@ -15,10 +14,10 @@ describe('CuisineTypeReducer', () => {
       cuisineTypes: cuisineTypes
     }
 
-    expect(cuisineTypeReducer.cuisineTypes(undefined, action)).toEqual(fromJS(cuisineTypes))
+    expect(cuisineTypeReducer(undefined, action)).toEqual(cuisineTypes)
   })
 
   it('returns empty array by default', () => {
-    expect(cuisineTypeReducer.cuisineTypes(undefined, {})).toEqual(fromJS([]))
+    expect(cuisineTypeReducer(undefined, {})).toEqual([])
   })
 })

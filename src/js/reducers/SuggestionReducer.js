@@ -1,10 +1,11 @@
 import * as types from '../constants/ActionTypes';
-import {fromJS, List} from 'immutable'
 
-export function suggestions(suggestions = List(), action) {
+const INITIAL_STATE = []
+
+export default function suggestions(suggestions = INITIAL_STATE, action) {
   switch (action.type) {
     case types.FETCH_SUGGESTIONS_SUCCESS:
-      return fromJS(action.suggestions)
+      return action.suggestions
     default:
       return suggestions
   }

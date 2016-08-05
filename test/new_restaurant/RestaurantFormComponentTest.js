@@ -1,7 +1,6 @@
 import { shallow } from 'enzyme'
 import expect from 'expect'
 import React from 'react'
-import {fromJS} from 'immutable'
 import RestaurantFormComponent from '../../src/js/new_restaurant/RestaurantFormComponent'
 import CuisineTypeSelectionComponent from '../../src/js/new_restaurant/CuisineTypeSelectionComponent'
 import PriceRangeSelectionComponent from '../../src/js/new_restaurant/PriceRangeSelectionComponent'
@@ -9,23 +8,23 @@ import PhotoPickerComponent from '../../src/js/new_restaurant/PhotoPickerCompone
 import SelectedRestaurantComponent from '../../src/js/new_restaurant/SelectedRestaurantComponent'
 
 describe('RestaurantFormComponent', () => {
-  const suggestion = fromJS({
+  const suggestion = {
     name: 'Afuri',
     address: 'Roppongi',
     place_id: 'some place id',
     latitude: '1.23',
     longitude: '2.34'
-  })
+  }
 
-  const cuisineTypes = fromJS([
+  const cuisineTypes = [
     {id: 0, name: 'Not Specified'},
     {id: 1, name: 'Japanese'}
-  ])
+  ]
 
-  const priceRanges = fromJS([
+  const priceRanges = [
     {id: 0, range: 'Not Specified'},
     {id: 1, range: '¥0~999'}
-  ])
+  ]
 
   const addNewRestaurantHandler = expect.createSpy()
 

@@ -1,5 +1,4 @@
 import expect from 'expect'
-import {fromJS} from 'immutable'
 
 import {updateLocalStorageWithUser} from '../../src/js/subscribers/LocalStorage'
 
@@ -16,7 +15,7 @@ describe('LocalStorage', () => {
       name: 'name'
     }
     let state = {
-      currentUser: fromJS(currentUser)
+      currentUser: currentUser
     }
     expect(localStorage.getItem('user')).toEqual(null)
 
@@ -53,7 +52,7 @@ describe('LocalStorage', () => {
       name: 'name'
     }
     let state = {
-      currentUser: fromJS(currentUser)
+      currentUser: currentUser
     }
     localStorage.setItem('user', JSON.stringify(currentUser))
     let spy = expect.spyOn(localStorage, 'setItem')

@@ -1,5 +1,5 @@
 export function requireAuth(nextState, replace) {
-  if (!this.store.getState().currentUser) {
+  if (Object.keys(this.store.getState().currentUser).length == 0) {
     replace({pathname: '/login', state: {}})
   }
 }

@@ -48,14 +48,14 @@ export default class RestaurantFormComponent extends React.Component {
   saveRestaurant() {
     this.props.addNewRestaurant(
       {
-        name: this.props.suggestion.get('name'),
-        address: this.props.suggestion.get('address'),
+        name: this.props.suggestion.name,
+        address: this.props.suggestion.address,
         cuisine_id: this.state.selectedCuisine,
         price_range_id: this.state.selectedPriceRange,
         notes: this.state.notes,
-        place_id: this.props.suggestion.get('place_id'),
-        latitude: this.props.suggestion.get('latitude'),
-        longitude: this.props.suggestion.get('longitude')
+        place_id: this.props.suggestion.place_id,
+        latitude: this.props.suggestion.latitude,
+        longitude: this.props.suggestion.longitude
       },
       this.state.selectedPhotos,
       this.props.fileUploader

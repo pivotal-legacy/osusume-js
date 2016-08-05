@@ -7,7 +7,7 @@ export const mapStateToProps = (state) => {
   let restaurants = state.restaurants
   return {
     myRestaurants: restaurants.filter((restaurant) =>
-      restaurant.get('user').get('id') == state.currentUser.get('id')
+      restaurant.get('user').get('id') == state.currentUser.id
     ),
     myLikedRestaurants: restaurants.filter((restaurant) =>
       restaurant.get('liked')

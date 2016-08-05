@@ -16,7 +16,7 @@ export default class RestaurantSearchComponent extends React.Component {
   render() {
     let suggestions = (this.props.suggestions.map((suggestion) => {
       return (
-        <RestaurantSearchResultComponent key={suggestion.get('place_id')}
+        <RestaurantSearchResultComponent key={suggestion.place_id}
                                          suggestion={suggestion}
                                          restaurantSuggestionSelected={this.props.restaurantSuggestionSelected}/>
       )

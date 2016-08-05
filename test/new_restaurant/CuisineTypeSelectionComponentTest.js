@@ -1,13 +1,12 @@
 import expect from 'expect'
-import { fromJS } from 'immutable'
 import { mapStateToProps } from '../../src/js/new_restaurant/CuisineTypeSelectionComponent'
 
 describe('CuisineTypeSelectionComponent', () => {
   describe('mapStateToProps', () => {
-    const cuisineTypes = fromJS([
+    const cuisineTypes = [
       {id: 0, name: 'Not Specified'},
       {id: 1, name: 'Japanese'}
-    ])
+    ]
 
     it('maps ownProps.cuisineTypes to props.options', () => {
       const ownProps = {

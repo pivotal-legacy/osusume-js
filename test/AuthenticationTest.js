@@ -8,7 +8,9 @@ describe('Authentication', () => {
     let store = {
       store:  {
         getState: () => {
-          return {}
+          return {
+            currentUser: {}
+          }
         }
       }
     }

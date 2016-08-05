@@ -27,7 +27,7 @@ export default class RestaurantDetailComponent extends React.Component {
 
       let comments = this.props.comments || []
       let commentsToDisplay = comments.map((comment) => {
-        return (<CommentComponent key={comment.get('id')} comment={comment} />)
+        return (<CommentComponent key={comment.id} comment={comment} />)
       })
 
       let maybeLikeButton = <button onClick={this.props.like}>like</button>
@@ -36,7 +36,7 @@ export default class RestaurantDetailComponent extends React.Component {
       }
 
       let deleteButton
-      if (this.props.currentUser.get('id') == restaurant.get('user').get('id')) {
+      if (this.props.currentUser.id == restaurant.get('user').get('id')) {
         deleteButton = <button className="delete-button" onClick={this.props.deleteRestaurant}>delete</button>
       }
 

@@ -5,7 +5,7 @@ export function updateLocalStorageWithUser(state, hashHistoryParam = hashHistory
     localStorage.removeItem('user')
     hashHistoryParam.push('/login')
   } else if (localStorage.getItem('user') == null) {
-    localStorage.setItem('user', JSON.stringify(state.currentUser.toJS()))
+    localStorage.setItem('user', JSON.stringify(state.currentUser))
     hashHistoryParam.push('/')
   }
 }

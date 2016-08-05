@@ -57,7 +57,7 @@ function logoutWithCurrentUser(currentUser) {
   let config = Object.assign({}, authorizationConfig(currentUser),
     {
       method: 'DELETE',
-      body: JSON.stringify({token: currentUser.get('token')})
+      body: JSON.stringify({token: currentUser.token})
     }
   )
 

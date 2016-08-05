@@ -7,8 +7,8 @@ export function mapStateToProps(_, ownProps) {
 
   ownProps.priceRanges.forEach((priceRange) => {
     options.push({
-      label: priceRange.get('range'),
-      value: priceRange.get('id').toString()
+      label: priceRange.range,
+      value: priceRange.id.toString()
     })
   })
 

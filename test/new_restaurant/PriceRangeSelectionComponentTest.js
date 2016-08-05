@@ -1,13 +1,12 @@
 import expect from 'expect'
-import {fromJS} from 'immutable'
 import { mapStateToProps } from '../../src/js/new_restaurant/PriceRangeSelectionComponent'
 
 describe('PriceRangeSelectionComponent', () => {
   describe('mapStateToProps', () => {
-    const priceRanges = fromJS([
+    const priceRanges = [
       { id: 0, range: 'Not Specified' },
       { id: 1, range: '¥0~999' }
-    ])
+    ]
 
     it('maps ownProps.cuisineTypes to props.options', () => {
       const ownProps = {

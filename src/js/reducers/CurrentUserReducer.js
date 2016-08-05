@@ -1,13 +1,12 @@
 import * as types from '../constants/ActionTypes';
-import {List, fromJS} from 'immutable'
 
-export function currentUser(state, action) {
-  if (state == undefined) {
-    state = fromJS(JSON.parse(localStorage.getItem('user')))
-  }
+export default function currentUser(
+  state = JSON.parse(localStorage.getItem('user')) || {},
+  action
+) {
   switch (action.type) {
     case types.LOGIN_SUCCESS:
-      return fromJS({token: action.user.token, name: action.user.name, id: action.user.id})
+      return action.user
     case types.LOGOUT_SUCCESS:
       return null
     default:

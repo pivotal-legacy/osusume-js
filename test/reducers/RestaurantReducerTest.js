@@ -1,20 +1,20 @@
 import expect from 'expect'
 import {List, fromJS} from 'immutable'
-import * as reducer from '../../src/js/reducers/RestaurantReducer'
+import restaurants from '../../src/js/reducers/RestaurantReducer'
 import * as types from '../../src/js/constants/ActionTypes'
 
 describe('RestaurantReducer', () => {
   it('returns the list of restaurants when the action is FETCH_RESTAURANTS_SUCCESS', () => {
-    let restaurants = [
+    let returnedRestaurants = [
       {id: 0, name: 'Afuri'},
       {id: 1, name: 'Tsukemen'}
     ]
     let action = {
       type: types.FETCH_RESTAURANTS_SUCCESS,
-      restaurants: restaurants
+      restaurants: returnedRestaurants
     }
 
-    expect(reducer.restaurants(undefined, action)).toEqual(fromJS([
+    expect(restaurants(undefined, action)).toEqual(fromJS([
       {id: 0, name: 'Afuri'},
       {id: 1, name: 'Tsukemen'}
     ]))
@@ -32,7 +32,7 @@ describe('RestaurantReducer', () => {
       {id: 1, name: 'Pizzakaya'}
     ])
 
-    expect(reducer.restaurants(state, action)).toEqual(fromJS([
+    expect(restaurants(state, action)).toEqual(fromJS([
       {id: 0, name: 'Afuri', comments: ['i love it']},
       {id: 1, name: 'Pizzakaya'}
     ]))
@@ -45,11 +45,11 @@ describe('RestaurantReducer', () => {
       restaurant: restaurant
     }
 
-    expect(reducer.restaurants(undefined, action)).toEqual(fromJS([restaurant]))
+    expect(restaurants(undefined, action)).toEqual(fromJS([restaurant]))
   })
 
   it('returns the restaurant with number of likes when the action is CREATE_LIKE_SUCCESS', () => {
-    let restaurants = fromJS([
+    let currentState = fromJS([
       {id: 2, comment: 'another one'},
       {id: 1, comment: 'this is second comment', num_likes: 2, liked: false},
     ])
@@ -58,14 +58,14 @@ describe('RestaurantReducer', () => {
       restaurantId: 1
     }
 
-    expect(reducer.restaurants(restaurants, action)).toEqual(fromJS([
+    expect(restaurants(currentState, action)).toEqual(fromJS([
       {id: 2, comment: 'another one'},
       {id: 1, comment: 'this is second comment', num_likes: 3, liked: true}
     ]))
   })
 
   it('returns the restaurant with number of likes when the action is CREATE_LIKE_SUCCESS and it is the first like', () => {
-    let restaurants = fromJS([
+    let currentState = fromJS([
       {id: 1},
     ])
     let action = {
@@ -73,13 +73,13 @@ describe('RestaurantReducer', () => {
       restaurantId: 1
     }
 
-    expect(reducer.restaurants(restaurants, action)).toEqual(fromJS([
+    expect(restaurants(currentState, action)).toEqual(fromJS([
       {id: 1, num_likes: 1, liked: true}
     ]))
   })
 
   it('returns the restaurant with number of likes when the action is REMOVE_LIKE_SUCCESS', () => {
-    let restaurants = fromJS([
+    let currentState = fromJS([
       {id: 2, comment: 'another one'},
       {id: 1, comment: 'this is second comment', num_likes: 2, liked: true}
     ])
@@ -92,11 +92,11 @@ describe('RestaurantReducer', () => {
       {id: 1, comment: 'this is second comment', num_likes: 1, liked: false}
     ])
 
-    expect(reducer.restaurants(restaurants, action)).toEqual(updatedRestaurants)
+    expect(restaurants(currentState, action)).toEqual(updatedRestaurants)
   })
 
   it('returns the restaurant with number of likes when the action is REMOVE_LIKE_SUCCESS and it is the first remove like', () => {
-    let restaurants = fromJS([
+    let currentState = fromJS([
       {id: 1, num_likes: 1, liked: true}
     ])
     let action = {
@@ -104,12 +104,12 @@ describe('RestaurantReducer', () => {
       restaurantId: 1
     }
 
-    expect(reducer.restaurants(restaurants, action)).toEqual(fromJS([
+    expect(restaurants(currentState, action)).toEqual(fromJS([
       {id: 1, num_likes: 0, liked: false}
     ]))
   })
 
   it('returns empty array by default', () => {
-    expect(reducer.restaurants(undefined, {})).toEqual(fromJS([]))
+    expect(restaurants(undefined, {})).toEqual(fromJS([]))
   })
 })

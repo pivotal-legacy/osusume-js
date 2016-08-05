@@ -42,7 +42,7 @@ export default class MyPageComponent extends React.Component {
         <Link to="/"><button>restaurants</button></Link>
         <h1>my page</h1>
         <div>
-          <span>{this.props.currentUser.get('name')}</span>
+          <span>{this.props.currentUser.name}</span>
           <button className='logout' onClick={this.props.logout}>logout</button>
         </div>
         {toggleButton}

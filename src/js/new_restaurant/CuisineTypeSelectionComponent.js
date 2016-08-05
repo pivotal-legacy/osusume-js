@@ -7,8 +7,8 @@ export function mapStateToProps(_, ownProps) {
 
   ownProps.cuisineTypes.forEach((cuisineType) => {
     options.push({
-      label: cuisineType.get('name'),
-      value: cuisineType.get('id').toString()
+      label: cuisineType.name,
+      value: cuisineType.id.toString()
     })
   })
 
