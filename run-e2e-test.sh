@@ -1,7 +1,7 @@
 cd ../osusume-java-spring
 
 
-echo ==== Setting up DB & Starting Server ====
+echo ==== Setting up DB and Starting Server ====
 
 make test-refreshdb
 make test-migrate
