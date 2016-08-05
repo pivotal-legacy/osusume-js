@@ -21,8 +21,8 @@ describe('RestaurantSearchComponent', () => {
 
   it('shows suggestions when receives suggestions as props', () => {
     let suggestions = [
-      {name: 'Afuri', address: 'Roppongi'},
-      {name: 'Butagumi', address: 'Near The Station'}
+      {name: 'Afuri', address: 'Roppongi', place_id: '12345'},
+      {name: 'Butagumi', address: 'Near The Station', place_id: '67890'}
     ]
     let restaurantSuggestionSelected = () => {}
     const component = shallow(<RestaurantSearchComponent
@@ -30,12 +30,12 @@ describe('RestaurantSearchComponent', () => {
       suggestions={suggestions}
     />)
     expect(component.contains(
-      <RestaurantSearchResultComponent key="Afuri"
+      <RestaurantSearchResultComponent key="12345"
                                        suggestion={suggestions[0]}
                                        restaurantSuggestionSelected={restaurantSuggestionSelected}/>
     )).toBe(true)
     expect(component.contains(
-      <RestaurantSearchResultComponent key="Butagumi"
+      <RestaurantSearchResultComponent key="67890"
                                        suggestion={suggestions[1]}
                                        restaurantSuggestionSelected={restaurantSuggestionSelected}/>
     )).toBe(true)
