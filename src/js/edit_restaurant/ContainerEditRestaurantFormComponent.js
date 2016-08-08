@@ -11,12 +11,11 @@ export const mapStateToProps = (state) => {
   }
 }
 
-export const mapDispatchToProps = (dispatch) => {
+export const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     fetchPriceRanges: () => dispatch(actions.fetchPriceRanges()),
-    fetchCuisineTypes: () => dispatch(actions.fetchCuisineTypes())
-    // submitRestaurant: (restaurant, file, fileUploader) =>
-    //   dispatch(restaurantActions.updateRestaurant(restaurant, file, fileUploader))
+    fetchCuisineTypes: () => dispatch(actions.fetchCuisineTypes()),
+    fetchRestaurant: () => dispatch(restaurantActions.fetchRestaurant(ownProps.params.restaurant_id))
   }
 }
 

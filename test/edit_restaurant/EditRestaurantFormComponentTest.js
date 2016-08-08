@@ -1,6 +1,6 @@
 import expect from 'expect'
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import EditRestaurantFormComponent from '../../src/js/edit_restaurant/EditRestaurantFormComponent'
 import CuisineTypeSelectionComponent from '../../src/js/new_restaurant/CuisineTypeSelectionComponent'
 import PriceRangeSelectionComponent from '../../src/js/new_restaurant/PriceRangeSelectionComponent'
@@ -30,5 +30,18 @@ describe('EditRestaurantFormComponent', () => {
 
     const priceRangeSelectionComponent = component.find(PriceRangeSelectionComponent)
     expect(priceRangeSelectionComponent.props().selectedPriceRange).toEqual(1)
+  })
+
+  it('fetches the restaurant', () => {
+    const props = {
+      restaurant: {},
+      fetchCuisineTypes: () => {},
+      fetchPriceRanges: () => {},
+      fetchRestaurant: expect.createSpy()
+    }
+
+    const component = mount(<EditRestaurantFormComponent {...props} />)
+
+    expect(props.fetchRestaurant).toHaveBeenCalled()
   })
 })

@@ -19,6 +19,7 @@ export default class EditRestaurantFormComponent extends React.Component {
   componentDidMount() {
     this.props.fetchCuisineTypes()
     this.props.fetchPriceRanges()
+    this.props.fetchRestaurant()
   }
 
   cuisineHandleChanged(value) {
@@ -44,6 +45,9 @@ export default class EditRestaurantFormComponent extends React.Component {
   // }
 
   render() {
+    if (Object.keys(this.props.restaurant).length == 0) {
+      return null
+    }
     return (
       <div className='stacked-form'>
         <h1>edit a restaurant</h1>

@@ -1,6 +1,7 @@
 import expect from 'expect'
 import { mapStateToProps, mapDispatchToProps } from '../../src/js/edit_restaurant/ContainerEditRestaurantFormComponent'
 import * as actions from '../../src/js/actions/Actions'
+import * as restaurantActions from '../../src/js/actions/RestaurantActions'
 
 describe('ContainerEditRestaurantFormComponent', () => {
   afterEach(function () {
@@ -53,6 +54,21 @@ describe('ContainerEditRestaurantFormComponent', () => {
       let dispatch = expect.createSpy()
       mapDispatchToProps(dispatch).fetchCuisineTypes()
       expect(dispatch).toHaveBeenCalledWith(actions.fetchCuisineTypes())
+    })
+
+    it('fetches the restaurant with the id from the route', () => {
+      const dispatch = expect.createSpy()
+      const props = {
+        params: {
+          restaurant_id: 1
+        }
+      }
+      const restaurantActionSpy = expect.spyOn(restaurantActions, 'fetchRestaurant')
+
+      mapDispatchToProps(dispatch, props).fetchRestaurant()
+
+      expect(restaurantActionSpy).toHaveBeenCalledWith(1)
+      expect(dispatch).toHaveBeenCalledWith(restaurantActions.fetchRestaurant())
     })
   })
 })
