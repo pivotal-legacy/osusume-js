@@ -1,5 +1,4 @@
 import expect from 'expect'
-import {List, fromJS} from 'immutable'
 import { mapStateToProps, mapDispatchToProps } from '../../src/js/edit_restaurant/ContainerEditRestaurantFormComponent'
 import * as actions from '../../src/js/actions/Actions'
 
@@ -17,10 +16,10 @@ describe('ContainerEditRestaurantFormComponent', () => {
   describe('mapsStateToProps', () => {
     it('finds a restaurant', () => {
       let state = {
-        restaurants: fromJS([{id: 17, name: 'Afuri'}, {id: 1, name: 'Tsukemen'}]),
+        currentRestaurant: {id: 17, name: 'Afuri'}
       }
 
-      expect(mapStateToProps(state, props).restaurant).toEqual(fromJS({id: 17, name: 'Afuri'}))
+      expect(mapStateToProps(state, props).restaurant).toEqual({id: 17, name: 'Afuri'})
     })
 
     it('maps price ranges and cuisine types', () => {
@@ -35,7 +34,7 @@ describe('ContainerEditRestaurantFormComponent', () => {
       let state = {
         priceRanges: priceRanges,
         cuisineTypes: cuisineTypes,
-        restaurants: List()
+        currentRestaurant: {}
       }
 
       expect(mapStateToProps(state, props).priceRanges).toEqual(priceRanges)

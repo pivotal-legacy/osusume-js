@@ -1,7 +1,6 @@
 import expect from 'expect'
 import { shallow } from 'enzyme'
 import { Link } from 'react-router'
-import {fromJS} from 'immutable'
 
 import React from 'react'
 import RestaurantListItemComponent from '../../src/js/restaurant_list/RestaurantListItemComponent'
@@ -9,7 +8,7 @@ import placeholder from '../../src/images/placeholder.jpg'
 
 describe('RestaurantListItemComponent', () => {
   it('displays the restaurant passed in props', () => {
-    let restaurant = fromJS({
+    let restaurant = {
       id: 0,
       name: 'Afuri',
       cuisine: {name: 'Ramen'},
@@ -20,7 +19,7 @@ describe('RestaurantListItemComponent', () => {
       created_by_user_name: 'Kalle Anka',
       created_at: '2016-05-25T01:41:17.125Z',
       updated_at: '2016-05-26T10:03:17.736Z'
-    })
+    }
     const component = shallow(<RestaurantListItemComponent restaurant={restaurant} />)
 
     expect(component.find(Link).prop('to')).toEqual('/restaurants/0')
@@ -32,13 +31,13 @@ describe('RestaurantListItemComponent', () => {
   })
 
   it('displays placeholder when there are no photos', () => {
-    let restaurant = fromJS({
+    let restaurant = {
       id: 0,
       name: 'Afuri',
       cuisine: {},
       price_range: {},
       photo_urls: []
-    })
+    }
 
     const component = shallow(<RestaurantListItemComponent restaurant={restaurant} />)
 

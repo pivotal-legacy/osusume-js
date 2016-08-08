@@ -9,8 +9,9 @@ export default class RestaurantListComponent extends React.Component {
 
   render() {
     let restaurants = this.props.restaurants.map((restaurant) => {
-      return (<RestaurantListItemComponent key={restaurant.get('id')} restaurant={restaurant} />)
+      return (<RestaurantListItemComponent key={restaurant.id} restaurant={restaurant} />)
     })
+
     return (
       <div>
         <Link to="/restaurants/new">

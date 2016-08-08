@@ -12,7 +12,7 @@ export default class MyPageComponent extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.myRestaurants.size == 0) {
+    if (this.props.myRestaurants.length == 0) {
       this.props.fetchRestaurants()
     }
   }
@@ -31,7 +31,7 @@ export default class MyPageComponent extends React.Component {
       restaurants = this.props.myLikedRestaurants
     }
     let restaurantItems = restaurants.map((restaurant) => {
-      return (<RestaurantListItemComponent key={restaurant.get('id')} restaurant={restaurant} />)
+      return (<RestaurantListItemComponent key={restaurant.id} restaurant={restaurant} />)
     })
     let toggleButton = <button className='my-likes' onClick={this.myLikesClicked}>my likes</button>
     if (this.state.showMyLiked) {

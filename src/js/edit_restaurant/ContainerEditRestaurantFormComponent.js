@@ -3,15 +3,11 @@ import * as restaurantActions from '../actions/RestaurantActions'
 import {connect} from 'react-redux'
 import EditRestaurantFormComponent from './EditRestaurantFormComponent'
 
-const findRestaurant = (restaurants, restaurant_id) => {
-  return restaurants.find((restaurant) => restaurant.get('id') == restaurant_id)
-}
-
-export const mapStateToProps = (state, ownProps) => {
+export const mapStateToProps = (state) => {
   return {
     priceRanges: state.priceRanges,
     cuisineTypes: state.cuisineTypes,
-    restaurant: findRestaurant(state.restaurants, ownProps.params.restaurant_id)
+    restaurant: state.currentRestaurant
   }
 }
 

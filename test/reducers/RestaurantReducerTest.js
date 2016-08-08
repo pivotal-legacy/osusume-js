@@ -1,5 +1,4 @@
 import expect from 'expect'
-import {fromJS} from 'immutable'
 import restaurants from '../../src/js/reducers/RestaurantReducer'
 import * as types from '../../src/js/constants/ActionTypes'
 
@@ -14,13 +13,13 @@ describe('RestaurantReducer', () => {
       restaurants: returnedRestaurants
     }
 
-    expect(restaurants(undefined, action)).toEqual(fromJS([
+    expect(restaurants(undefined, action)).toEqual([
       {id: 0, name: 'Afuri'},
       {id: 1, name: 'Tsukemen'}
-    ]))
+    ])
   })
 
   it('returns empty array by default', () => {
-    expect(restaurants(undefined, {})).toEqual(fromJS([]))
+    expect(restaurants(undefined, {})).toEqual([])
   })
 })

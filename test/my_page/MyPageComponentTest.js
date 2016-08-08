@@ -1,7 +1,6 @@
 import expect from 'expect'
 import { shallow, mount } from 'enzyme'
 import { Link } from 'react-router'
-import {fromJS} from 'immutable'
 
 import React from 'react'
 import MyPageComponent from '../../src/js/my_page/MyPageComponent'
@@ -11,7 +10,7 @@ describe('MyPageComponent', () => {
   it('displays title and name of current user', () => {
     let logoutCallback = function() {}
     let props = {
-      myRestaurants: fromJS([]),
+      myRestaurants: [],
       logout: logoutCallback,
       currentUser: {name: 'Danny'}
     }
@@ -27,13 +26,13 @@ describe('MyPageComponent', () => {
     let restaurant = {id: 0, name: 'afuri'}
     let anotherRestaurant = {id: 1, name: 'butagmui'}
     let props = {
-      myRestaurants: fromJS([restaurant, anotherRestaurant]),
+      myRestaurants: [restaurant, anotherRestaurant],
       currentUser: {name: 'Danny'}
     }
     const component = shallow(<MyPageComponent {...props} />)
 
-    expect(component.contains(<RestaurantListItemComponent restaurant={fromJS(restaurant)} />)).toBe(true)
-    expect(component.contains(<RestaurantListItemComponent restaurant={fromJS(anotherRestaurant)} />)).toBe(true)
+    expect(component.contains(<RestaurantListItemComponent restaurant={restaurant} />)).toBe(true)
+    expect(component.contains(<RestaurantListItemComponent restaurant={anotherRestaurant} />)).toBe(true)
   })
 
   it('shows myLikedRestaurants from props when My Likes is clicked', () => {
@@ -41,8 +40,8 @@ describe('MyPageComponent', () => {
     let anotherRestaurant = {id: 1, name: 'butagmui'}
 
     let props = {
-      myRestaurants: fromJS([]),
-      myLikedRestaurants: fromJS([restaurant, anotherRestaurant]),
+      myRestaurants: [],
+      myLikedRestaurants: [restaurant, anotherRestaurant],
       currentUser: {name: 'Danny'}
     }
     const component = shallow(<MyPageComponent {...props} />)
@@ -50,8 +49,8 @@ describe('MyPageComponent', () => {
 
     component.find('.my-likes').simulate('click')
 
-    expect(component.contains(<RestaurantListItemComponent restaurant={fromJS(restaurant)} />)).toBe(true)
-    expect(component.contains(<RestaurantListItemComponent restaurant={fromJS(anotherRestaurant)} />)).toBe(true)
+    expect(component.contains(<RestaurantListItemComponent restaurant={restaurant} />)).toBe(true)
+    expect(component.contains(<RestaurantListItemComponent restaurant={anotherRestaurant} />)).toBe(true)
     expect(component.contains(<button className='my-posts' onClick={instance.myPostsClicked}>my posts</button>)).toBe(true)
     expect(component.contains(<button className='my-likes' onClick={instance.myLikesClicked}>my likes</button>)).toBe(false)
   })
@@ -60,8 +59,8 @@ describe('MyPageComponent', () => {
     let restaurant = {id: 0, name: 'afuri'}
     let anotherRestaurant = {id: 1, name: 'butagmui'}
     let props = {
-      myRestaurants: fromJS([restaurant, anotherRestaurant]),
-      myLikedRestaurants: fromJS([]),
+      myRestaurants: [restaurant, anotherRestaurant],
+      myLikedRestaurants: [],
       currentUser: {name: 'Danny'}
     }
 
@@ -71,15 +70,15 @@ describe('MyPageComponent', () => {
     component.find('.my-likes').simulate('click')
     component.find('.my-posts').simulate('click')
 
-    expect(component.contains(<RestaurantListItemComponent restaurant={fromJS(restaurant)} />)).toBe(true)
-    expect(component.contains(<RestaurantListItemComponent restaurant={fromJS(anotherRestaurant)} />)).toBe(true)
+    expect(component.contains(<RestaurantListItemComponent restaurant={restaurant} />)).toBe(true)
+    expect(component.contains(<RestaurantListItemComponent restaurant={anotherRestaurant} />)).toBe(true)
     expect(component.contains(<button className='my-likes' onClick={instance.myLikesClicked}>my likes</button>)).toBe(true)
     expect(component.contains(<button className='my-posts' onClick={instance.myPostsClicked}>my posts</button>)).toBe(false)
 })
 
   it('fetches the restaurant if there is no restaurants available in props', () => {
     let props = {
-      myRestaurants: fromJS([]),
+      myRestaurants: [],
       fetchRestaurants: expect.createSpy(),
       currentUser: {name: 'Danny'}
     }
@@ -90,14 +89,14 @@ describe('MyPageComponent', () => {
 
   it('does not fetch the restaurant if there are restaurants available in props', () => {
     let props = {
-      myRestaurants: fromJS([
+      myRestaurants: [
         {
           id: 0,
           name: 'afuri',
           cuisine: {},
           price_range: {}
         }
-      ]),
+      ],
       fetchRestaurants: expect.createSpy(),
       currentUser: {name: 'Danny'}
     }

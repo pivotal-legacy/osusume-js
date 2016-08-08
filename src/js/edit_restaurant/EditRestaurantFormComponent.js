@@ -47,16 +47,16 @@ export default class EditRestaurantFormComponent extends React.Component {
     return (
       <div className='stacked-form'>
         <h1>edit a restaurant</h1>
-        <h2>{this.props.restaurant.get('name')}</h2>
-        <div className='address'>{this.props.restaurant.get('address')}</div>
+        <h2>{this.props.restaurant.name}</h2>
+        <div className='address'>{this.props.restaurant.address}</div>
         <CuisineTypeSelectionComponent cuisineTypes={this.props.cuisineTypes}
-                                       selectedCuisine={this.props.restaurant.get('cuisine').get('id')}
+                                       selectedCuisine={this.props.restaurant.cuisine.id}
                                        changeHandler={this.cuisineHandleChanged}/>
         <PriceRangeSelectionComponent priceRanges={this.props.priceRanges}
-                                      selectedPriceRange={this.props.restaurant.get('price_range').get('id')}
+                                      selectedPriceRange={this.props.restaurant.price_range.id}
                                       changeHandler={this.priceRangeHandleChanged}/>
         <label>Notes</label>
-        <textarea className="notes" onChange={this.noteChanged} defaultValue={this.props.restaurant.get('notes')} />
+        <textarea className="notes" onChange={this.noteChanged} defaultValue={this.props.restaurant.notes} />
       </div>
     )
   }

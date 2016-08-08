@@ -1,6 +1,5 @@
 import expect from 'expect'
 import React from 'react'
-import {fromJS} from 'immutable'
 
 import {mapDispatchToProps, mapStateToProps} from '../../src/js/my_page/ContainerMyPageComponent'
 import * as actions from '../../src/js/actions/AuthenticationActions'
@@ -27,33 +26,33 @@ describe('ContainerMyPageComponent', () => {
 
   it('mapStateToProps for myRestaurants', () => {
     let state = {
-      restaurants: fromJS([
+      restaurants: [
         {id: 0, name: 'Afuri', user: {id: 17}},
         {id: 1, name: 'Butagumi', user: {id: 18}}
-      ]),
+      ],
       currentUser: {id: 17}
     }
     expect(mapStateToProps(state).myRestaurants).toEqual(
-      fromJS([{id: 0, name: 'Afuri', user: {id: 17}}])
+      [{id: 0, name: 'Afuri', user: {id: 17}}]
     )
   })
 
   it('mapStateToProps for myLikedRestaurants', () => {
     let state = {
-      restaurants: fromJS([
+      restaurants: [
         {id: 0, name: 'Afuri', liked: true, user: {id: 17}},
         {id: 1, name: 'Butagumi', liked: false, user: {id: 17}}
-      ]),
+      ],
       currentUser: {id: 17}
     }
     expect(mapStateToProps(state).myLikedRestaurants).toEqual(
-      fromJS([{id: 0, name: 'Afuri', liked: true, user: {id: 17}}])
+      [{id: 0, name: 'Afuri', liked: true, user: {id: 17}}]
     )
   })
 
   it('mapStateToProps for currentUser', () => {
     let state = {
-      restaurants: fromJS([]),
+      restaurants: [],
       currentUser: {id: 17}
     }
     expect(mapStateToProps(state).currentUser).toEqual(

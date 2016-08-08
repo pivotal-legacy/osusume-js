@@ -5,20 +5,20 @@ import placeholder from '../../images/placeholder.jpg'
 
 export default function RestaurantListItemComponent(props) {
   let photoSrc = placeholder
-  if ( props.restaurant.get('photo_urls') && props.restaurant.get('photo_urls').size > 0 ) {
-    photoSrc = props.restaurant.get('photo_urls').first().get('url')
+  if ( props.restaurant.photo_urls && props.restaurant.photo_urls.size > 0 ) {
+    photoSrc = props.restaurant.photo_urls.first().url
   }
-  let date = new Date(props.restaurant.get('updated_at'))
+  let date = new Date(props.restaurant.updated_at)
   return (
-    <Link className='item-with-photo' to={`/restaurants/${props.restaurant.get('id')}`}>
+    <Link className='item-with-photo' to={`/restaurants/${props.restaurant.id}`}>
       <img className='photo' src={photoSrc}  />
       <span className='item-info'>
-        <div className='name'>{props.restaurant.get('name')}</div>
+        <div className='name'>{props.restaurant.name}</div>
         <div className='cuisine-and-price-range'>
-          {props.restaurant.get('cuisine').get('name')} | {props.restaurant.get('price_range').get('range')}
+          {props.restaurant.cuisine.name} | {props.restaurant.price_range.range}
         </div>
         <div>
-          <span className='number-likes'>{pluralize(props.restaurant.get('num_likes'), 'like')}</span>
+          <span className='number-likes'>{pluralize(props.restaurant.num_likes, 'like')}</span>
           <span className='pull-right updated-at'>{date.toLocaleDateString()}</span>
         </div>
       </span>
