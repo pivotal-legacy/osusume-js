@@ -26,7 +26,7 @@ describe('RestaurantListItemComponent', () => {
     expect(component.find('.name').text()).toEqual('Afuri')
     expect(component.find('.cuisine-and-price-range').text()).toEqual('Ramen | 1000 - 2000')
     expect(component.find('.number-likes').text()).toEqual('3 likes')
-    expect(component.find('img').length).toEqual(1)
+    expect(component.contains(<img className='photo' src='https://hoge/image.jpg'/>)).toBe(true)
     expect(component.find('.updated-at').text()).toEqual('5/26/2016')
   })
 

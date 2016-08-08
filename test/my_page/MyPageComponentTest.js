@@ -93,6 +93,7 @@ describe('MyPageComponent', () => {
         {
           id: 0,
           name: 'afuri',
+          photo_urls: [],
           cuisine: {},
           price_range: {}
         }
@@ -101,7 +102,9 @@ describe('MyPageComponent', () => {
       currentUser: {name: 'Danny'}
     }
     expect(props.fetchRestaurants.calls.length).toBe(0)
+
     mount(<MyPageComponent {...props} />)
+
     expect(props.fetchRestaurants.calls.length).toBe(0)
   })
 

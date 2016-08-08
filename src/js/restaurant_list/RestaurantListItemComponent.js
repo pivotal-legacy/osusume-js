@@ -5,8 +5,8 @@ import placeholder from '../../images/placeholder.jpg'
 
 export default function RestaurantListItemComponent(props) {
   let photoSrc = placeholder
-  if ( props.restaurant.photo_urls && props.restaurant.photo_urls.size > 0 ) {
-    photoSrc = props.restaurant.photo_urls.first().url
+  if ( props.restaurant.photo_urls.length > 0 ) {
+    photoSrc = props.restaurant.photo_urls[0].url
   }
   let date = new Date(props.restaurant.updated_at)
   return (
