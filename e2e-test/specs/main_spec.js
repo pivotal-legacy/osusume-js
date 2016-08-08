@@ -51,7 +51,11 @@ describe('restaurants', function () {
 
     browser.click('.name')
 
-    expect(browser.getText('h1')).toEqual('AFURI Ebisu');
+    browser.waitUntil(function() {
+      return this.getText('h1').then(function(text) {
+        return text === 'AFURI Ebisu';
+      })
+    });
   }
 
   const addComment = () => {

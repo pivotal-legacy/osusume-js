@@ -1,6 +1,5 @@
 import expect from 'expect'
 import React from 'react'
-import {fromJS} from 'immutable'
 
 import {mapStateToProps, mapDispatchToProps} from '../../src/js/restaurant_detail/ContainerRestaurantDetailComponent'
 import * as restaurantActions from '../../src/js/actions/RestaurantActions'
@@ -24,12 +23,12 @@ describe('ContainerRestaurantDetailComponent', () => {
 
   it('mapsStateToProps', () => {
     let state = {
-      restaurants: fromJS([{id: 17, name: 'Afuri'}, {id: 1, name: 'Tsukemen'}]),
+      currentRestaurant: {id: 17, name: 'Afuri'},
       comments: [{id: 0, comment: 'i like this one'}],
       currentUser: {id: 0, name: 'Danny'}
     }
 
-    expect(mapStateToProps(state, props).restaurant).toEqual(fromJS({id: 17, name: 'Afuri'}))
+    expect(mapStateToProps(state, props).restaurant).toEqual({id: 17, name: 'Afuri'})
     expect(mapStateToProps(state, props).comments).toEqual([{id: 0, comment: 'i like this one'}])
     expect(mapStateToProps(state, props).currentUser).toEqual({id: 0, name: 'Danny'})
   })
@@ -49,10 +48,10 @@ describe('ContainerRestaurantDetailComponent', () => {
   })
 
   it('mapsDispatchToProps for createComment', () => {
-      var spy = expect.spyOn(commentActions, 'createComment')
-      mapDispatchToProps(dispatch, props).createComment('it is a comment')
-      expect(spy).toHaveBeenCalledWith(17, 'it is a comment')
-      expect(dispatch).toHaveBeenCalledWith(commentActions.createComment())
+    var spy = expect.spyOn(commentActions, 'createComment')
+    mapDispatchToProps(dispatch, props).createComment('it is a comment')
+    expect(spy).toHaveBeenCalledWith(17, 'it is a comment')
+    expect(dispatch).toHaveBeenCalledWith(commentActions.createComment())
   })
 
   it('mapsDispatchToProps for like', () => {

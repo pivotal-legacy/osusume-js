@@ -3,15 +3,9 @@ import RestaurantDetailComponent from './RestaurantDetailComponent'
 import * as restaurantActions from '../actions/RestaurantActions'
 import * as commentActions from '../actions/CommentActions'
 
-const findRestaurant = (restaurants, restaurant_id) => {
-  return restaurants.find((restaurant) => {
-    return restaurant.get('id') == restaurant_id
-  })
-}
-
 export const mapStateToProps = (state, ownProps) => {
   return {
-    restaurant: findRestaurant(state.restaurants, ownProps.params.restaurant_id),
+    restaurant: state.currentRestaurant,
     comments: state.comments,
     currentUser: state.currentUser
   }

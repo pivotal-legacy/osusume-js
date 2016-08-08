@@ -1,7 +1,6 @@
 import expect from 'expect'
 import { mount, shallow } from 'enzyme'
 import { Link } from 'react-router'
-import {fromJS} from 'immutable'
 
 import React from 'react'
 import RestaurantDetailComponent from '../../src/js/restaurant_detail/RestaurantDetailComponent'
@@ -18,7 +17,7 @@ describe('RestaurantDetailComponent', () => {
         name: 'Danny'
       }
     }]
-    let restaurant = fromJS({
+    let restaurant = {
       id: 0,
       name: 'Afuri',
       cuisine: {name: "Japanese"},
@@ -32,7 +31,7 @@ describe('RestaurantDetailComponent', () => {
       num_likes: 5,
       created_at: "2016-05-26T10:03:17.736Z",
       updated_at: "2016-05-27T10:03:17.736Z"
-    })
+    }
     let currentUser = {id: 0, name: 'Danny'}
     let createCommentCallback = function() {}
     let likeCallback = function() {}
@@ -57,13 +56,13 @@ describe('RestaurantDetailComponent', () => {
 
   it('shows delete button if restaurant is owned by current_user', () => {
     let props = {
-      restaurant: fromJS({
+      restaurant: {
         id: 0,
         name: 'Afuri',
         cuisine: {name: "Japanese"},
         price_range: {range: '¥0~999'},
         user: {id: 0, email: "danny", name: "Danny"}
-      }),
+      },
       deleteRestaurant: expect.createSpy(),
       currentUser: {id: 0, name: 'Danny'}
     }
@@ -76,13 +75,13 @@ describe('RestaurantDetailComponent', () => {
 
   it('does not show delete button if restaurant is not owned by current_user', () => {
     let props = {
-      restaurant: fromJS({
+      restaurant: {
         id: 0,
         name: 'Afuri',
         cuisine: {name: "Japanese"},
         price_range: {range: '¥0~999'},
         user: {id: 0, email: "danny", name: "Danny"}
-      }),
+      },
       currentUser: {id: 1, name: 'Robert'}
     }
     const component = shallow(<RestaurantDetailComponent {...props} />)
@@ -92,12 +91,12 @@ describe('RestaurantDetailComponent', () => {
 
   it('shows no images if there are no photo urls', () => {
     let props = {
-      restaurant: fromJS({
+      restaurant: {
         photo_urls: null,
         cuisine: {},
         price_range: {},
         user: {id: 0, email: "danny", name: "Danny"}
-      }),
+      },
       currentUser: {id: 0, name: 'Danny'}
     }
     const component = shallow(<RestaurantDetailComponent {...props} />)
@@ -106,12 +105,12 @@ describe('RestaurantDetailComponent', () => {
 
   it('displays the remove like button when retaurant has been liked', () => {
     let props = {
-      restaurant: fromJS({
+      restaurant: {
         liked: true,
         price_range: {},
         cuisine: {},
         user: {id: 0, email: "danny", name: "Danny"}
-      }),
+      },
       currentUser: {id: 0, name: 'Danny'},
       like: () => {},
       removeLike: () => {}
@@ -123,12 +122,12 @@ describe('RestaurantDetailComponent', () => {
 
   it('displays likes pluralized correctly', () => {
     let propsNoLikes = {
-      restaurant: fromJS({
+      restaurant: {
         num_likes: 0,
         price_range: {},
         cuisine: {},
         user: {id: 0, email: "danny", name: "Danny"}
-      }),
+      },
       currentUser: {id: 0, name: 'Danny'}
     }
     expect(shallow(<RestaurantDetailComponent {...propsNoLikes} />)
@@ -137,12 +136,12 @@ describe('RestaurantDetailComponent', () => {
 
 
     let propsOneLike = {
-      restaurant: fromJS({
+      restaurant: {
         num_likes: 1,
         price_range: {},
         cuisine: {},
         user: {id: 0, email: "danny", name: "Danny"}
-      }),
+      },
       currentUser: {id: 0, name: 'Danny'}
     }
 
@@ -151,12 +150,12 @@ describe('RestaurantDetailComponent', () => {
     ).toBe(true)
 
     let propsTwoLikes = {
-      restaurant: fromJS({
+      restaurant: {
         num_likes: 2,
         price_range: {},
         cuisine: {},
         user: {id: 0, email: "danny", name: "Danny"}
-      }),
+      },
       currentUser: {id: 0, name: 'Danny'}
     }
 
@@ -165,41 +164,31 @@ describe('RestaurantDetailComponent', () => {
     ).toBe(true)
   })
 
+  it('loads successfully without a restaurant', () => {
+    const component = shallow(<RestaurantDetailComponent restaurant={{}}/>)
+
+    expect(component.renderer.getRenderOutput()).toBe(null)
+  })
+
   it('fetches the comments', () => {
     let props = {
       fetchComments: expect.createSpy(),
-      fetchRestaurant: expect.createSpy()
+      fetchRestaurant: expect.createSpy(),
+      restaurant: {}
     }
     expect(props.fetchComments.calls.length).toBe(0)
     mount(<RestaurantDetailComponent {...props} />)
     expect(props.fetchComments.calls.length).toBe(1)
   })
 
-  it('fetches the restaurant if there is no restaurant available in props', () => {
+  it('fetches the restaurant', () => {
     let props = {
       fetchComments: expect.createSpy(),
-      fetchRestaurant: expect.createSpy()
+      fetchRestaurant: expect.createSpy(),
+      restaurant: {}
     }
     expect(props.fetchRestaurant.calls.length).toBe(0)
     mount(<RestaurantDetailComponent {...props} />)
     expect(props.fetchRestaurant.calls.length).toBe(1)
-  })
-
-  it('does not fetch the restaurant if there is one available in props', () => {
-    let props = {
-      fetchComments: expect.createSpy(),
-      fetchRestaurant: expect.createSpy(),
-      restaurant: fromJS({
-        id: 1,
-        name: 'Afuri',
-        price_range: {},
-        cuisine: {},
-        user: {id: 0, email: "danny", name: "Danny"}
-      }),
-      currentUser: {id: 0, name: 'Danny'}
-    }
-    expect(props.fetchRestaurant.calls.length).toBe(0)
-    mount(<RestaurantDetailComponent {...props} />)
-    expect(props.fetchRestaurant.calls.length).toBe(0)
   })
 })
