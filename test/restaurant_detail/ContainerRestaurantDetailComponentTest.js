@@ -33,13 +33,6 @@ describe('ContainerRestaurantDetailComponent', () => {
     expect(mapStateToProps(state, props).currentUser).toEqual({id: 0, name: 'Danny'})
   })
 
-  it('mapsDispatchToProps for fetchComments', () => {
-    var spy = expect.spyOn(commentActions, 'fetchComments')
-    mapDispatchToProps(dispatch, props).fetchComments(17)
-    expect(spy).toHaveBeenCalledWith(17)
-    expect(dispatch).toHaveBeenCalledWith(commentActions.fetchComments())
-  })
-
   it('mapsDispatchToProps for fetchRestaurant', () => {
     var spy = expect.spyOn(restaurantActions, 'fetchRestaurant')
     mapDispatchToProps(dispatch, props).fetchRestaurant(17)

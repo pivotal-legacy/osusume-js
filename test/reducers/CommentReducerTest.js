@@ -7,14 +7,14 @@ describe('CommentReducer', () => {
     expect.restoreSpies()
   })
 
-  it('returns the comments the action is FETCH_COMMENTS_SUCCESS', () => {
+  it('returns the comments the action is FETCH_RESTAURANT_COMMENTS_SUCCESS', () => {
     let comments = [
       {id: 0, comment: 'It is delicious'},
       {id: 1, comment: 'this is second comment'}
     ]
 
     let action = {
-      type: types.FETCH_COMMENTS_SUCCESS,
+      type: types.FETCH_RESTAURANT_COMMENTS_SUCCESS,
       comments: comments
     }
 

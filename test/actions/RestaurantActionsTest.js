@@ -9,7 +9,6 @@ import S3FileUploader from "../../src/js/S3FileUploader"
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
 
-
 describe("RestaurantActions", () => {
   let store
   beforeEach(() => {
@@ -25,9 +24,9 @@ describe("RestaurantActions", () => {
       {id: 1, name: 'Tsukemen'}
     ]
     nock('http://localhost:8080')
-    .get('/restaurants')
-    .matchHeader('Authorization', (val) => val == 'Bearer party')
-    .reply(200, restaurants)
+      .get('/restaurants')
+      .matchHeader('Authorization', (val) => val == 'Bearer party')
+      .reply(200, restaurants)
 
     const expectedActions = [
       {type: types.FETCH_RESTAURANTS_SUCCESS, restaurants: restaurants}
@@ -41,14 +40,16 @@ describe("RestaurantActions", () => {
   })
 
   it("creates the fetchRestaurant action", () => {
-    let restaurant = {id: 17, name: 'Afuri'}
+    let restaurant = {id: 17, name: 'Afuri', comments: [{id: 2}]}
+
     nock('http://localhost:8080')
-    .get('/restaurants/17')
-    .matchHeader('Authorization', (val) => val == 'Bearer party')
-    .reply(200, restaurant)
+      .get('/restaurants/17')
+      .matchHeader('Authorization', (val) => val == 'Bearer party')
+      .reply(200, restaurant)
 
     const expectedActions = [
-      {type: types.FETCH_RESTAURANT_SUCCESS, restaurant: restaurant}
+      {type: types.FETCH_RESTAURANT_SUCCESS, restaurant: restaurant},
+      {type: types.FETCH_RESTAURANT_COMMENTS_SUCCESS, comments: restaurant.comments}
     ]
 
     return store.dispatch(actions.fetchRestaurant(17))

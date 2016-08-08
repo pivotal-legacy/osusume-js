@@ -7,7 +7,6 @@ import CommentFormComponent from './CommentFormComponent'
 
 export default class RestaurantDetailComponent extends React.Component {
   componentDidMount() {
-    this.props.fetchComments()
     this.props.fetchRestaurant()
   }
 

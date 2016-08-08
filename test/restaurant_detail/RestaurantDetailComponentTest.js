@@ -170,17 +170,6 @@ describe('RestaurantDetailComponent', () => {
     expect(component.renderer.getRenderOutput()).toBe(null)
   })
 
-  it('fetches the comments', () => {
-    let props = {
-      fetchComments: expect.createSpy(),
-      fetchRestaurant: expect.createSpy(),
-      restaurant: {}
-    }
-    expect(props.fetchComments.calls.length).toBe(0)
-    mount(<RestaurantDetailComponent {...props} />)
-    expect(props.fetchComments.calls.length).toBe(1)
-  })
-
   it('fetches the restaurant', () => {
     let props = {
       fetchComments: expect.createSpy(),

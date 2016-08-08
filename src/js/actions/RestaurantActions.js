@@ -17,6 +17,13 @@ function receiveRestaurant(json) {
   }
 }
 
+function receiveRestaurantComments(json) {
+  return {
+    type: types.FETCH_RESTAURANT_COMMENTS_SUCCESS,
+    comments: json
+  }
+}
+
 function receiveCreatedRestaurant(hashHistoryParam) {
   return dispatch => {
     return hashHistoryParam.push("/")
@@ -109,7 +116,10 @@ function fetchRestaurantWithCurrentUser(restaurantId, currentUser) {
   return dispatch => {
     return fetch(`${process.env.API_SERVER}/restaurants/${restaurantId}`, authorizationConfig(currentUser))
       .then(response => response.json())
-      .then(json => dispatch(receiveRestaurant(json)))
+      .then(json => {
+        dispatch(receiveRestaurant(json))
+        return dispatch(receiveRestaurantComments(json.comments))
+      })
   }
 }
 

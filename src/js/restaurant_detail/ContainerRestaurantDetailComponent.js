@@ -13,9 +13,6 @@ export const mapStateToProps = (state, ownProps) => {
 
 export const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    fetchComments: () => {
-      dispatch(commentActions.fetchComments(ownProps.params.restaurant_id))
-    },
     fetchRestaurant: () => {
       dispatch(restaurantActions.fetchRestaurant(ownProps.params.restaurant_id))
     },
