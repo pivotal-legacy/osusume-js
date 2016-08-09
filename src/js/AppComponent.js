@@ -4,13 +4,13 @@ import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
 import { createStore, applyMiddleware } from 'redux'
 import reducer from './reducers/Reducer'
-import ContainerRestaurantListComponent from './restaurant_list/ContainerRestaurantListComponent'
-import ContainerRestaurantDetailComponent from './restaurant_detail/ContainerRestaurantDetailComponent'
-import AddRestaurantComponent from './new_restaurant/AddRestaurantComponent'
-import ContainerEditRestaurantFormComponent from './edit_restaurant/ContainerEditRestaurantFormComponent'
-import ContainerLoginComponent from './login/ContainerLoginComponent'
-import ContainerMyPageComponent from './my_page/ContainerMyPageComponent'
-import MapComponent from './map/MapComponent'
+import ContainerRestaurantListPage from './restaurant_list/ContainerRestaurantListPage'
+import ContainerRestaurantDetailPage from './restaurant_detail/ContainerRestaurantDetailPage'
+import AddRestaurantPage from './new_restaurant/AddRestaurantPage'
+import ContainerEditRestaurantFormPage from './edit_restaurant/ContainerEditRestaurantFormPage'
+import ContainerLoginPage from './login/ContainerLoginPage'
+import ContainerMyPage from './my_page/ContainerMyPage'
+import MapPage from './map/MapPage'
 import {updateLocalStorageWithUser} from './subscribers/LocalStorage'
 import {requireAuth} from './Authentication'
 
@@ -26,13 +26,13 @@ export default function AppComponent() {
   return (
     <Provider store={store}>
       <Router history={hashHistory}>
-        <Route path="/" component={ContainerRestaurantListComponent} onEnter={ourRequireAuth}/>
-        <Route path="/login" component={ContainerLoginComponent}/>
-        <Route path="/restaurants/new" component={AddRestaurantComponent} onEnter={ourRequireAuth}/>
-        <Route path="/restaurants/:restaurant_id/map/:place_id" component={MapComponent} onEnter={ourRequireAuth}/>
-        <Route path="/restaurants/:restaurant_id" component={ContainerRestaurantDetailComponent} onEnter={ourRequireAuth}/>
-        <Route path="/restaurants/:restaurant_id/edit" component={ContainerEditRestaurantFormComponent} onEnter={ourRequireAuth}/>
-        <Route path="/my_page" component={ContainerMyPageComponent} onEnter={ourRequireAuth}/>
+        <Route path="/" component={ContainerRestaurantListPage} onEnter={ourRequireAuth}/>
+        <Route path="/login" component={ContainerLoginPage}/>
+        <Route path="/restaurants/new" component={AddRestaurantPage} onEnter={ourRequireAuth}/>
+        <Route path="/restaurants/:restaurant_id/map/:place_id" component={MapPage} onEnter={ourRequireAuth}/>
+        <Route path="/restaurants/:restaurant_id" component={ContainerRestaurantDetailPage} onEnter={ourRequireAuth}/>
+        <Route path="/restaurants/:restaurant_id/edit" component={ContainerEditRestaurantFormPage} onEnter={ourRequireAuth}/>
+        <Route path="/my_page" component={ContainerMyPage} onEnter={ourRequireAuth}/>
       </Router>
     </Provider>
   )
