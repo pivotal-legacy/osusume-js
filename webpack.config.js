@@ -6,7 +6,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry: "./src/js/main.js",
     output: {
-        path: __dirname + '/dist',
+        path: __dirname + '/built-osusume-js',
         filename: 'index_bundle.js'
     },
     plugins: [
