@@ -14,4 +14,3 @@ run:
 
 outputs:
 - name: built-osusume-js
-  path: ./osusume-js/dist
