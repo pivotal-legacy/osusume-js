@@ -1,0 +1,13 @@
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: node
+    tag: 6.3.1
+
+inputs:
+- name: osusume-js
+
+run:
+  path: ./osusume-js/ci/test.sh
