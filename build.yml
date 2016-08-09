@@ -11,3 +11,7 @@ inputs:
 
 run:
   path: ./osusume-js/ci/test.sh
+
+outputs:
+- name: built-osusume-js
+  path: ./osusume-js/dist
