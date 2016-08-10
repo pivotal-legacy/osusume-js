@@ -8,5 +8,5 @@ pushd osusume-js
   ls -la
   cd ..
   echo inside root dir
-  ls-la
+  ls -la
 popd
