@@ -1,5 +1,4 @@
 ---
 applications:
 - name: osusume-js-test
-  path: dist/
   buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
