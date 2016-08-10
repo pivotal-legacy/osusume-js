@@ -8,7 +8,7 @@ image_resource:
 
 inputs:
 - name: osusume-js
-- name: tests
+- name: osusume-js/built-osusume-js
 
 run:
   path: ./osusume-js/ci/investigate.sh

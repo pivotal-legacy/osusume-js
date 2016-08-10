@@ -13,4 +13,4 @@ run:
   path: ./osusume-js/ci/test.sh
 
 outputs:
-- name: built-osusume-js
+- name: osusume-js/built-osusume-js
