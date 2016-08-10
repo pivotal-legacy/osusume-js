@@ -6,7 +6,7 @@ pushd osusume-js
   pwd
   echo inside osusume-js
   ls -la
-  cd built-osusume-js
-  echo inside built-osusume-js
+  cd ..
+  echo inside root dir
   ls-la
 popd

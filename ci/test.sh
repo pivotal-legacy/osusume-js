@@ -8,4 +8,6 @@ pushd osusume-js
   npm run build
   pwd
   ls -la
+  cd ..
+  ls -la
 popd
