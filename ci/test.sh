@@ -11,3 +11,5 @@ pushd osusume-js
   cd ..
   ls -la
 popd
+
+cp -rf ./osusume-js/built-osusume-js ./built-osusume-js
