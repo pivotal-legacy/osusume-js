@@ -1,6 +1,7 @@
 import React from 'react'
 import RestaurantListItem from './RestaurantListItem'
 import { Link } from 'react-router'
+import Grid from '../shared_components/Grid'
 
 export default class RestaurantListPage extends React.Component {
   componentDidMount() {
@@ -8,12 +9,12 @@ export default class RestaurantListPage extends React.Component {
   }
 
   render() {
-    let restaurants = this.props.restaurants.map((restaurant) => {
+    let restaurantItems = this.props.restaurants.map((restaurant) => {
       return (<RestaurantListItem key={restaurant.id} restaurant={restaurant} />)
     })
 
     return (
-      <div>
+      <div className="restaurant-list">
         <Link to="/restaurants/new">
           <button>add restaurant</button>
         </Link>
@@ -21,7 +22,7 @@ export default class RestaurantListPage extends React.Component {
           <button className='my-page-link'>my page</button>
         </Link>
         <h1>Restaurants</h1>
-        {restaurants}
+        <Grid items={restaurantItems} numColumns={4} />
       </div>
     )
   }

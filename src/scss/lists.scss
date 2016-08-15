@@ -1,15 +1,24 @@
+.restaurant-list {
+  margin: auto;
+  width: 40%;
+}
+
 .item-with-photo {
   display: block;
-  border-bottom: 1px solid black;
+  border: 1px solid lightgrey;
   margin-top: 5px;
+  margin-bottom: 10px;
 
   .photo {
-    margin-right: 10px;
-    width: 210px;
+    max-width:100%;
+    max-height:230px;
+    width: auto;
+    height: auto;
   }
 
   .item-info {
     display: inline-block;
     vertical-align: top;
+    margin: 10px;
   }
 }
