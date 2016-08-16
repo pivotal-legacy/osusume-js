@@ -10,7 +10,6 @@ import AddRestaurantPage from './new_restaurant/AddRestaurantPage'
 import ContainerEditRestaurantFormPage from './edit_restaurant/ContainerEditRestaurantFormPage'
 import ContainerLoginPage from './login/ContainerLoginPage'
 import ContainerMyPage from './my_page/ContainerMyPage'
-import MapPage from './map/MapPage'
 import {updateLocalStorageWithUser} from './subscribers/LocalStorage'
 import {requireAuth} from './Authentication'
 
@@ -29,7 +28,6 @@ export default function AppComponent() {
         <Route path="/" component={ContainerRestaurantListPage} onEnter={ourRequireAuth}/>
         <Route path="/login" component={ContainerLoginPage}/>
         <Route path="/restaurants/new" component={AddRestaurantPage} onEnter={ourRequireAuth}/>
-        <Route path="/restaurants/:restaurant_id/map/:place_id" component={MapPage} onEnter={ourRequireAuth}/>
         <Route path="/restaurants/:restaurant_id" component={ContainerRestaurantDetailPage} onEnter={ourRequireAuth}/>
         <Route path="/restaurants/:restaurant_id/edit" component={ContainerEditRestaurantFormPage} onEnter={ourRequireAuth}/>
         <Route path="/my_page" component={ContainerMyPage} onEnter={ourRequireAuth}/>

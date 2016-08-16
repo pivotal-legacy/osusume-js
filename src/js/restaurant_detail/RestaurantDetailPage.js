@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 
 import Comment from './Comment'
 import CommentForm from './CommentForm'
+import MapComponent from '../map/MapComponent'
 
 export default class RestaurantDetailPage extends React.Component {
   componentDidMount() {
@@ -22,7 +23,7 @@ export default class RestaurantDetailPage extends React.Component {
 
     let date = new Date(restaurant.updated_at)
     let author = restaurant.user ? restaurant.user.name : ""
-    let formatAuthor = `${date.toLocaleDateString()} by ${author}`
+    let formatAuthor = `Posted on ${date.toLocaleDateString()} by ${author}`
 
     let comments = this.props.comments || []
     let commentsToDisplay = comments.map((comment) => {
@@ -38,31 +39,37 @@ export default class RestaurantDetailPage extends React.Component {
     if (this.props.currentUser.id == restaurant.user.id) {
       deleteButton = <button className="delete-button" onClick={this.props.deleteRestaurant}>delete</button>
     }
-
     return  (
       <div>
-        <Link to='/'><button className='restaurant-link'>restaurants</button></Link>
-        <Link to={`/restaurants/${restaurant.id}/edit`}><button className='edit-details'>Edit Details</button></Link>
-        <div>{images}</div>
-        <h1>{restaurant.name}</h1>
-
-        <div className="cuisine">{restaurant.cuisine.name}</div>
-        <div className="address">
-          <span>{restaurant.address}</span>
-          <Link to={`/restaurants/${restaurant.id}/map/${restaurant.place_id}`}>
-            <button className='map-link'>view map</button>
-          </Link>
+        <div className="centered-page">
+          <div>
+            <Link to='/'><button className='restaurant-link'>restaurants</button></Link>
+            <Link to={`/restaurants/${restaurant.id}/edit`}><button className='edit-details'>Edit Details</button></Link>
+            {deleteButton}
+          </div>
+          <div className="txt-c">
+            <h1>{restaurant.name}</h1>
+            <div className="cuisine">{restaurant.cuisine.name}</div>
+            <div className="price-range">{restaurant.price_range.range}</div>
+            <div>{images}</div>
+            <div className="notes">{restaurant.notes}</div>
+            <div className="date">{formatAuthor}</div>
+            <div className="likes">
+              <span className="num-likes">{ pluralize(restaurant.num_likes, 'like') }</span>
+              {maybeLikeButton}
+            </div>
+            <div className="address">
+              <span>{restaurant.address}</span>
+            </div>
+          </div>
         </div>
-        <div className="notes">{restaurant.notes}</div>
-        <div className="likes">
-          <span className="num-likes">{ pluralize(restaurant.num_likes, 'like') }</span>
-          {maybeLikeButton}
+        <MapComponent place_id={restaurant.place_id} />
+        <div className="centered-page">
+          <div className="centered-subcomponent">
+            <CommentForm createComment={this.props.createComment} />
+              {commentsToDisplay}
+          </div>
         </div>
-        <div className="price-range">{restaurant.price_range.range}</div>
-        <div className="date">{formatAuthor}</div>
-        <CommentForm createComment={this.props.createComment} />
-        {commentsToDisplay}
-        {deleteButton}
       </div>
     )
   }

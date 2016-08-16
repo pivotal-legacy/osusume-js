@@ -1,4 +1,5 @@
 import React from 'react'
+import { Input } from 'pui-react-inputs'
 
 export default class CommentForm extends React.Component {
   constructor(props) {
@@ -7,21 +8,21 @@ export default class CommentForm extends React.Component {
       comment: ''
     }
     this.onChange = this.onChange.bind(this)
-    this.onClick = this.onClick.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
   }
   onChange(e) {
     this.setState({comment: e.target.value})
   }
-  onClick() {
+  onSubmit(e) {
+    e.preventDefault(e)
     this.props.createComment(this.state.comment)
     this.setState({comment: ''})
   }
   render() {
     return (
-      <div className="comment-form">
-        <textarea onChange={this.onChange} value={this.state.comment}></textarea>
-        <button onClick={this.onClick}>add comment</button>
-      </div>
-  )
+      <form className="comment-form" onSubmit={this.onSubmit}>
+        <Input type="text" placeholder="Say something nice..." onChange={this.onChange} value={this.state.comment}/>
+      </form>
+    )
   }
 }

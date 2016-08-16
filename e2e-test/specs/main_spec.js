@@ -59,13 +59,13 @@ describe('restaurants', function () {
   }
 
   const addComment = () => {
-    var input = browser.element('textarea');
+    var input = browser.element('Input');
     input.setValue('new comment');
-    browser.click('.comment-form button');
+    browser.submitForm('form');
     browser.waitForExist('.comment')
 
     expect(browser.getText('.comment div')).toInclude('new comment');
-    expect(browser.getText('.comment div')).toInclude('Danny');
+    expect(browser.getText('.comment span')).toInclude('Danny');
   }
 
   const likeAndRemoveLike = () => {

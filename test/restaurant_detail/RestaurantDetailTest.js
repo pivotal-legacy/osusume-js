@@ -6,6 +6,7 @@ import React from 'react'
 import RestaurantDetailPage from '../../src/js/restaurant_detail/RestaurantDetailPage'
 import Comment from '../../src/js/restaurant_detail/Comment'
 import CommentForm from '../../src/js/restaurant_detail/CommentForm'
+import MapComponent from '../../src/js/map/MapComponent'
 
 describe('RestaurantDetailPage', () => {
   it('displays the restaurant passed in props', () => {
@@ -43,9 +44,8 @@ describe('RestaurantDetailPage', () => {
     expect(component.contains(<img key={1} src='https://hoge/image2.jpg' width={210}  />)).toBe(true)
     expect(component.contains(<div className="cuisine">Japanese</div>)).toBe(true)
     expect(component.contains(<div className="price-range">¥0~999</div>)).toBe(true)
-    expect(component.contains(<div className="date">5/27/2016 by Danny</div>)).toBe(true)
-    expect(component.contains(<span>Roppongi Hills</span>)).toBe(true)
-    expect(component.contains(<Link to='/restaurants/0/map/some-place-id'><button className='map-link'>view map</button></Link>)).toBe(true)
+    expect(component.contains(<div className="date">Posted on 5/27/2016 by Danny</div>)).toBe(true)
+    expect(component.contains(<MapComponent place_id='some-place-id' />)).toBe(true)
     expect(component.contains(<div className="notes">good</div>)).toBe(true)
     expect(component.contains(<span className="num-likes">5 likes</span>)).toBe(true)
     expect(component.contains(<button onClick={likeCallback}>like</button>)).toBe(true)

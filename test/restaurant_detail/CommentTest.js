@@ -15,8 +15,8 @@ describe('Comment', () => {
       }
     }
     let component = shallow(<Comment comment={comment} />)
+    expect(component.contains(<span className="left">Danny</span>)).toBe(true)
+    expect(component.contains(<span className="right">6/9/2016</span>)).toBe(true)
     expect(component.contains(<div>I love it</div>)).toBe(true)
-    expect(component.contains(<div>6/9/2016</div>)).toBe(true)
-    expect(component.contains(<div>Danny</div>)).toBe(true)
   })
 })

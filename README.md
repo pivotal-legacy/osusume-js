@@ -23,3 +23,8 @@
 
 ## Deploy
 - `npm run deploy`
+
+## If you add a new Pivotal UI CSS component
+
+Make sure you run the following command to have your new component compiled into the components.css
+- dr-frankenstyle ./src/scss/
