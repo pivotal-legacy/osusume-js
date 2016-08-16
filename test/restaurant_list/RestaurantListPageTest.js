@@ -5,22 +5,17 @@ import { Link } from 'react-router'
 import React from 'react'
 import RestaurantListPage from '../../src/js/restaurant_list/RestaurantListPage'
 import RestaurantListItem from '../../src/js/restaurant_list/RestaurantListItem'
-import Grid from '../../src/js/shared_components/Grid'
 
 describe('RestaurantListPage', () => {
-  it('displays restaurants in grid with four columns per row', () => {
+  it('displays the restaurants passed as props', () => {
     let restaurants = [
       {id: 0, name: 'Afuri'},
       {id: 1, name: 'Tsukemen'}
     ]
-
     const component = shallow(<RestaurantListPage restaurants={restaurants} />)
 
-    let restaurantItems = restaurants.map((restaurant) => {
-      return (<RestaurantListItem key={restaurant.id} restaurant={restaurant} />)
-    })
-
-    expect(component.contains(<Grid items={restaurantItems} numColumns={4} />)).toBe(true)
+    expect(component.contains(<RestaurantListItem restaurant={{id: 0, name: 'Afuri'}}/>)).toBe(true)
+    expect(component.contains(<RestaurantListItem restaurant={{id: 1, name: 'Tsukemen'}}/>)).toBe(true)
   })
 
   it('display add restaurant and my page buttons above the restaurant list', () => {

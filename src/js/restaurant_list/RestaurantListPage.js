@@ -1,7 +1,6 @@
 import React from 'react'
 import RestaurantListItem from './RestaurantListItem'
 import { Link } from 'react-router'
-import Grid from '../shared_components/Grid'
 
 export default class RestaurantListPage extends React.Component {
   componentDidMount() {
@@ -22,7 +21,7 @@ export default class RestaurantListPage extends React.Component {
           <button className='my-page-link'>my page</button>
         </Link>
         <h1>Restaurants</h1>
-        <Grid items={restaurantItems} numColumns={4} />
+        {restaurantItems}
       </div>
     )
   }
