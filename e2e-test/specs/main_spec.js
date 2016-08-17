@@ -97,7 +97,9 @@ describe('restaurants', function () {
   }
 
   const logout = () => {
+    browser.waitForExist('.restaurant-link')
     browser.click('.restaurant-link');
+    browser.waitForExist('.my-page-link')
     browser.click('.my-page-link');
     browser.click('.logout');
     browser.waitUntil(function () {
