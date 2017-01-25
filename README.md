@@ -9,6 +9,8 @@
 ### Start client:
 - `npm start`
 
+(To see places locally, copy the GOOGLE_PLACES_KEY from PWS settings and set it as an env var before starting.)
+
 ### Run tests
 - ./run-e2e-test.sh
 
