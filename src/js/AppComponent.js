@@ -2,7 +2,7 @@ import React from 'react'
 import { Router, Route, Link, hashHistory } from 'react-router'
 import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import reducer from './reducers/Reducer'
 import ContainerRestaurantListPage from './restaurant_list/ContainerRestaurantListPage'
 import ContainerRestaurantDetailPage from './restaurant_detail/ContainerRestaurantDetailPage'
@@ -14,10 +14,10 @@ import {updateLocalStorageWithUser} from './subscribers/LocalStorage'
 import {requireAuth} from './Authentication'
 
 export default function AppComponent() {
-
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   let store = createStore(
     reducer,
-    applyMiddleware(thunkMiddleware)
+    composeEnhancers(applyMiddleware(thunkMiddleware))
   )
   store.subscribe(() => {updateLocalStorageWithUser(store.getState())})
   let ourRequireAuth = requireAuth.bind({store: store})
