@@ -7,8 +7,8 @@
   "scripts": {
     "test": "API_SERVER=http://localhost:8080 ./node_modules/.bin/mocha",
     "start": "API_SERVER=http://localhost:8080 ./node_modules/.bin/webpack-dev-server --content-base dist/ --port 8000",
-    "deploy": "API_SERVER=http://osusume.cfapps.io ./node_modules/.bin/webpack --config webpack.config.js && cf push",
-    "build": "API_SERVER=http://osusume.cfapps.io ./node_modules/.bin/webpack --config webpack.config.js"
+    "deploy": "API_SERVER=https://osusume.cfapps.io ./node_modules/.bin/webpack --config webpack.config.js && cf push",
+    "build": "API_SERVER=https://osusume.cfapps.io ./node_modules/.bin/webpack --config webpack.config.js"
   },
   "dependencies": {
     "aws-sdk": "^2.3.17",
